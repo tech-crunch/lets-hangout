@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
 require('./config/routes.js')(app, express);
 
 // start listening to requests on port 8000
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8100;
 
 app.listen(port, function () {
   console.log(' app listening on port ' + port);
