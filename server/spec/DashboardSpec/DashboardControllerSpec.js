@@ -5,11 +5,13 @@ var app = require('../../server.js');
 var DashboardController = require('../../Dashboard/DashboardController');
 var Dashboard = require('../../Dashboard/DashboardModel.js');
 
+
+
 var should = chai.should();
 chai.use(chaiHttp);
-
+chai.request('http://localhost:8000')
 describe('Dashboard Controller', function () {
-
+  
   it('should create new dashboard in database responds with a 201 (Created)', function (done) {
         chai.request(app)
           .post('/api/dashboard')
