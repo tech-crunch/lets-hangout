@@ -9,6 +9,8 @@ var should = chai.should();
 
 chai.use(chaiHTTP);
 
+server.listen(8000);
+
 var dbURI = 'mongodb://localhost/test';
 
 describe('SubCategory Controller', function () {
