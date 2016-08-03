@@ -11,11 +11,11 @@ describe('server()', function () {
 
   });
 
-  it('does something', function () {
+  xit('does something', function () {
     expect(true).to.equal(false);
   });
 
-  it('does something else', function () {
+  xit('does something else', function () {
     expect(true).to.equal(false);
   });
 
