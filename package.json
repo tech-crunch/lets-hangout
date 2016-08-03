@@ -17,14 +17,13 @@
   "dependencies": {
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
-    "express": "^4.14.0",
+    "express": "^4.11.1",
     "mongoose": "^4.5.3",
     "morgan": "^1.7.0",
     "jwt-simple": "^0.2.0",
     "beepbeep": "^1.2.0",
     "connect-livereload": "^0.5.2",
     "del": "^2.2.0",
-    "express": "^4.11.1",
     "glob": "^4.3.5",
     "gulp": "^3.8.10",
     "gulp-angular-templatecache": "^1.8.0",
@@ -73,9 +72,10 @@
     "Sarya Alsayed <e.saryaa@gmail.com>"
   ],
   "devDependencies": {
-    "nodemon": "^1.9.2",
-    "mocha": "2.0.1",
     "chai": "~1.8.0",
-    "istanbul": "^0.4.4"
+    "chai-http": "^3.0.0",
+    "istanbul": "^0.4.4",
+    "mocha": "2.0.1",
+    "nodemon": "^1.9.2"
   }
 }
