@@ -9,20 +9,9 @@ var should = chai.should();
 
 chai.use(chaiHTTP);
 
-server.listen(8000);
-
-var dbURI = 'mongodb://localhost/test';
+chai.request('http://localhost:8000');
 
 describe('SubCategory Controller', function () {
-
- // Connect to database before any tests
-  before(function (done) {
-    if (mongoose.connection.db) {
-      return done();
-    }
-   mongoose.connect(dbURI, done);
-  });
-
 
   it('should create new subCategory in the database', function (done) {
     chai.request(server)
