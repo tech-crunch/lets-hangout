@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
-var SubCategory = require('../subCategories/subCategoryModel.js');
+var SubCategory = require('../../subCategories/subCategoryModel.js');
 
 describe('SubCategory Model', function () {
 
