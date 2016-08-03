@@ -4,7 +4,7 @@
   "description": "",
   "main": "./server/server.js",
   "scripts": {
-    "test": "mocha ./spec/serverSpec.js",
+    "test": "mocha ./server/spec/*.js",
     "coverage": "istanbul cover ./spec/serverSpec.js'",
     "dev": "nodemon ./server/server.js",
     "start": "node ./server/server.js",
