@@ -10,6 +10,7 @@ module.exports = function (app, express) {
 	// routes for the dashboard
 	app.post('/api/dashboard', DashboardController.createNew)
 	app.get('/api/dashboard/:id', DashboardController.getInfo)
+	app.put('/api/dashboard/eleminateOptions/:id', DashboardController.eleminateOptions)
 	
 	// If a request is sent somewhere other than the routes above,
 	// send it through our custom error handler
