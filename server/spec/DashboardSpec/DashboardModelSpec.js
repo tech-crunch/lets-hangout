@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
-var DashboardController = require('../Dashboard/DashboardController');
-var Dashboard = require('../Dashboard/DashboardModel.js');
+var Dashboard = require('../../Dashboard/DashboardModel.js');
+
 
 describe('Dashboard Model', function () {
 
