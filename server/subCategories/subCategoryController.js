@@ -7,11 +7,13 @@ module.exports = {
 		var poster = req.body.poster;
 		var name = req.body.name;
 		var details = req.body.details;
+		var children = req.body.children || [];
 
 		var newSub = SubCategory({
 			poster: poster,
 			name: name,
-			details: details
+			details: details,
+			children: children
 		});
 
 		newSub.save(function(error, newSub){
