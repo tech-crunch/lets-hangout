@@ -1,7 +1,6 @@
 var app = require('../../server.js');
 var request = require("supertest")(app);
 var expect = require('chai').expect;
-var mongoose = require('mongoose');
 
 describe("SubCategory Controller", function () {
 
