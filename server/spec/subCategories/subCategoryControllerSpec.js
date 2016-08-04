@@ -2,12 +2,17 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var request = require("supertest");
 var app = require('../../server.js');
-var SubCategory = require('../../subCategories/subCategoryModel.js')
+var SubCategory = require('../../subCategories/subCategoryModel.js');
+var mongoose = require('mongoose');
 
 var should = chai.should();
 chai.use(chaiHttp);
 
 describe('SubCategory Controller', function () {
+
+  beforeEach(function (done) {
+    mongoose.connection.db.dropDatabase(done);
+  });
 
   it('should create new subCategory in database and responds with a 201 (Created)', function (done) {
     var testObj = {
