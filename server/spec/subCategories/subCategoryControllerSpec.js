@@ -1,9 +1,12 @@
-var app = require('../../config/routes.js');
+var app = require('../../server.js');
 var request = require("supertest")(app);
 var expect = require('chai').expect;
+var mongoose = require('mongoose');
 
 describe("SubCategory Controller", function () {
-  it("should welome me in plain text", function(done) {
+
+
+  it("should create new subCategory", function(done) {
     request.post("/api/subCategory")
       .send({
         poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
