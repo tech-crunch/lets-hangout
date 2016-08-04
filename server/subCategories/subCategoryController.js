@@ -22,4 +22,17 @@ module.exports = {
       }
     });
 	},
+
+	// function to get subCategory info by id
+	getInfo : function (req, res) {
+		var id = req.params.id.toString();
+		SubCategory.findOne({_id: id})
+    .exec(function(err, subCategory){
+      if(subCategory){
+        res.status(200).send(JSON.stringify(subCategory));
+      } else{
+        res.status(500).send('No such subCategory exists');
+      }
+    });
+	}
 };
