@@ -20,6 +20,7 @@ describe('Dashboard Controller', function () {
         done();
       });
   });
+
   it('should get information of dashboard by id responds with a 200', function (done) {  
     var newDashboard = new Dashboard();
     newDashboard.save(function(err, data) {
@@ -33,6 +34,24 @@ describe('Dashboard Controller', function () {
         res.body._id.should.equal(data.id);
         done();
       });
+    });
+  });
+
+  it('should delete an option from Dashboard options on /api/dashboard/eleminateOptions/:id PUT', function(done) {
+    var newDashboard = new Dashboard();
+    newDashboard.save(function(err, data) {
+      Dashboard.findOneAndUpdate({_id: data._id}, {$push: {options: '57a336baaf059e280e510c45'}}, {new: true}, function (err, dashboard) {
+        chai.request(app)
+          .put('/api/dashboard/eleminateOptions/'+data._id)
+          .send({'subCategoryId': '57a336baaf059e280e510c45'})
+          .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.have.property('_id');
+            done();
+        });
+      })
     });
   });
 });
