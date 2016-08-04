@@ -1,12 +1,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
-
 // connect to mongo database named "lets-hangout"
 var mongoURI =  process.env.MONGODB_URI || 'mongodb://localhost/lets-hangout';
 mongoose.connect(mongoURI);
 db = mongoose.connection;
-
 
 var app = express();
 
@@ -18,7 +16,9 @@ app.use(function(req, res, next) {
     next();
 });
 
-require('./config/routes.js')(app, express);
+require('./config/middleware.js')(app, express);
+require('./config/routes')(app,express);
+
 
 // start listening to requests on port 8000
 var port = process.env.PORT || 8000;
