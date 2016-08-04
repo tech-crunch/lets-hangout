@@ -7,7 +7,7 @@
     "test": "mocha ./server/spec/**/*.js",
     "coverage": "istanbul cover ./server/spec/serverSpec.js'",
     "dev": "nodemon ./server/server.js",
-    "start": "node ./server/server.js",
+    "start": "nodemon ./server/server.js",
     "gulp": "./node_modules/.bin/gulp"
   },
   "engines": {
