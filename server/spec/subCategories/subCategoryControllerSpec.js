@@ -53,9 +53,30 @@ describe('SubCategory Controller', function () {
         res.body.should.have.property('poster');
         res.body.should.have.property('name');
         res.body.should.have.property('details');
-        res.body.poster.should.equal(newSubCategory.poster);
-        res.body.name.should.equal(newSubCategory.name);
-        res.body.details.should.equal(newSubCategory.details);
+        res.body.poster.should.equal(data.poster);
+        res.body.name.should.equal(data.name);
+        res.body.details.should.equal(data.details);
+        done();
+      });
+    });
+  });
+
+  it('should get children array of a subCategory by id and responds with a 200', function (done) {  
+    var newSubCategory = new SubCategory({
+      poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
+      name: 'Suicide Squad',
+      details: 'Action Movie',
+      children: ['ab12','cd34','de56']
+    });
+    newSubCategory.save(function(err, data) {
+      chai.request(app)
+      .get('/api/subCategory/getChildren'+data._id)
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('children');
+        res.body.children.should.deep.equal(data.children);
         done();
       });
     });
