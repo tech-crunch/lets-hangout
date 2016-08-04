@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/tech-crunch/lets-hangout.png?label=ready&title=Ready)](https://waffle.io/tech-crunch/lets-hangout)
+[![Build Status](https://travis-ci.org/tech-crunch/lets-hangout.svg?branch=master)](https://travis-ci.org/tech-crunch/lets-hangout)
 # Lets Hangout
 
 > description (to be added)
