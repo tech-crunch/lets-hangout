@@ -3,16 +3,16 @@ var chaiHttp = require('chai-http');
 var request = require("supertest");
 var app = require('../../server.js');
 var Dashboard = require('../../Dashboard/DashboardModel.js')
-
+var mongoose = require('mongoose')
 var should = chai.should();
 chai.use(chaiHttp);
 
 describe('Dashboard Controller', function () {
 
-  beforEach(function (done) {
+  beforeEach(function (done) {
     mongoose.connection.db.dropDatabase(done);
   });
-  
+
   it('should create new dashboard in database responds with a 201 (Created)', function (done) {
     chai.request(app)
       .post('/api/dashboard')
