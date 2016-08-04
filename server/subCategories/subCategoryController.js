@@ -16,7 +16,7 @@ module.exports = {
 
 		newSub.save(function(error, newSub){
       if(newSub){
-        res.json(newSub);
+        res.status(201).send(newSub);
       } else {
         res.status(500).send('An error occured');
       }
