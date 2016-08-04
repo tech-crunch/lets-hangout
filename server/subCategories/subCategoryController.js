@@ -29,7 +29,7 @@ module.exports = {
 		SubCategory.findOne({_id: id})
     .exec(function(err, subCategory){
       if(subCategory){
-        res.status(200).send(JSON.stringify(subCategory));
+        res.status(200).send(subCategory);
       } else{
         res.status(500).send('No such subCategory exists');
       }

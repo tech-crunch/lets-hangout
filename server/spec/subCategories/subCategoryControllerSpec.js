@@ -2,7 +2,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var request = require("supertest");
 var app = require('../../server.js');
-var SubCategory = require('../../SubCategories/SubCategoryModel.js')
+var SubCategory = require('../../subCategories/subCategoryModel.js')
 
 var should = chai.should();
 chai.use(chaiHttp);
@@ -33,12 +33,12 @@ describe('SubCategory Controller', function () {
   });
 
   it('should get information of a subCategory by id and responds with a 200', function (done) {  
-    var SubCategory = new SubCategory({
+    var newSubCategory = new SubCategory({
       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
       name: 'Suicide Squad',
       details: 'Action Movie'
     });
-    SubCategory.save(function(err, data) {
+    newSubCategory.save(function(err, data) {
       chai.request(app)
       .get('/api/subCategory/'+data._id)
       .end(function(err, res){
@@ -48,9 +48,9 @@ describe('SubCategory Controller', function () {
         res.body.should.have.property('poster');
         res.body.should.have.property('name');
         res.body.should.have.property('details');
-        res.body.poster.should.equal(testObj.poster);
-        res.body.name.should.equal(testObj.name);
-        res.body.details.should.equal(testObj.details);
+        res.body.poster.should.equal(newSubCategory.poster);
+        res.body.name.should.equal(newSubCategory.name);
+        res.body.details.should.equal(newSubCategory.details);
         done();
       });
     });
