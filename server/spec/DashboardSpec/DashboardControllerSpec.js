@@ -9,6 +9,10 @@ chai.use(chaiHttp);
 
 describe('Dashboard Controller', function () {
 
+  beforEach(function (done) {
+    mongoose.connection.db.dropDatabase(done);
+  });
+  
   it('should create new dashboard in database responds with a 201 (Created)', function (done) {
     chai.request(app)
       .post('/api/dashboard')
