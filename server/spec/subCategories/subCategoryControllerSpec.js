@@ -61,22 +61,54 @@ describe('SubCategory Controller', function () {
     });
   });
 
-  it('should get children array of a subCategory by id and responds with a 200', function (done) {  
+  it('should create add child to subCategory in database and responds with a 201', function (done) {
+    var testArray = [
+      {
+        poster: 'http://cdn.gearpatrol.com/wp-content/uploads/2013/11/Best-Action-Movies-Lead-Full1.jpg',
+        name: 'Action Movies',
+        details: 'A list of Action Movies'
+      },
+      {
+        poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
+        name: 'Suicide Squad',
+        details: 'Action Movie'
+      }
+    ];
+    SubCategory.create(testArray,function(err,results){
+      chai.request(app)
+        .put('/api/subCategory/'+results[0]._id)
+        .send({subCategoryId:results[1]._id})
+        .end(function(err,res){
+          res.should.have.status(201);
+          res.should.be.json;
+          res.body.should.have.property('children');
+          var subId = res.body.children[res.body.children.length-1]+'';
+          chai.expect(subId).to.equal(results[1]._id+'');
+          done();
+        });
+    });
+  });
+
+  xit('should get children array of a subCategory by id and responds with a 200', function (done) {  
     var newSubCategory = new SubCategory({
       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
       name: 'Suicide Squad',
       details: 'Action Movie',
-      children: ['ab12','cd34','de56']
+      children: [
+        "57a33701864fd5bc095d5462",
+        "57a33701864fd5bc095d5463",
+        "57a33701864fd5bc095d5464",
+      ]
     });
     newSubCategory.save(function(err, data) {
       chai.request(app)
-      .get('/api/subCategory/getChildren'+data._id)
+      .get('/api/subCategory/getChildren/'+data._id)
       .end(function(err, res){
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('object');
         res.body.should.have.property('children');
-        res.body.children.should.deep.equal(data.children);
+        res.body.children.should.eql(newSubCategory.children);
         done();
       });
     });
