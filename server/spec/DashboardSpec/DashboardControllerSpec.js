@@ -82,7 +82,6 @@ describe('Dashboard Controller', function () {
       chai.request(app)
       .put('/api/dashboard/voteForOption/'+data._id)
       .end(function(err, res){
-        console.log(res.body)
         res.should.have.status(200);
         res.body.voting.should.equal(4);
         done();
