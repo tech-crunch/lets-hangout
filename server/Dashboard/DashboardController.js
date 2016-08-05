@@ -38,7 +38,9 @@ module.exports = {
         .exec(function(err, dashboard){
           if(dashboard){
             return res.status(200).send(dashboard.chosenOption);
-          };
+          }else {
+            return res.status(500).send(err)
+          }
         });
   },
 
