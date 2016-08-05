@@ -73,5 +73,21 @@ describe('Dashboard Controller', function () {
       });
     });
   });
+
+  it('should increment the voting', function (done) {
+    var newDashboard = new Dashboard({
+      voting: 3
+    });
+    newDashboard.save(function(err, data) {
+      chai.request(app)
+      .put('/api/dashboard/voteForOption/'+data._id)
+      .end(function(err, res){
+        console.log(res.body)
+        res.should.have.status(200);
+        res.body.voting.should.equal(4);
+        done();
+      });
+    });
+  });
 });
 
