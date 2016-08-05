@@ -38,6 +38,16 @@ describe('SubCategory Controller', function () {
       });
   });
 
+  it('should respond with 500 error when trying to create empty subCategory', function (done) {
+    chai.request(app)
+      .post('/api/subCategory')
+      .send({})
+      .end(function(err, res){
+        res.should.have.status(500);
+        done();
+      });
+  });
+
   it('should get information of a subCategory by id and responds with a 200', function (done) {  
     var newSubCategory = new SubCategory({
       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
@@ -59,6 +69,15 @@ describe('SubCategory Controller', function () {
         res.body.details.should.equal(data.details);
         done();
       });
+    });
+  });
+
+  it('should respond with an 500 error when trying to get non-existence subCategory', function (done) {  
+    chai.request(app)
+    .get('/api/subCategory/1')
+    .end(function(err, res){
+      res.should.have.status(500);
+      done();
     });
   });
 
@@ -90,6 +109,16 @@ describe('SubCategory Controller', function () {
     });
   });
 
+  it('should respond with an 500 error when trying to add child to non-existence subCategory', function (done) {  
+    chai.request(app)
+    .put('/api/subCategory/1')
+    .send({subCategoryId:'1'})
+    .end(function(err, res){
+      res.should.have.status(500);
+      done();
+    });
+  });
+
   it('should get children array of a subCategory by id and responds with a 200', function (done) {  
     var newSubCategory = new SubCategory({
       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
@@ -115,6 +144,15 @@ describe('SubCategory Controller', function () {
         }
         done();
       });
+    });
+  });
+
+  it('should respond with an 500 error when trying to get children of non-existence subCategory', function (done) {  
+    chai.request(app)
+    .get('/api/subCategory/getChildren/1')
+    .end(function(err, res){
+      res.should.have.status(500);
+      done();
     });
   });
 

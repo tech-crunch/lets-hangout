@@ -42,11 +42,13 @@ module.exports = {
 	addChild: function (req, res) {
 		var id = req.params.id.toString();
 		
+    var error;
+
 		SubCategory.update({ _id: id },
       { $pull: { children: req.body.subCategoryId } },
       function(err){
         if(err){
-          res.status(500).send(err);  
+          error = err;  
         }
     });
     SubCategory.findOneAndUpdate({ _id: id },
@@ -54,12 +56,16 @@ module.exports = {
       { new: true },
       function (err, savedSubCategory) {
         if(err){
-          res.status(500).send(err);
+          error = err;
         }
         else{
           res.status(201).send(savedSubCategory);
         }
     });
+
+    if(error){
+      res.status(500).send(error);
+    }
 	},
 
 	// function to get array of children object ids
