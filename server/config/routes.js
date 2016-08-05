@@ -6,6 +6,9 @@ module.exports = function (app, express) {
 
 	// routes for the subCategories
 	app.post('/api/subCategory', subCategoryController.createNew);
+	app.get('/api/subCategory/getChildren/:id', subCategoryController.getChildren);
+	app.get('/api/subCategory/:id', subCategoryController.getInfo);
+	app.put('/api/subCategory/:id', subCategoryController.addChild);
 
 	// routes for the dashboard
 	app.post('/api/dashboard', DashboardController.createNew)
