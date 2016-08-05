@@ -16,8 +16,8 @@ module.exports = {
         .exec(function(err, dashboard){
           if(dashboard){
             return res.status(200).send(dashboard);
-          }
-        })
+          };
+        });
   },
   eleminateOptions: function (req, res, next) {
     Dashboard.findOneAndUpdate(
@@ -30,7 +30,16 @@ module.exports = {
           }else {
             res.status(200).send(data);
           }
-      })
+      });
+  },
+
+  getchosenOption: function (req, res, next) {
+    Dashboard.findOne({_id: req.params.id})
+        .exec(function(err, dashboard){
+          if(dashboard){
+            return res.status(200).send(dashboard.chosenOption);
+          };
+        });
   }
 }
 
