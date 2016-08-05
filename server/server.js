@@ -21,7 +21,7 @@ require('./config/routes')(app,express);
 
 
 // start listening to requests on port 8000
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8800;
 
 app.listen(port, function () {
   console.log(' app listening on port ' + port);
