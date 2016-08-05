@@ -38,6 +38,30 @@ module.exports = {
     });
 	},
 
+	//	function to add a child to subcategory
+	addChild: function (req, res) {
+		var id = req.params.id.toString();
+		
+		SubCategory.update({ _id: id },
+      { $pull: { children: req.body.subCategoryId } },
+      function(err){
+        if(err){
+          res.status(500).send(err);  
+        }
+    });
+    SubCategory.findOneAndUpdate({ _id: id },
+      { $push: { children: req.body.subCategoryId } },
+      { new: true },
+      function (err, savedSubCategory) {
+        if(err){
+          res.status(500).send(err);
+        }
+        else{
+          res.status(201).send(savedSubCategory);
+        }
+    });
+	},
+
 	// function to get array of children object ids
 	getChildren : function (req, res) {
 		var id = req.params.id.toString();
