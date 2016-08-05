@@ -40,6 +40,20 @@ module.exports = {
             return res.status(200).send(dashboard.chosenOption);
           };
         });
+  },
+
+  voteForOption: function (req, res, next) {
+    Dashboard.findOneAndUpdate(
+      {_id: req.params.id},
+      {$inc: {voting: 1}},
+      {new: true},
+      function(err, data){
+          if(err){
+            res.status(500).send(err);  
+          }else {
+            res.status(200).send(data);
+          }
+      });
   }
 }
 
