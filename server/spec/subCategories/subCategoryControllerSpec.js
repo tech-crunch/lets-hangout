@@ -6,6 +6,7 @@ var SubCategory = require('../../subCategories/subCategoryModel.js');
 var mongoose = require('mongoose');
 
 var should = chai.should();
+
 chai.use(chaiHttp);
 
 describe('SubCategory Controller', function () {
