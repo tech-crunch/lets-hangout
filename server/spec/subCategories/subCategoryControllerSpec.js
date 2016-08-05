@@ -89,7 +89,7 @@ describe('SubCategory Controller', function () {
     });
   });
 
-  xit('should get children array of a subCategory by id and responds with a 200', function (done) {  
+  it('should get children array of a subCategory by id and responds with a 200', function (done) {  
     var newSubCategory = new SubCategory({
       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
       name: 'Suicide Squad',
@@ -108,7 +108,10 @@ describe('SubCategory Controller', function () {
         res.should.be.json;
         res.body.should.be.a('object');
         res.body.should.have.property('children');
-        res.body.children.should.eql(newSubCategory.children);
+        for(var i=0; i<res.body.children.length; i++){
+          var subId = res.body.children[i]+'';
+          chai.expect(subId).to.equal(data.children[i]+'');
+        }
         done();
       });
     });
