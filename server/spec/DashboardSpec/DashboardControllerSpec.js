@@ -55,7 +55,22 @@ describe('Dashboard Controller', function () {
             res.body.should.have.property('_id');
             done();
         });
-      })
+      });
+    });
+  });
+
+  it('should get chosen option of dashboard with a 200', function (done) {
+    var newDashboard = new Dashboard({
+      chosenOption: '57a336baaf059e280e510c45'
+    });
+    newDashboard.save(function(err, data) {
+      chai.request(app)
+      .get('/api/dashboard/chosenID/'+data._id)
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.body.should.equal('57a336baaf059e280e510c45');
+        done();
+      });
     });
   });
 });
