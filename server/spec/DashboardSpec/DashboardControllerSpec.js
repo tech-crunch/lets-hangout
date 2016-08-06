@@ -25,6 +25,7 @@ describe('Dashboard Controller', function () {
       });
   });
 
+
   it('should get information of dashboard by id responds with a 200', function (done) {  
     var newDashboard = new Dashboard();
     newDashboard.save(function(err, data) {
@@ -41,10 +42,28 @@ describe('Dashboard Controller', function () {
     });
   });
 
+  it('should add an option to Dashboard options on /api/dashboard/addOption/:id PUT', function(done) {
+    var newDashboard = new Dashboard();
+    newDashboard.save(function(err, data) {
+      chai.request(app)
+        .put('/api/dashboard/addOption/'+data._id)
+        .send({'subCategoryId': '57a336baaf059e280e510c45'})
+        .end(function(err, res){
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.options[0].voting.should.equal(0)
+          res.body.options[0].subCategoryId.should.equal('57a336baaf059e280e510c45')
+          res.body.should.be.a('object');
+          res.body.should.have.property('_id');
+          done();
+      });
+    });
+  });
+
   it('should delete an option from Dashboard options on /api/dashboard/eleminateOptions/:id PUT', function(done) {
     var newDashboard = new Dashboard();
     newDashboard.save(function(err, data) {
-      Dashboard.findOneAndUpdate({_id: data._id}, {$push: {options: '57a336baaf059e280e510c45'}}, {new: true}, function (err, dashboard) {
+      Dashboard.findOneAndUpdate({_id: data._id}, {$push: { options: {subCategoryId: '57a336baaf059e280e510c45'} }}, {new: true}, function (err, dashboard) {
         chai.request(app)
           .put('/api/dashboard/eleminateOptions/'+data._id)
           .send({'subCategoryId': '57a336baaf059e280e510c45'})
@@ -56,6 +75,16 @@ describe('Dashboard Controller', function () {
             done();
         });
       });
+    });
+  });
+
+  it('should respond with an 500 error when trying to eleminate option to non-existence option', function (done) {  
+    chai.request(app)
+    .put('/api/dashboard/eleminateOptions/1')
+    .send({subCategoryId:'1'})
+    .end(function(err, res){
+      res.should.have.status(500);
+      done();
     });
   });
 
@@ -74,18 +103,29 @@ describe('Dashboard Controller', function () {
     });
   });
 
-  it('should increment the voting', function (done) {
-    var newDashboard = new Dashboard({
-      voting: 3
-    });
+
+  it('should increment the voting of one option', function (done) {
+    var newDashboard = new Dashboard();
     newDashboard.save(function(err, data) {
-      chai.request(app)
-      .put('/api/dashboard/voteForOption/'+data._id)
-      .end(function(err, res){
-        res.should.have.status(200);
-        res.body.voting.should.equal(4);
-        done();
+      Dashboard.findOneAndUpdate({_id: data._id}, {$push: { options: {subCategoryId: '57a336baaf059e280e510c45'} }}, {new: true}, function (err, dashboard) {
+        chai.request(app)
+        .put('/api/dashboard/voteForOption/'+data._id)
+        .send({subCategoryId: '57a336baaf059e280e510c45'})
+        .end(function(err, res){
+          res.should.have.status(200);
+          res.body.options[0].voting.should.equal(1);
+          done();
+        });
       });
+    });
+  });
+
+  it('should respond with an 500 error when trying to eleminate option to non-existence option', function (done) {  
+    chai.request(app)
+    .put('/api/dashboard/voteForOption/1')
+    .end(function(err, res){
+      res.should.have.status(500);
+      done();
     });
   });
 });
