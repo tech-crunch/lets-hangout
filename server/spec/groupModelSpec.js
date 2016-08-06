@@ -12,8 +12,5 @@ describe('Group Model', function () {
   it('should have a schema', function () {
     expect(Group.schema).to.exist;
   });
-
-
 });
-  // Add more assertions here
 

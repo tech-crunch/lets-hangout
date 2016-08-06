@@ -1,47 +1,43 @@
 var Dashboard = require('./DashboardModel.js');
 
+var repsonseHandler = function(error, req, res, body, next){
+  if(error){
+    next(error,req,res);
+  } else {
+    res.status(body.status).send(body.returnObj);
+  }
+}
+
 module.exports = {
   createNew: function (req, res, next) {
     var newDashboard = new Dashboard();
     newDashboard.save(function(err, newDashboard){
-          if(err){
-            res.status(500).send(err);
-          } else {
-            res.status(201).send(newDashboard);
-          };
-        });
+      repsonseHandler(err, req, res, {status: 201, returnObj:newDashboard}, next);
+    });
   },
+
   getInfo: function (req, res, next) {
     Dashboard.findOne({_id: req.params.id})
-        .exec(function(err, dashboard){
-          if(dashboard){
-            return res.status(200).send(dashboard);
-          };
-        });
+      .exec(function(err, dashboard){
+        repsonseHandler(err, req, res, {status: 200, returnObj:dashboard}, next);
+      });
   },
+
   eleminateOptions: function (req, res, next) {
     Dashboard.findOneAndUpdate(
       {_id: req.params.id},
       {$pull: {options: req.body.subCategoryId}},
       {new: true},
-      function(err, data){
-          if(err){
-            res.status(500).send(err);  
-          }else {
-            res.status(200).send(data);
-          }
+      function(err, dashboard){
+        repsonseHandler(err, req, res, {status: 200, returnObj:dashboard}, next);
       });
   },
 
   getchosenOption: function (req, res, next) {
     Dashboard.findOne({_id: req.params.id})
-        .exec(function(err, dashboard){
-          if(dashboard){
-            return res.status(200).send(dashboard.chosenOption);
-          }else {
-            return res.status(500).send(err)
-          }
-        });
+      .exec(function(err, dashboard){
+        repsonseHandler(err, req, res, {status: 200, returnObj:dashboard.chosenOption}, next);
+      });
   },
 
   voteForOption: function (req, res, next) {
@@ -49,12 +45,8 @@ module.exports = {
       {_id: req.params.id},
       {$inc: {voting: 1}},
       {new: true},
-      function(err, data){
-          if(err){
-            res.status(500).send(err);  
-          }else {
-            res.status(200).send(data);
-          }
+      function(err, dashboard){
+        repsonseHandler(err, req, res, {status: 200, returnObj:dashboard}, next);
       });
   }
 }
