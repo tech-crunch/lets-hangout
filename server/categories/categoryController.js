@@ -18,8 +18,7 @@ module.exports = {
         console.log(req.body)
         var newCategory = new Categories ({
             name : req.body.name,
-            poster : req.body.poster
-            
+            poster : req.body.poster    
         });
         newCategory.save(function(err, newCategory){
             if(err){
@@ -32,7 +31,7 @@ module.exports = {
     },
     addChild : function(req, res, next){
         Categories.update(
-            {name : req.body.name},
+            { _id: req.params.id},
             { $push: { children: req.body.id } },
             { upsert: true } // upsert looks to find a Message with that id and if it doesn't exist creates the Message 
         )

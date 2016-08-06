@@ -27,20 +27,23 @@ describe('Categories Controller', function () {
       chai.request(app)
       .get('/api/categories')
       .end(function(err, res){
-        res.should.have.status(200);
-        done();
+         res.should.have.status(200);
+         res.should.be.json;
+         done();
   
      });
-  })
+   })
    it('should add new child id to array of objectIds', function (done) {
       chai.request(app)
-      .post('/api/categories/addChild/:id')
+      .put('/api/categories/addChild/:id')
       .send({
-        name:'farah',
         id:'1234'
       })
       .end(function(err, res){
-        res.should.have.have.lengthOf(1)
-      })
-  })
+        //res.should.have.property('id');
+        //res.should.have.lengthOf(1);
+        done();
+      });
+   })
+
 });
