@@ -7,9 +7,28 @@ var mongoose = require('mongoose');
 
 var postSubCategory = function(body, expectations){
   chai.request(app)
-      .post('/api/subCategory')
-      .send(body)
-      .end(expectations);
+    .post('/api/subCategory')
+    .send(body)
+    .end(expectations);
+};
+
+var getSubCategory = function(id, expectations){
+  chai.request(app)
+    .get('/api/subCategory/'+id)
+    .end(expectations);
+};
+
+var addChildToSub = function(body, id, expectations){
+  chai.request(app)
+    .put('/api/subCategory/'+id)
+    .send(body)
+    .end(expectations);
+};
+
+var getChildren = function(id, expectations){
+  chai.request(app)
+    .get('/api/subCategory/getChildren/'+id)
+    .end(expectations);
 };
 
 var should = chai.should();
@@ -58,29 +77,27 @@ describe('SubCategory Controller', function () {
       details: 'Action Movie'
     });
     newSubCategory.save(function(err, data) {
-      chai.request(app)
-      .get('/api/subCategory/'+data._id)
-      .end(function(err, res){
-        res.should.have.status(200);
-        res.should.be.json;
-        res.body.should.be.a('object');
-        res.body.should.have.property('poster');
-        res.body.should.have.property('name');
-        res.body.should.have.property('details');
-        res.body.poster.should.equal(data.poster);
-        res.body.name.should.equal(data.name);
-        res.body.details.should.equal(data.details);
-        done();
+      getSubCategory(data._id,
+        function(err, res){
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('poster');
+          res.body.should.have.property('name');
+          res.body.should.have.property('details');
+          res.body.poster.should.equal(data.poster);
+          res.body.name.should.equal(data.name);
+          res.body.details.should.equal(data.details);
+          done();
       });
     });
   });
 
   it('should respond with an 500 error when trying to get non-existence subCategory', function (done) {  
-    chai.request(app)
-    .get('/api/subCategory/1')
-    .end(function(err, res){
-      res.should.have.status(500);
-      done();
+    getSubCategory(1,
+      function(err, res){
+        res.should.have.status(500);
+        done();
     });
   });
 
@@ -98,27 +115,25 @@ describe('SubCategory Controller', function () {
       }
     ];
     SubCategory.create(testArray,function(err,results){
-      chai.request(app)
-        .put('/api/subCategory/'+results[0]._id)
-        .send({subCategoryId:results[1]._id})
-        .end(function(err,res){
+      addChildToSub({subCategoryId:results[1]._id},
+        results[0]._id,
+        function(err,res){
           res.should.have.status(201);
           res.should.be.json;
           res.body.should.have.property('children');
           var subId = res.body.children[res.body.children.length-1]+'';
           chai.expect(subId).to.equal(results[1]._id+'');
           done();
-        });
+      });
     });
   });
 
   it('should respond with an 500 error when trying to add child to non-existence subCategory', function (done) {  
-    chai.request(app)
-    .put('/api/subCategory/1')
-    .send({subCategoryId:'1'})
-    .end(function(err, res){
-      res.should.have.status(500);
-      done();
+    addChildToSub({subCategoryId:'1'},
+      1,
+      function(err, res){
+        res.should.have.status(500);
+        done();
     });
   });
 
@@ -134,28 +149,26 @@ describe('SubCategory Controller', function () {
       ]
     });
     newSubCategory.save(function(err, data) {
-      chai.request(app)
-      .get('/api/subCategory/getChildren/'+data._id)
-      .end(function(err, res){
-        res.should.have.status(200);
-        res.should.be.json;
-        res.body.should.be.a('object');
-        res.body.should.have.property('children');
-        for(var i=0; i<res.body.children.length; i++){
-          var subId = res.body.children[i]+'';
-          chai.expect(subId).to.equal(data.children[i]+'');
-        }
-        done();
+      getChildren(data._id,
+        function(err, res){
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('children');
+          for(var i=0; i<res.body.children.length; i++){
+            var subId = res.body.children[i]+'';
+            chai.expect(subId).to.equal(data.children[i]+'');
+          }
+          done();
       });
     });
   });
 
   it('should respond with an 500 error when trying to get children of non-existence subCategory', function (done) {  
-    chai.request(app)
-    .get('/api/subCategory/getChildren/1')
-    .end(function(err, res){
-      res.should.have.status(500);
-      done();
+    getChildren(1,
+      function(err, res){
+        res.should.have.status(500);
+        done();
     });
   });
 
