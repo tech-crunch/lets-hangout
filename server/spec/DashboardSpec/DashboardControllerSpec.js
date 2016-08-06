@@ -25,6 +25,7 @@ describe('Dashboard Controller', function () {
       });
   });
 
+
   it('should get information of dashboard by id responds with a 200', function (done) {  
     var newDashboard = new Dashboard();
     newDashboard.save(function(err, data) {
@@ -59,6 +60,16 @@ describe('Dashboard Controller', function () {
     });
   });
 
+  it('should respond with an 500 error when trying to eleminate option to non-existence option', function (done) {  
+    chai.request(app)
+    .put('/api/dashboard/eleminateOptions/1')
+    .send({subCategoryId:'1'})
+    .end(function(err, res){
+      res.should.have.status(500);
+      done();
+    });
+  });
+
   it('should get chosen option of dashboard with a 200', function (done) {
     var newDashboard = new Dashboard({
       chosenOption: '57a336baaf059e280e510c45'
@@ -74,6 +85,7 @@ describe('Dashboard Controller', function () {
     });
   });
 
+
   it('should increment the voting', function (done) {
     var newDashboard = new Dashboard({
       voting: 3
@@ -86,6 +98,15 @@ describe('Dashboard Controller', function () {
         res.body.voting.should.equal(4);
         done();
       });
+    });
+  });
+
+  it('should respond with an 500 error when trying to eleminate option to non-existence option', function (done) {  
+    chai.request(app)
+    .put('/api/dashboard/voteForOption/1')
+    .end(function(err, res){
+      res.should.have.status(500);
+      done();
     });
   });
 });
