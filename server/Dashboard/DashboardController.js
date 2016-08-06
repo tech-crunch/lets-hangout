@@ -6,7 +6,7 @@ var repsonseHandler = function(error, req, res, body, next){
   } else {
     res.status(body.status).send(body.returnObj);
   }
-}
+};
 
 module.exports = {
   createNew: function (req, res, next) {
