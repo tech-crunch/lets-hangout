@@ -5,6 +5,13 @@ var app = require('../../server.js');
 var SubCategory = require('../../subCategories/subCategoryModel.js');
 var mongoose = require('mongoose');
 
+var postSubCategory = function(body, expectations){
+  chai.request(app)
+      .post('/api/subCategory')
+      .send(body)
+      .end(expectations);
+};
+
 var should = chai.should();
 
 chai.use(chaiHttp);
@@ -21,10 +28,8 @@ describe('SubCategory Controller', function () {
       name: 'Suicide Squad',
       details: 'Action Movie'
     };
-    chai.request(app)
-      .post('/api/subCategory')
-      .send(testObj)
-      .end(function(err, res){
+    postSubCategory(testObj,
+      function(err, res){
         res.should.have.status(201);
         res.should.be.json;
         res.body.should.be.a('object');
@@ -35,17 +40,15 @@ describe('SubCategory Controller', function () {
         res.body.name.should.equal(testObj.name);
         res.body.details.should.equal(testObj.details);
         done();
-      });
+    });
   });
 
   it('should respond with 500 error when trying to create empty subCategory', function (done) {
-    chai.request(app)
-      .post('/api/subCategory')
-      .send({})
-      .end(function(err, res){
+    postSubCategory({},
+      function(err, res){
         res.should.have.status(500);
         done();
-      });
+    });
   });
 
   it('should get information of a subCategory by id and responds with a 200', function (done) {  

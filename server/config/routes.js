@@ -5,17 +5,17 @@ var DashboardController = require('../Dashboard/DashboardController.js');
 module.exports = function (app, express) {
 
 	// routes for the subCategories
-	app.post('/api/subCategory', subCategoryController.createNew);
-	app.get('/api/subCategory/getChildren/:id', subCategoryController.getChildren);
-	app.get('/api/subCategory/:id', subCategoryController.getInfo);
-	app.put('/api/subCategory/:id', subCategoryController.addChild);
+	app.post('/api/subCategory', subCategoryController.createNew, helpers.errorHandler);
+	app.get('/api/subCategory/getChildren/:id', subCategoryController.getChildren, helpers.errorHandler);
+	app.get('/api/subCategory/:id', subCategoryController.getInfo, helpers.errorHandler);
+	app.put('/api/subCategory/:id', subCategoryController.addChild, helpers.errorHandler);
 
 	// routes for the dashboard
-	app.post('/api/dashboard', DashboardController.createNew)
-	app.put('/api/dashboard/eleminateOptions/:id', DashboardController.eleminateOptions)
-	app.get('/api/dashboard/chosenID/:id', DashboardController.getchosenOption)
-	app.put('/api/dashboard/voteForOption/:id', DashboardController.voteForOption)
-	app.get('/api/dashboard/:id', DashboardController.getInfo)
+	app.post('/api/dashboard', DashboardController.createNew, helpers.errorHandler)
+	app.put('/api/dashboard/eleminateOptions/:id', DashboardController.eleminateOptions, helpers.errorHandler)
+	app.get('/api/dashboard/chosenID/:id', DashboardController.getchosenOption, helpers.errorHandler)
+	app.put('/api/dashboard/voteForOption/:id', DashboardController.voteForOption, helpers.errorHandler)
+	app.get('/api/dashboard/:id', DashboardController.getInfo, helpers.errorHandler)
 	
 	// If a request is sent somewhere other than the routes above,
 	// send it through our custom error handler
