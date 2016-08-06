@@ -1,6 +1,5 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var request = require("supertest");
 var app = require('../../server.js');
 var SubCategory = require('../../subCategories/subCategoryModel.js');
 var mongoose = require('mongoose');
