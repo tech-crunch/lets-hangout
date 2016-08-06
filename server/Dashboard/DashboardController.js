@@ -38,12 +38,8 @@ module.exports = {
       {_id: req.params.id},
       { $push: { options: {subCategoryId: req.body.subCategoryId} } },
       {new: true},
-      function(err, data){
-          if(err){
-            res.status(500).send(err);  
-          }else {
-            res.status(200).send(data);
-          }
+      function(err, dashboard){
+          repsonseHandler(err, req, res, {status: 200, returnObj:dashboard}, next);
       });
   },
 
