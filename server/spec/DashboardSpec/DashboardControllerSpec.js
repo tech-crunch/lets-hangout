@@ -1,6 +1,5 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var request = require("supertest");
 var app = require('../../server.js');
 var Dashboard = require('../../Dashboard/DashboardModel.js')
 var mongoose = require('mongoose')
