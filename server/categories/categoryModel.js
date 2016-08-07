@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var categoriesSchema = new Schema({
 	name : {type: String , required: true},
 	poster : {type : String , required: true},
-	children : [{ type: Schema.Types.ObjectId, ref: 'Subcategory'}]
+	children : [{ type: Schema.Types.ObjectId, ref: 'Subcategory', unique: true}]
 });
 
 var Categories = mongoose.model('Categories',  categoriesSchema);

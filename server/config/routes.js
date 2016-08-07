@@ -1,14 +1,21 @@
 var helpers = require('./helpers.js'); // our custom middleware
+var categoryController = require ('../categories/categoryController.js');
 var subCategoryController = require('../subCategories/subCategoryController.js');
 var DashboardController = require('../Dashboard/DashboardController.js');
+var categoryController = require ('../categories/categoryController.js');
 
 module.exports = function (app, express) {
-
+	
 	// routes for the subCategories
 	app.post('/api/subCategory', subCategoryController.createNew, helpers.errorHandler);
 	app.get('/api/subCategory/getChildren/:id', subCategoryController.getChildren, helpers.errorHandler);
 	app.get('/api/subCategory/:id', subCategoryController.getInfo, helpers.errorHandler);
 	app.put('/api/subCategory/:id', subCategoryController.addChild, helpers.errorHandler);
+  
+ 	//categories controller 
+  	app.get('/api/categories', categoryController.getAll);
+  	app.post('/api/categories', categoryController.addCategory);
+  	app.put('/api/categories/addChild/:id', categoryController.addChild);
 
 	// routes for the dashboard
 	app.post('/api/dashboard', DashboardController.createNew, helpers.errorHandler)

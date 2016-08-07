@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
 var path = require('path')
-var Categories = require(path.join(__dirname,'..','./categoriesSchema/categoryModel.js'));
+var Categories = require(path.join(__dirname,'..','..','./categories/categoryModel.js'));
 
 describe('Categories Model', function () {
 
