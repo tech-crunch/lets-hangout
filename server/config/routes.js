@@ -13,9 +13,9 @@ module.exports = function (app, express) {
 	app.put('/api/subCategory/:id', subCategoryController.addChild, helpers.errorHandler);
   
  	//categories controller 
-  	app.get('/api/categories', categoryController.getAll);
-  	app.post('/api/categories', categoryController.addCategory);
-  	app.put('/api/categories/addChild/:id', categoryController.addChild);
+  	app.get('/api/categories', categoryController.getAll, helpers.errorHandler);
+  	app.post('/api/categories', categoryController.addCategory, helpers.errorHandler);
+  	app.put('/api/categories/addChild/:id', categoryController.addChild, helpers.errorHandler);
 
 	// routes for the dashboard
 	app.post('/api/dashboard', DashboardController.createNew, helpers.errorHandler)
