@@ -7,6 +7,25 @@ var Categories = require('../../categories/categoryModel.js');
 var should = chai.should();
 chai.use(chaiHttp);
 
+var postCategory = function(body, expectations){
+  chai.request(app)
+    .post('/api/categories')
+    .send(body)
+    .end(expectations);
+};
+var getCategories = function(body,expectations){
+  chai.request(app)
+    .get('/api/categories')
+    .send(body)
+    .end(expectations);
+};
+var addChildToCat = function(body, id, expectations){
+  chai.request(app)
+    .put('/api/categories/addChild/'+id)
+    .send(body)
+    .end(expectations);
+};
+
 describe('Categories Controller', function () {
 
   beforeEach(function (done) {
@@ -14,13 +33,12 @@ describe('Categories Controller', function () {
   });
 
   it('should create new category in database responds with a 201 (Created) POST', function (done) {
-      chai.request(app)
-      .post('/api/categories')
-      .send({
+      var testObj = {
         name:'farah',
         poster:'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg'
-      })
-      .end(function(err, res){
+      }
+      postCategory(testObj,
+      function(err, res){
         res.should.have.status(201);
         res.should.be.json;
         res.body.should.be.a('object');
@@ -32,10 +50,8 @@ describe('Categories Controller', function () {
   });
 
   it('should respond with 500 error when trying to create empty Category', function (done) {
-    chai.request(app)
-      .post('/api/categories')
-      .send({})
-      .end(function(err, res){
+    postCategory({},
+      function(err, res){
         res.should.have.status(500);
         done();
       })
@@ -47,9 +63,8 @@ describe('Categories Controller', function () {
       name: 'movies'
     });
     newCategory.save(function(err, data) {
-      chai.request(app)
-      .get('/api/categories')
-      .end(function(err, res){
+      getCategories(data,
+        function(err, res){
           res.should.have.status(200);
           res.should.be.json;
           res.body[0].should.have.property('poster');
@@ -68,13 +83,9 @@ describe('Categories Controller', function () {
          name: 'movies',
          poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg'
       });
-      console.log(newCategory)
       newCategory.save( function(err, data){
-         console.log(data)
-         chai.request(app)
-         .put('/api/categories/addChild/'+data._id)
-         .send({'id': '57a63a1bf6e951d4132847e4'})
-         .end(function(err, res){
+         addChildToCat({id:'57a63a1bf6e951d4132847e4'}, data._id, 
+          function(err, res){
              res.should.have.status(201);
              res.should.be.json;
              res.body.children[0].should.equal('57a63a1bf6e951d4132847e4')
@@ -86,10 +97,8 @@ describe('Categories Controller', function () {
    });
 
   it('should respond with an 500 error when trying to add child to non-existence Category', function (done) {  
-    chai.request(app)
-      .put('/api/categories/addChild/1')
-      .send({'id': '57a63a1bf6e951d4132847e4'})
-      .end(function(err, res){
+    addChildToCat({id:'57a63a1bf6e951d4132847e4'},1,
+      function(err, res){
         res.should.have.status(500);
         done();
       });
