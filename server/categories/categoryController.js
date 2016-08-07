@@ -1,16 +1,19 @@
 var Categories = require('./categoryModel.js');
-// Promisify a few mongoose methods with the `q` promise library
+
+var repsonseHandler = function(error, req, res, body, next){
+  if(error){
+    next(error,req,res);
+  } else {
+    res.status(body.status).send(body.returnObj);
+  }
+};
+
 module.exports = {
     //get all categories
     getAll : function(req, res, next){
         Categories.find({})
         .exec(function(error, categories){
-            if(error){
-                res.status(500).send(error);
-            } else {
-                console.log(categories);
-                res.status(200).send(categories);
-            }
+            repsonseHandler(error, req, res, {status: 200, returnObj:categories}, next);
         });
     },
     //add new category
@@ -21,22 +24,18 @@ module.exports = {
             poster : req.body.poster    
         });
         newCategory.save(function(err, newCategory){
-            if(err){
-                res.status(500).send(err);
-            } else {
-                console.log(newCategory)
-                res.status(201).send(newCategory);
-            };
+          repsonseHandler(err, req, res, {status: 201, returnObj:newCategory}, next);
+
         });
     },
     addChild : function(req, res, next){
-        Categories.update(
+        Categories.findOneAndUpdate(
             { _id: req.params.id},
             { $push: { children: req.body.id } },
-            { upsert: true } // upsert looks to find a Message with that id and if it doesn't exist creates the Message 
+            { new: true },
+            function(err, data){
+            repsonseHandler(err, req, res, {status: 201, returnObj:data}, next);
+            }
         )
-        .then (function (err, data){
-            res.status(201).send(data)
-        })
     }
 }
