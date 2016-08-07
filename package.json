@@ -5,7 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "test": "mocha ./server/spec/**/*.js",
-    "coverage": "./node_modules/.bin/istanbul cover -x '*Spec.js' %APPDATA%/npm/node_modules/mocha/bin/_mocha -- -R spec ./server/spec/**/*.js",
+    "coverage": "./node_modules/.bin/istanbul cover %APPDATA%/npm/node_modules/mocha/bin/_mocha -- -R spec ./server/spec/**/*.js",
     "dev": "nodemon ./server/server.js",
     "start": "nodemon ./server/server.js",
     "gulp": "./node_modules/.bin/gulp"
