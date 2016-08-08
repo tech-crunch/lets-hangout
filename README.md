@@ -38,6 +38,12 @@
 From within the root directory:
 
 ```sh
+npm install
+```
+
+From within the client directory:
+
+```sh
 sudo npm install -g bower
 npm install
 bower install
