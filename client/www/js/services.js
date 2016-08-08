@@ -26,4 +26,25 @@
 
     };
 
+
 } ());
+
+.factory('Group',function ($http,$window){
+  var newGroup = function (groupName){
+    return $http({
+      method:'POST',
+      url:'/api/group/user/:id',
+      data:{
+         groupName:groupName
+      }
+     })
+     .then(function(resp){
+      return resp;
+     });
+  }
+  return {
+    newGroup:newGroup
+  }
+})
+
+

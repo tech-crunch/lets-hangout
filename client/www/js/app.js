@@ -6,7 +6,6 @@ angular.module('lets-hangout', [
   'ionic.contrib.ui.tinderCards2',
   'lets-hangout.services'
   ])
-
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -59,6 +58,7 @@ angular.module('lets-hangout', [
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
+
   .state('home', {
     url: '/',
     templateUrl: 'templates/home.html'
@@ -67,6 +67,14 @@ angular.module('lets-hangout', [
     url: '/login',
     templateUrl: 'templates/login.html'
   })
+
+   .state('group', {
+    url: '/group',
+    templateUrl: 'templates/group.html',
+    controller:'groupController'
+  });
+
+
   .state('cards', {
     url: '/cards',
     templateUrl: 'templates/cards.html'
@@ -78,6 +86,10 @@ angular.module('lets-hangout', [
     clientID: AUTH0_CLIENT_ID,
     loginState: 'login'
   });
+
+ // if none of the above states are matched, use this as the fallback
+
+  $urlRouterProvider.otherwise('/group');
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
