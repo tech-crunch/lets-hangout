@@ -2,7 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 
 // connect to mongo database named "lets-hangout"
-var mongoURI =  process.env.MONGODB_URI || 'mongodb://localhost/lets-hangout';
+var mongoURI =  process.env.MONGODB_URI || 'mongodb://localhost/lets-hangout-test';
 mongoose.connect(mongoURI);
 db = mongoose.connection;
 
