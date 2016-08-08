@@ -1,26 +1,12 @@
-'use strict';
+angular.module('lets-hangout.dashBoard', [])
 
-/**
- * @ngdoc function
- * @name Client.controller:HomeController
- * @description
- * # HomeController
- */
-module.exports = [
-    '$scope',
-    'ApiService.js',
-
-    function( $scope, ApiService )
-    {
-      $scope.createNewDashBoard = function() {
-        ApiService.createNew()
-       .then(function(response) {
-              $scope.dashboard = response.data;
-              // close pull to refresh loader
-              $scope.$broadcast('scroll.refreshComplete');
-          });
-      };
-
-    }
-];
-
+.controller('dashBoardController', function($scope, DashBoard ) {
+ 
+  $scope.dash = {};
+  $scope.createNewDashBoard = function() {
+    DashBoard.createNew()
+    .then( function (data){
+      $scope.dash = data.options;
+    })
+  }
+})
