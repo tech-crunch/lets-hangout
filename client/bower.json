@@ -2,7 +2,9 @@
   "name": "Client",
   "author": "Tech-Crunch <bader.a.khalifeh@gmail.com>",
   "private": "true",
-  "devDependencies": {},
+  "devDependencies": {
+    "ionic-platform-web-client": "^0.7.1"
+  },
   "dependencies": {
     "angular": "~1.5.3",
     "ngCordova": "~0.1.26-alpha",
