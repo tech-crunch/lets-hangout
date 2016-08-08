@@ -1,25 +1,28 @@
 angular.module('lets-hangout.cards', [])
 
-.controller('CardsCtrl', function($scope, TDCardDelegate, $timeout) {
+.controller('CardsCtrl', function($scope, $timeout, Categories) {
 
-  var cardTypes = [
-    { image: 'http://c4.staticflickr.com/4/3924/18886530069_840bc7d2a5_n.jpg' },
-    { image: 'http://c1.staticflickr.com/1/421/19046467146_548ed09e19_n.jpg' },
-    { image: 'http://c1.staticflickr.com/1/278/18452005203_a3bd2d7938_n.jpg' },
-    { image: 'http://c1.staticflickr.com/1/297/19072713565_be3113bc67_n.jpg' },
-    { image: 'http://c1.staticflickr.com/1/536/19072713515_5961d52357_n.jpg' },
-    { image: 'http://c4.staticflickr.com/4/3937/19072713775_156a560e09_n.jpg' },
-    { image: 'http://c1.staticflickr.com/1/267/19067097362_14d8ed9389_n.jpg' }
-  ];
+  $scope.cards = {};
 
+  $scope.initialize = function(){
+    Categories.getAll()
+    .then(function(categories){
+      //$scope.categories = categories;
+      $scope.cards = {
+        master: Array.prototype.slice.call(categories, 0),
+        active: Array.prototype.slice.call(categories, 0),
+        discards: [],
+        liked: [],
+        disliked: []
+      };
+    })
+    .catch(function(error){
+      console.log(error);
+    });
+  };
 
-  $scope.cards = {
-    master: Array.prototype.slice.call(cardTypes, 0),
-    active: Array.prototype.slice.call(cardTypes, 0),
-    discards: [],
-    liked: [],
-    disliked: []
-  }
+  $scope.initialize();
+
 
   $scope.cardDestroyed = function(index) {
     $scope.cards.active.splice(index, 1);
