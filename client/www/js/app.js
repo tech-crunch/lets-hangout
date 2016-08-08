@@ -1,6 +1,7 @@
 angular.module('lets-hangout', [
   'ionic',
   'ionic.contrib.ui.tinderCards2',
+  'lets-hangout.services',
   'lets-hangout.cards'
   ])
 
