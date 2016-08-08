@@ -16,6 +16,16 @@ module.exports = {
             repsonseHandler(error, req, res, {status: 200, returnObj:categories}, next);
         });
     },
+
+    // function to get category info by id
+    getOne : function (req, res, next) {
+        var id = req.params.id.toString();
+        Categories.findOne({_id: id})
+        .exec(function(err, category){
+            repsonseHandler(err, req, res, {status: 200, returnObj:category}, next);
+        });
+    },
+
     //add new category
     addCategory : function(req, res, next){
         var newCategory = new Categories ({
@@ -27,6 +37,7 @@ module.exports = {
 
         });
     },
+
     addChild : function(req, res, next){
         Categories.findOneAndUpdate(
             { _id: req.params.id},
