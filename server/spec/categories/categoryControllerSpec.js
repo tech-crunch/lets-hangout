@@ -12,12 +12,21 @@ var postCategory = function(body, expectations){
     .send(body)
     .end(expectations);
 };
+
+
 var getCategories = function(body,expectations){
   chai.request(app)
     .get('/api/categories')
     .send(body)
     .end(expectations);
 };
+
+var getCategory = function(id, expectations){
+  chai.request(app)
+    .get('/api/categories/'+id)
+    .end(expectations);
+};
+
 var addChildToCat = function(body, id, expectations){
   chai.request(app)
     .put('/api/categories/addChild/'+id)
@@ -77,23 +86,43 @@ describe('Categories Controller', function () {
     })
   });
 
-   it('should add new child id to array of objectIds PUT', function (done) {
+  it('should get single category by id and respond with 200', function (done) {  
       var newCategory = new Categories({
-         name: 'movies',
-         poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg'
-      });
-      newCategory.save( function(err, data){
-         addChildToCat({id:'57a63a1bf6e951d4132847e4'}, data._id, 
-          function(err, res){
-             res.should.have.status(201);
-             res.should.be.json;
-             res.body.children[0].should.equal('57a63a1bf6e951d4132847e4')
-             res.body.should.be.a('object');
-             res.body.should.have.property('_id');
-             done();
-         });
-      })
-   });
+      poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
+      name: 'movies'
+    });
+    newCategory.save(function(err, data) {
+      getCategory(data._id,
+        function(err, res){
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.have.property('poster');
+          res.body.should.have.property('name');
+          res.body.should.have.property('children');
+          res.body.poster.should.equal(data.poster);
+          res.body.name.should.equal(data.name);
+          done();
+     });
+    });
+  });
+
+ it('should add new child id to array of objectIds PUT', function (done) {
+    var newCategory = new Categories({
+       name: 'movies',
+       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg'
+    });
+    newCategory.save( function(err, data){
+       addChildToCat({id:'57a63a1bf6e951d4132847e4'}, data._id, 
+        function(err, res){
+           res.should.have.status(201);
+           res.should.be.json;
+           res.body.children[0].should.equal('57a63a1bf6e951d4132847e4')
+           res.body.should.be.a('object');
+           res.body.should.have.property('_id');
+           done();
+       });
+    })
+ });
 
   it('should respond with an 500 error when trying to add child to non-existence Category', function (done) {  
     addChildToCat({id:'57a63a1bf6e951d4132847e4'},1,
