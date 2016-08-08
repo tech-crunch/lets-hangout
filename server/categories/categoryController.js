@@ -16,25 +16,45 @@ module.exports = {
             repsonseHandler(error, req, res, {status: 200, returnObj:categories}, next);
         });
     },
+
+    // function to get category info by id
+    getOne : function (req, res, next) {
+        var id = req.params.id.toString();
+        Categories.findOne({_id: id})
+        .exec(function(err, category){
+            repsonseHandler(err, req, res, {status: 200, returnObj:category}, next);
+        });
+    },
+
     //add new category
     addCategory : function(req, res, next){
         var newCategory = new Categories ({
             name : req.body.name,
-            poster : req.body.poster    
+            poster : req.body.poster,
+            children : req.body.children || []   
         });
         newCategory.save(function(err, newCategory){
           repsonseHandler(err, req, res, {status: 201, returnObj:newCategory}, next);
-
         });
     },
+
     addChild : function(req, res, next){
         Categories.findOneAndUpdate(
             { _id: req.params.id},
             { $push: { children: req.body.id } },
             { new: true },
             function(err, data){
-            repsonseHandler(err, req, res, {status: 201, returnObj:data}, next);
-            }
-        )
+                repsonseHandler(err, req, res, {status: 201, returnObj:data}, next);
+            });
+    },
+
+    removeChild : function(req, res, next){
+        Categories.findOneAndUpdate(
+            { _id: req.params.id},
+            { $pull: { children: req.body.id } },
+            { new: true },
+            function(err, data){
+                repsonseHandler(err, req, res, {status: 201, returnObj:data}, next);
+            });
     }
-}
+};

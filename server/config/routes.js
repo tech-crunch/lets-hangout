@@ -13,10 +13,12 @@ module.exports = function (app, express) {
 	app.get('/api/subCategory/:id', subCategoryController.getInfo, helpers.errorHandler);
 	app.put('/api/subCategory/:id', subCategoryController.addChild, helpers.errorHandler);
   
- 	//categories controller 
+ 	// routes for categories 
   	app.get('/api/categories', categoryController.getAll, helpers.errorHandler);
+  	app.get('/api/categories/:id', categoryController.getOne, helpers.errorHandler);
   	app.post('/api/categories', categoryController.addCategory, helpers.errorHandler);
   	app.put('/api/categories/addChild/:id', categoryController.addChild, helpers.errorHandler);
+  	app.put('/api/categories/removeChild/:id', categoryController.removeChild, helpers.errorHandler);
 
 	// routes for the dashboard
 	app.post('/api/dashboard', DashboardController.createNew, helpers.errorHandler)

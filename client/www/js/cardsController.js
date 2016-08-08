@@ -11,9 +11,6 @@ angular.module('lets-hangout.cards', [])
       $scope.cards = {
         master: Array.prototype.slice.call(categories, 0),
         active: Array.prototype.slice.call(categories, 0),
-        discards: [],
-        liked: [],
-        disliked: []
       };
     })
     .catch(function(error){
@@ -42,19 +39,14 @@ angular.module('lets-hangout.cards', [])
   }
 
   $scope.$on('removeCard', function(event, element, card) {
-    var discarded = $scope.cards.master.splice($scope.cards.master.indexOf(card), 1);
-    $scope.cards.discards.push(discarded);
+    $scope.cards.master.splice($scope.cards.master.indexOf(card), 1);
   });
 
   $scope.cardSwipedLeft = function(index) {
     console.log('LEFT SWIPE');
-    var card = $scope.cards.active[index];
-    $scope.cards.disliked.push(card);
   };
   $scope.cardSwipedRight = function(index) {
     console.log('RIGHT SWIPE');
-    var card = $scope.cards.active[index];
-    $scope.cards.liked.push(card);
   };
 
 })
