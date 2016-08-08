@@ -47,7 +47,7 @@ client/lib/
 
 .tmp/
 client/.tmp/
-client/www/
+client/www/lib
 .sass-cache
 *.DS_Store
 *.log

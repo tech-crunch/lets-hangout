@@ -66,7 +66,7 @@ var errorHandler = function(error) {
 
 // clean target dir
 gulp.task('clean', function(done) {
-  return del([targetDir, 'client/app/scripts/bundle.js','client/app/scripts/bundle.js.map'], done);
+  return del([targetDir, 'app/scripts/bundle.js','app/scripts/bundle.js.map'], done);
 });
 
 // precompile .scss and concat with ionic.css
@@ -74,7 +74,7 @@ gulp.task('styles', function() {
 
   var options = build ? { style: 'compressed' } : { style: 'expanded' };
 
-  var sassStream = gulp.src('client/app/styles/main.scss')
+  var sassStream = gulp.src('app/styles/main.scss')
     .pipe(plugins.sass(options))
     .on('error', function(err) {
       console.log('err: ', err);
@@ -82,7 +82,7 @@ gulp.task('styles', function() {
     });
 
   // build ionic css dynamically to support custom themes
-  var ionicStream = gulp.src('client/app/styles/ionic-styles.scss')
+  var ionicStream = gulp.src('app/styles/ionic-styles.scss')
     .pipe(plugins.cached('ionic-styles'))
     .pipe(plugins.sass(options))
     // cache and remember ionic .scss in order to cut down re-compile time
@@ -105,7 +105,7 @@ gulp.task('styles', function() {
 gulp.task('browserify', function () {
   // set up the browserify instance on a task basis
   var b = browserify({
-    entries: './client/app/src/app.js',
+    entries: './app/src/app.js',
     debug: !build
   });
 
@@ -117,7 +117,7 @@ gulp.task('browserify', function () {
         .pipe(uglify())
         .on('error', gutil.log)
     .pipe(plugins.if(!build,sourcemaps.write('./')))
-    .pipe(gulp.dest('./client/app/scripts/'));
+    .pipe(gulp.dest('./app/scripts/'));
 });
 
 // build templatecache, copy scripts.
@@ -135,7 +135,7 @@ gulp.task('scripts', ['browserify'], function() {
   // prepare angular template cache from html templates
   // (remember to change appName var to desired module name)
   var templateStream = gulp
-    .src('**/*.html', { cwd: 'client/app/templates'})
+    .src('**/*.html', { cwd: 'app/templates'})
     .pipe(plugins.angularTemplatecache('templates.js', {
       root: 'templates/',
       module: appName,
@@ -143,7 +143,7 @@ gulp.task('scripts', ['browserify'], function() {
     }));
 
   var scriptStream = gulp
-    .src( ['bundle.js', 'bundle.js.map', 'configuration.js', 'templates.js' ], { cwd: 'client/app/scripts' })
+    .src( ['bundle.js', 'bundle.js.map', 'configuration.js', 'templates.js' ], { cwd: 'app/scripts' })
 
     .pipe(plugins.if(!build, plugins.changed(dest)));
 
@@ -162,7 +162,7 @@ gulp.task('scripts', ['browserify'], function() {
 // copy fonts
 gulp.task('fonts', function() {
   return gulp
-    .src(['client/app/fonts/*.*', 'client/lib/ionic/release/fonts/*.*'])
+    .src(['app/fonts/*.*', 'lib/ionic/release/fonts/*.*'])
 
     .pipe(gulp.dest(path.join(targetDir, 'fonts')))
 
@@ -173,12 +173,12 @@ gulp.task('fonts', function() {
 
 // generate iconfont
 gulp.task('iconfont', function(){
-  return gulp.src('client/app/icons/*.svg', {
+  return gulp.src('app/icons/*.svg', {
         buffer: false
     })
     .pipe(plugins.iconfontCss({
       fontName: 'ownIconFont',
-      path: 'client/app/icons/own-icons-template.css',
+      path: 'app/icons/own-icons-template.css',
       targetPath: '../styles/own-icons.css',
       fontPath: '../fonts/'
     }))
@@ -191,7 +191,7 @@ gulp.task('iconfont', function(){
 
 // copy images
 gulp.task('images', function() {
-  return gulp.src('client/app/images/**/*.*')
+  return gulp.src('app/images/**/*.*')
     .pipe(gulp.dest(path.join(targetDir, 'images')))
 
     .on('error', errorHandler);
@@ -201,7 +201,7 @@ gulp.task('images', function() {
 // lint js sources based on .jshintrc ruleset
 gulp.task('jsHint', function() {
   return gulp
-    .src('client/app/src/**/*.js')
+    .src('app/src/**/*.js')
     .pipe(plugins.jshint())
     .pipe(plugins.jshint.reporter(stylish))
     .on('error', errorHandler);
@@ -245,7 +245,7 @@ gulp.task('index', ['jsHint', 'scripts'], function() {
     return streamqueue({ objectMode: true }, scriptStream);
   };
 
-  return gulp.src('client/app/index.html')
+  return gulp.src('app/index.html')
     // inject css
     .pipe(_inject(gulp.src(cssNaming, { cwd: targetDir }), 'app-styles'))
     // inject vendor.js
@@ -292,7 +292,7 @@ gulp.task('resources', plugins.shell.task([
 
 // select emulator device
 gulp.task('select', plugins.shell.task([
-  './client/helpers/emulateios'
+  './helpers/emulateios'
 ]));
 
 // ripple emulator
@@ -314,15 +314,15 @@ gulp.task('ripple', ['scripts', 'styles', 'watchers'], function() {
 // start watchers
 gulp.task('watchers', function() {
   plugins.livereload.listen();
-  gulp.watch('client/app/styles/**/*.scss', ['styles']);
-  gulp.watch('client/app/fonts/**', ['fonts']);
-  gulp.watch('client/app/icons/**', ['iconfont']);
-  gulp.watch('client/app/images/**', ['images']);
-  gulp.watch(['client/app/scripts/**/*.js','!app/scripts/bundle.js'], ['index']);
+  gulp.watch('app/styles/**/*.scss', ['styles']);
+  gulp.watch('app/fonts/**', ['fonts']);
+  gulp.watch('app/icons/**', ['iconfont']);
+  gulp.watch('app/images/**', ['images']);
+  gulp.watch(['app/scripts/**/*.js','!app/scripts/bundle.js'], ['index']);
   gulp.watch('./bower.json', ['vendor']);
-  gulp.watch('client/app/templates/**/*.html', ['index']);
-  gulp.watch('client/app/index.html', ['index']);
-  gulp.watch('client/app/src/**/*.js', ['scripts']);
+  gulp.watch('app/templates/**/*.html', ['index']);
+  gulp.watch('app/index.html', ['index']);
+  gulp.watch('app/src/**/*.js', ['scripts']);
   gulp.watch(targetDir + '/**')
     .on('change', plugins.livereload.changed)
     .on('error', errorHandler);
