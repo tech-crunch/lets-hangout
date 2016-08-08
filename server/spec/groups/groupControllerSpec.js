@@ -1,6 +1,5 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var request = require("supertest");
 var app = require('../../server.js');
 var Group = require('../../groups/groupModel.js');
 var User = require('../../users/userModel.js');
