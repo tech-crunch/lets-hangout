@@ -24,8 +24,22 @@ angular.module('lets-hangout.services', [])
 		});
 	};
 
+	var addChild = function(categoryID, subID){
+		return $http({
+			method: 'PUT',
+			url: baseUrl + '/api/categories/addChild/' + categoryID,
+			data: {
+				id: subID
+			}
+		})
+		.then(function(resp){
+			return resp;
+		});
+	};
+
 	return {
 		getAll: getAll,
-		addOne: addOne
+		addOne: addOne,
+		addChild: addChild
 	};
 });
