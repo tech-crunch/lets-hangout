@@ -18,7 +18,6 @@ module.exports = {
     },
     //add new category
     addCategory : function(req, res, next){
-        console.log(req.body)
         var newCategory = new Categories ({
             name : req.body.name,
             poster : req.body.poster    
