@@ -81,3 +81,8 @@ td-card#end-card {
   transition: 0.2s opacity linear;
   opacity: 0;
 }
+
+.td-image {
+  width: 300px;
+  height: 300px;
+}
