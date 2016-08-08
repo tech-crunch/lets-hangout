@@ -34,6 +34,13 @@ var addChildToCat = function(body, id, expectations){
     .end(expectations);
 };
 
+var removeChildFromCat = function(body, id, expectations){
+  chai.request(app)
+    .put('/api/categories/removeChild/'+id)
+    .send(body)
+    .end(expectations);
+};
+
 describe('Categories Controller', function () {
 
   beforeEach(function (done) {
@@ -131,4 +138,23 @@ describe('Categories Controller', function () {
         done();
       });
   });
+
+  it('should remove child id from array of objectIds', function (done) {
+    var newCategory = new Categories({
+       name: 'movies',
+       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
+       children: ['57a63a1bf6e951d4132847e4']
+    });
+    newCategory.save( function(err, data){
+       removeChildFromCat({id:'57a63a1bf6e951d4132847e4'}, data._id, 
+        function(err, res){
+           res.should.have.status(201);
+           res.should.be.json;
+           res.body.should.be.a('object');
+           res.body.should.have.property('_id');
+           res.body.children.length.should.equal(0);
+           done();
+       });
+    })
+ });
 });
