@@ -5,6 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "test": "mocha ./server/spec/**/*.js",
+    "clientTest": "karma start",
     "coverage": "./node_modules/.bin/istanbul cover %APPDATA%/npm/node_modules/mocha/bin/_mocha -- -R spec ./server/spec/**/*.js",
     "dev": "nodemon ./server/server.js",
     "start": "nodemon ./server/server.js",
@@ -32,9 +33,17 @@
     "chai": "~1.8.0",
     "chai-http": "^3.0.0",
     "istanbul": "^0.4.4",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.1.2",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1",
     "mocha": "2.0.1",
     "nodemon": "^1.9.2",
     "should": "^10.0.0",
-    "supertest": "^2.0.0"
+    "supertest": "^2.0.0",
+    "angular": "^1.5.8",
+    "angular-mocks": "^1.5.8",
+    "angular-ui-router": "^0.3.1"
   }
 }
