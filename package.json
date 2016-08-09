@@ -41,6 +41,9 @@
     "mocha": "2.0.1",
     "nodemon": "^1.9.2",
     "should": "^10.0.0",
-    "supertest": "^2.0.0"
+    "supertest": "^2.0.0",
+    "angular": "^1.5.8",
+    "angular-mocks": "^1.5.8",
+    "angular-ui-router": "^0.3.1"
   }
 }
