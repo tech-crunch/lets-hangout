@@ -70,7 +70,13 @@ angular.module('lets-hangout', [
   .state('cards', {
     url: '/cards',
     templateUrl: 'templates/cards.html'
-  });
+  })
+
+  .state('dashBoard', {
+    url: '/dashBoard',
+    templateUrl : 'templates/tab-dash.html',
+    controller: 'dashBoardCtrl'
+  })
 
   // Initialized the Auth0 provider
   authProvider.init({
