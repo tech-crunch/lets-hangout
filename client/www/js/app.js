@@ -1,3 +1,4 @@
+
 angular.module('lets-hangout', [
   'ionic',
   'auth0',
@@ -6,7 +7,10 @@ angular.module('lets-hangout', [
   'ionic.contrib.ui.tinderCards2',
   'lets-hangout.services'
   ])
-.run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
+
+
+.run(function($ionicPlatform) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -69,16 +73,23 @@ angular.module('lets-hangout', [
   })
 
    .state('group', {
-    url: '/group',
+    url: '/group/user',
     templateUrl: 'templates/group.html',
     controller:'groupController'
-  });
+  })
+  
+   .state('dashboards', {
+    url: '/dashboards',
+    templateUrl: 'templates/dashboards.html',
+    controller:'dashboardsController'
+  })
 
 
   .state('cards', {
     url: '/cards',
     templateUrl: 'templates/cards.html'
   });
+
 
   // Initialized the Auth0 provider
   authProvider.init({
@@ -87,12 +98,10 @@ angular.module('lets-hangout', [
     loginState: 'login'
   });
 
- // if none of the above states are matched, use this as the fallback
+ 
 
-  $urlRouterProvider.otherwise('/group');
+  $urlRouterProvider.otherwise('/group/user');
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/');
 })
 .directive('noScroll', function($document) {
 

@@ -2,6 +2,7 @@
     'use strict';
 
     var baseUrl = 'http://letsshangout.herokuapp.com';
+    var localUrl = 'http://localhost:8000'; 
 
     angular
         .module('lets-hangout.services', [])
@@ -19,7 +20,7 @@
 				return resp.data;
 			});
 		};
-	
+
 		return {
 			getAll: getAll
 		};
@@ -29,22 +30,69 @@
 
 } ());
 
-.factory('Group',function ($http,$window){
-  var newGroup = function (groupName){
+.factory('Group',function ($http){
+	var newDash;
+  var newGroup = function (groupName,id){
     return $http({
       method:'POST',
-      url:'/api/group/user/:id',
+      url: localUrl+'/api/group/user/'+id,
       data:{
          groupName:groupName
       }
      })
      .then(function(resp){
-      return resp;
+      	return resp;
      });
-  }
+  };
+
+  var allGroups = function(){
+  	return $http({
+  		method: 'GET',
+  		url: localUrl+'/api/group'
+  	})
+  	.then(function(resp){
+  		return resp.data;
+  	})
+  };
+
+  var groupInfo = function(groupName){
+  	return $http({
+  		method: 'GET',
+  		url: localUrl+'/api/'+groupName
+  	})
+  	.then(function(resp){
+  		return resp.data;
+  	})
+
+  };
+   var dashboardInfo = function(id){
+   	console.log(1);
+  	return $http({
+  		method: 'GET',
+  		url: localUrl+'/api/dashboard/'+id
+  	})
+  	.then(function(resp){
+  		return resp.data;
+  	})
+
+  };
+  var setdash = function(dash){
+    newDash = dash ;
+  };
+
+  var getdash = function(){
+    return newDash ;
+  };
+
   return {
-    newGroup:newGroup
+    newGroup:newGroup,
+    allGroups:allGroups,
+    groupInfo:groupInfo,
+    dashboardInfo:dashboardInfo,
+    setdash:setdash,
+    getdash:getdash
   }
+
 })
 
 

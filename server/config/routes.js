@@ -26,6 +26,7 @@ module.exports = function (app, express) {
 	app.put('/api/dashboard/addOption/:id', DashboardController.addOption, helpers.errorHandler)
 	
 	// routes for the groups
+	app.get('/api/group',groupController.getAll, helpers.errorHandler);
 	app.post('/api/group/user/:id',groupController.createNewGroup, helpers.errorHandler);
 	app.post('/api/group/:groupName',groupController.addFriendsToGroup, helpers.errorHandler);
 	app.delete('/api/group/:groupName',groupController.removeFriendFromGroup, helpers.errorHandler);
