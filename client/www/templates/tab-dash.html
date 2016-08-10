@@ -4,10 +4,15 @@
      <div>
         <li ng-repeat="data in dash.subC">
           <div>
-            <h6> {{data.name}} </h6>
-            <img src="{{data.poster}}" alt="subCat poster" height="128" width="128">
-            <button ng-click = "eleminateOptions(data._id)">elemenate option</button> 
-            <p>{{data.details}} </p>
+            <h5 style="text-align: center;"> {{data.name}}</h5>
+            <img src="{{data.poster}}" alt="subCat poster" height="128" width="128" style="margin-left:40%;">
+            <!-- <button ng-click = "eleminateOptions(data._id)">elemenate option</button> -->
+            <button type="button" class="btn btn-outline-danger" ng-click = "eleminateOptions(data._id)">elemenate option</button>
+            <div class="button" ng-click = "voteForOption(dash.option[$index])">
+                <p>{{dash.voting[$index]}}</p>
+            </div>
+ 
+            <p style="text-align: center;">{{data.details}} </p>
           </div>
         </li>         
     </div>

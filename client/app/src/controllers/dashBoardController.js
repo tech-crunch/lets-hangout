@@ -10,23 +10,25 @@
     function DashBoardController($scope, DashBoard, $location, SubCategory) {
 	 
      $scope.dash = {};
+     $scope.dash.option = [];
      $scope.dash.subC = [];
      $scope.dash.voting = [];
-  	//var dashBoardID = window.location.href.split('/')[5];
+
     var dashBoardID = "57ab0d66c665971c0daea5a4"
   	$scope.getDashBoardInfo = function() {
   		DashBoard.getInfo(dashBoardID)
   		.then (function(data) {
         for (var i = 0; i < data.options.length; i++) {
+          console.log(data.options[i])
           var vote = data.options[i].voting;
+          var optionID = data.options[i].subCategoryId
           $scope.dash.voting.push(vote)
-          console.log($scope.dash.voting)
+          $scope.dash.option.push(optionID)
           SubCategory.getInfo(data.options[i].subCategoryId)
   		   .then(function(subCat){
             $scope.dash.subC.push(subCat)
           })
         }
-      console.log($scope.dash.subC)
   		})
   	}
     $scope.getDashBoardInfo();
@@ -40,26 +42,27 @@
       		console.log(err)
       	})
     	}
-     
-    	$scope.voteForOption = function() {
-        DashBoard.voteForOption(dashBoardID, $scope.vote)
-        .then( function(data) {
-         console.log(data)
-          })
-        .catch(function(err) {
-          console.log(err)
-        })
-      }
     	
-    // $scope.eleminateOptions = function(subID) {
-    //   console.log(subID, "farooh")
-    //   DashBoard.eleminateOptions(dashBoardID, subID )
-    //   .then( function(data){
-    //     console.log(data)
-    //   })
-    //   .catch( function(err){
-    //     console.log(err)
-    //   })
-    }    // }
-  } 
+    $scope.eleminateOptions = function(subID) {
+      DashBoard.eleminateOptions(dashBoardID, subID )
+      .then( function(data){
+        console.log(data)
+      })
+      .catch( function(err){
+        console.log(err)
+      })
+    }
+
+    $scope.voteForOption = function(optionID) {
+      console.log(optionID)
+      DashBoard.voteForOption(dashBoardID , optionID)
+      .then( function(data) {
+        return data 
+        })
+      .catch(function(err) {
+        console.log(err)
+      })
+    }
+  }      
+} 
 ());
