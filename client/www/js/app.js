@@ -5,7 +5,6 @@ angular.module('lets-hangout', [
   'angular-jwt',
   'ionic.contrib.ui.tinderCards2',
   'lets-hangout.services',
-  'lets-hangout.cards'
   ])
 
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
@@ -70,8 +69,7 @@ angular.module('lets-hangout', [
   })
   .state('cards', {
     url: '/cards',
-    templateUrl: 'templates/cards.html',
-    controller: 'CardsCtrl'
+    templateUrl: 'templates/cards.html'
   });
 
   // Initialized the Auth0 provider
