@@ -31,9 +31,23 @@ describe('Services', function () {
       });
 
       it('getAll should get categories data 200(SUCCESS)', function() {
-        $httpBackend
-            .when(baseUrl + 'api/categories/')
-            .respond (200); 
+        var mockResponse = [
+          {
+            "name": "Restaurants",
+            "poster": "https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg",
+          },
+          {
+            "name": "Movies",
+            "poster": "https://thumbs.dreamstime.com/z/cinema-poster-design-template-popcorn-box-disposable-cup-beverages-straw-film-strip-clapper-board-ticket-detailed-44098150.jpg",
+          }
+        ];
+
+        $httpBackend.expect('GET', baseUrl + '/api/categories').respond(mockResponse);
+
+        Categories.getAll().then(function (categories) {
+          expect(categories).toEqual(mockResponse);
+        });
+        $httpBackend.flush();
       });
     });
   });
