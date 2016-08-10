@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app')
+    .module('lets-hangout')
     .controller('LoginController', LoginController)
 
   LoginController.$inject = ['$scope', '$state', 'auth', 'store'];
