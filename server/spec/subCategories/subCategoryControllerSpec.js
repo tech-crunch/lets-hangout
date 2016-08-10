@@ -111,7 +111,7 @@ describe('SubCategory Controller', function () {
         parentId: data._id
       });
       newSubCategory.save(function(err, subCategory) {
-        getChildren(subCategory._id,
+        getChildren(data._id,
           function(err, res){
             res.should.have.status(200);
             res.should.be.json;
