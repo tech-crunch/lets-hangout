@@ -1,20 +1,29 @@
-angular.module('lets-hangout.services', [])
+(function () {
+    'use strict';
 
-.factory('Categories', function($http){
-	var baseUrl = 'http://letsshangout.herokuapp.com';
+    var baseUrl = 'http://letsshangout.herokuapp.com';
 
-	var getAll = function(){
-		return $http({
-			method: 'GET',
-			url: baseUrl + '/api/categories'
-		})
-		.then(function(resp){
-			return resp.data;
-		});
-	};
+    angular
+        .module('lets-hangout')
+        .factory('Categories', Categories)
+
+    Categories.$inject = ['$http'];
+
+    function Categories($http){
+    	var getAll = function(){
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/categories'
+			})
+			.then(function(resp){
+				return resp.data;
+			});
+		};
 	
+		return {
+			getAll: getAll
+		};
 
-	return {
-		getAll: getAll
-	};
-});
+    };
+
+} ());
