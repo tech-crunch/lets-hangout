@@ -4,7 +4,7 @@
     var baseUrl = 'http://letsshangout.herokuapp.com';
 
     angular
-        .module('lets-hangout')
+        .module('lets-hangout.services', [])
         .factory('Categories', Categories)
 
     Categories.$inject = ['$http'];
