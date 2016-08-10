@@ -15,13 +15,13 @@ module.exports = {
 		var poster = req.body.poster;
 		var name = req.body.name;
 		var details = req.body.details;
-		var children = req.body.children || [];
+		var parentId = req.body.parentId;
 
 		var newSub = SubCategory({
 			poster: poster,
 			name: name,
 			details: details,
-			children: children
+			parentId: parentId
 		});
 
 		newSub.save(function(err, newSub){
@@ -38,33 +38,16 @@ module.exports = {
     });
 	},
 
-	//	function to add a child to subcategory
-	addChild: function (req, res, next) {
-		var id = req.params.id.toString();
-		
-    var error;
-
-		SubCategory.update({ _id: id },
-      { $pull: { children: req.body.subCategoryId } }
-    );
-    
-    SubCategory.findOneAndUpdate({ _id: id },
-      { $push: { children: req.body.subCategoryId } },
-      { new: true },
-      function (err, savedSubCategory) {
-        repsonseHandler(err, req, res, {status: 201, returnObj:savedSubCategory}, next);
-    });
-	},
 
 	// function to get array of children object ids
 	getChildren : function (req, res, next) {
 		var id = req.params.id.toString();
-		SubCategory.findOne({_id: id})
+		SubCategory.find({_id: id})
     .exec(function(err, subCategory){
       if(err){
         subCategory = {};
       }
-      repsonseHandler(err, req, res, {status: 200, returnObj: { children : subCategory.children } }, next);
+      repsonseHandler(err, req, res, {status: 200, returnObj: subCategory}, next);
     });
 	}
 };
