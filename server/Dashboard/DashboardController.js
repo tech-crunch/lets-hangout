@@ -26,7 +26,7 @@ module.exports = {
   eleminateOptions: function (req, res, next) {
     Dashboard.findOneAndUpdate(
       {_id: req.params.id},
-      {$pull: {options: req.body.subCategoryId}},
+      {$pull: {options: {subCategoryId: req.body.subCategoryId}}},
       {new: true},
       function(err, dashboard){
         repsonseHandler(err, req, res, {status: 200, returnObj:dashboard}, next);
