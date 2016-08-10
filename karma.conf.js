@@ -21,7 +21,7 @@ module.exports = function(config) {
 
 
         'client/www/js/*.js',
-        'client/spec/**/*.js'
+        'client/www/spec/**/*.js'
     ],
 
 
