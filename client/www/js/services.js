@@ -13,33 +13,8 @@ angular.module('lets-hangout.services', [])
 		});
 	};
 	
-	var addOne = function(category){
-		return $http({
-			method: 'POST',
-			url: baseUrl + '/api/categories',
-			data: category
-		})
-		.then(function(resp){
-			return resp;
-		});
-	};
-
-	var addChild = function(categoryID, subID){
-		return $http({
-			method: 'PUT',
-			url: baseUrl + '/api/categories/addChild/' + categoryID,
-			data: {
-				id: subID
-			}
-		})
-		.then(function(resp){
-			return resp;
-		});
-	};
 
 	return {
-		getAll: getAll,
-		addOne: addOne,
-		addChild: addChild
+		getAll: getAll
 	};
 });
