@@ -42,7 +42,7 @@ module.exports = {
 	// function to get array of children object ids
 	getChildren : function (req, res, next) {
 		var id = req.params.id.toString();
-		SubCategory.find({_id: id})
+		SubCategory.find({parentId: id})
     .exec(function(err, subCategory){
       if(err){
         subCategory = {};
