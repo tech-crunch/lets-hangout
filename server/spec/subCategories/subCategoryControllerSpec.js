@@ -3,6 +3,7 @@ var chaiHttp = require('chai-http');
 var app = require('../../server.js');
 var SubCategory = require('../../subCategories/subCategoryModel.js');
 var mongoose = require('mongoose');
+var Categories = require('../../categories/categoryModel.js')
 
 var postSubCategory = function(body, expectations){
   chai.request(app)
@@ -17,12 +18,6 @@ var getSubCategory = function(id, expectations){
     .end(expectations);
 };
 
-var addChildToSub = function(body, id, expectations){
-  chai.request(app)
-    .put('/api/subCategory/'+id)
-    .send(body)
-    .end(expectations);
-};
 
 var getChildren = function(id, expectations){
   chai.request(app)
@@ -44,7 +39,8 @@ describe('SubCategory Controller', function () {
     var testObj = {
       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
       name: 'Suicide Squad',
-      details: 'Action Movie'
+      details: 'Action Movie',
+      parentId: '57a33701864fd5bc095d5462'
     };
     postSubCategory(testObj,
       function(err, res){
@@ -73,7 +69,8 @@ describe('SubCategory Controller', function () {
     var newSubCategory = new SubCategory({
       poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
       name: 'Suicide Squad',
-      details: 'Action Movie'
+      details: 'Action Movie',
+      parentId: '57a33701864fd5bc095d5462'
     });
     newSubCategory.save(function(err, data) {
       getSubCategory(data._id,
@@ -100,65 +97,28 @@ describe('SubCategory Controller', function () {
     });
   });
 
-  it('should create add child to subCategory in database and responds with a 201', function (done) {
-    var testArray = [
-      {
-        poster: 'http://cdn.gearpatrol.com/wp-content/uploads/2013/11/Best-Action-Movies-Lead-Full1.jpg',
-        name: 'Action Movies',
-        details: 'A list of Action Movies'
-      },
-      {
+
+  it('should get children array of a subCategory by parentId and responds with a 200', function (done) {
+    var newCategory = new Categories({
+      poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
+      name: 'movies'
+    });
+    newCategory.save(function(err, data) {
+      var newSubCategory = new SubCategory({
         poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
         name: 'Suicide Squad',
-        details: 'Action Movie'
-      }
-    ];
-    SubCategory.create(testArray,function(err,results){
-      addChildToSub({subCategoryId:results[1]._id},
-        results[0]._id,
-        function(err,res){
-          res.should.have.status(201);
-          res.should.be.json;
-          res.body.should.have.property('children');
-          var subId = res.body.children[res.body.children.length-1]+'';
-          chai.expect(subId).to.equal(results[1]._id+'');
-          done();
+        details: 'Action Movie',
+        parentId: data._id
       });
-    });
-  });
-
-  it('should respond with an 500 error when trying to add child to non-existence subCategory', function (done) {  
-    addChildToSub({subCategoryId:'1'},
-      1,
-      function(err, res){
-        res.should.have.status(500);
-        done();
-    });
-  });
-
-  it('should get children array of a subCategory by id and responds with a 200', function (done) {  
-    var newSubCategory = new SubCategory({
-      poster: 'http://screenrant.com/wp-content/uploads/suicide-squad-movie-2016-poster.jpeg',
-      name: 'Suicide Squad',
-      details: 'Action Movie',
-      children: [
-        "57a33701864fd5bc095d5462",
-        "57a33701864fd5bc095d5463",
-        "57a33701864fd5bc095d5464",
-      ]
-    });
-    newSubCategory.save(function(err, data) {
-      getChildren(data._id,
-        function(err, res){
-          res.should.have.status(200);
-          res.should.be.json;
-          res.body.should.be.a('object');
-          res.body.should.have.property('children');
-          for(var i=0; i<res.body.children.length; i++){
-            var subId = res.body.children[i]+'';
-            chai.expect(subId).to.equal(data.children[i]+'');
-          }
-          done();
+      newSubCategory.save(function(err, subCategory) {
+        getChildren(subCategory._id,
+          function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body[0].parentId.should.equal(data._id.toString())
+            res.body.should.be.a('Array');
+            done();
+        });
       });
     });
   });
