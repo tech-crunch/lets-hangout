@@ -9,8 +9,11 @@
      <div ng-controller= "dashBoardCtrl" >
         <li ng-repeat="data in dash.subC">
         <div>
+          <h6 ng-model="subID">{{data._id}}</h6>
           <h6> {{data.name}} </h6>
-          <img src="{{data.poster}}" alt="subCat poster" height="128" width="128"><h6>{{data._v}}</h6>
+          <img src="{{data.poster}}" alt="subCat poster" height="128" width="128">
+          <button ng-click = "eleminateOptions(data._id)">elemenate option</button> 
+          <h4>{{vote}}</h4>
           <p>{{data.details}} </p>
         </div>
           </li> 

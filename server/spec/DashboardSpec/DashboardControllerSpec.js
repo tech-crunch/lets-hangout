@@ -72,6 +72,7 @@ describe('Dashboard Controller', function () {
             res.body.should.be.a('object');
             res.body.should.have.property('_id');
             res.body.options.should.have.lengthOf(0);
+            res.body.options.length.should.equal(0);
             done();
         });
       });

@@ -149,10 +149,11 @@
 		});
 	};
 
-	var voteForOption = function(optionID){
+	var voteForOption = function(dashBoardID, optionID){
 		return $http({
 			method: 'PUT',
-			url:baseUrl + '/api/dashboard/voteForOption/' + optionID
+			url:baseUrl + '/api/dashboard/voteForOption/' + dashBoardID,
+			data:optionID
 		})
 		.then(function(resp){
 			return resp.data
