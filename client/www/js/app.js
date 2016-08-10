@@ -79,7 +79,7 @@ angular.module('lets-hangout', [
   })
   
    .state('dashboards', {
-    url: '/dashboards',
+    url: '/group/:groupName',
     templateUrl: 'templates/dashboards.html',
     controller:'dashboardsController'
   })

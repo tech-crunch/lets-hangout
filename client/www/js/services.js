@@ -31,7 +31,7 @@
 } ());
 
 .factory('Group',function ($http){
-	var newDash;
+	// var newDash;
   var newGroup = function (groupName,id){
     return $http({
       method:'POST',
@@ -56,6 +56,7 @@
   };
 
   var groupInfo = function(groupName){
+    console.log(1);
   	return $http({
   		method: 'GET',
   		url: localUrl+'/api/'+groupName
@@ -66,7 +67,6 @@
 
   };
    var dashboardInfo = function(id){
-   	console.log(1);
   	return $http({
   		method: 'GET',
   		url: localUrl+'/api/dashboard/'+id
@@ -76,21 +76,41 @@
   	})
 
   };
-  var setdash = function(dash){
-    newDash = dash ;
+
+  var addFriend = function (groupName,username){
+    return $http({
+      method:'POST',
+      url: localUrl+'/api/group/'+groupName,
+      data:{
+         username:username
+      }
+     })
+     .then(function(resp){
+        return resp;
+     });
   };
 
-  var getdash = function(){
-    return newDash ;
+  var getAllFriends = function(){
+    return $http({
+      method: 'GET',
+      url: localUrl+'/api/users'
+    })
+    .then(function(resp){
+      return resp.data;
+    })
+
   };
+
+
 
   return {
     newGroup:newGroup,
     allGroups:allGroups,
     groupInfo:groupInfo,
     dashboardInfo:dashboardInfo,
-    setdash:setdash,
-    getdash:getdash
+    addFriend:addFriend,
+    getAllFriends:getAllFriends
+    
   }
 
 })

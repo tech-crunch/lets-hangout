@@ -34,16 +34,7 @@ angular.module('lets-hangout.group', [])
   }
   // select group
   $scope.selectGroup = function(name){
-    Group.groupInfo(name)
-    .then(function (data){
-     console.log(data.dashboard);
-      Group.setdash(data.dashboard);
-      $location.path('/dashboards');
-    })
-    .catch(function (err){
-      console.log(err);
-    })
-
+      $location.path('/group/'+name);
   }
 
 })
