@@ -8,7 +8,7 @@ angular.module('lets-hangout', [
   'lets-hangout.cards'
   ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -54,7 +54,7 @@ angular.module('lets-hangout', [
     }
   });
 })
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
