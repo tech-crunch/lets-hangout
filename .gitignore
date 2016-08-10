@@ -48,6 +48,7 @@ client/lib/
 .tmp/
 client/.tmp/
 client/www/lib
+client/www/js/auth0.variables.js
 .sass-cache
 *.DS_Store
 *.log
