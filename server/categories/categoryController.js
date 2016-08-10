@@ -30,31 +30,10 @@ module.exports = {
     addCategory : function(req, res, next){
         var newCategory = new Categories ({
             name : req.body.name,
-            poster : req.body.poster,
-            children : req.body.children || []   
+            poster : req.body.poster  
         });
         newCategory.save(function(err, newCategory){
           repsonseHandler(err, req, res, {status: 201, returnObj:newCategory}, next);
         });
-    },
-
-    addChild : function(req, res, next){
-        Categories.findOneAndUpdate(
-            { _id: req.params.id},
-            { $push: { children: req.body.id } },
-            { new: true },
-            function(err, data){
-                repsonseHandler(err, req, res, {status: 201, returnObj:data}, next);
-            });
-    },
-
-    removeChild : function(req, res, next){
-        Categories.findOneAndUpdate(
-            { _id: req.params.id},
-            { $pull: { children: req.body.id } },
-            { new: true },
-            function(err, data){
-                repsonseHandler(err, req, res, {status: 201, returnObj:data}, next);
-            });
     }
 };
