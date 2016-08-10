@@ -1,6 +1,8 @@
 angular.module('lets-hangout', [
   'ionic',
   'auth0',
+  'angular-storage',
+  'angular-jwt',
   'ionic.contrib.ui.tinderCards2',
   'lets-hangout.services',
   'lets-hangout.cards'
