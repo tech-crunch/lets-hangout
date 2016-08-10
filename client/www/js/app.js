@@ -58,7 +58,14 @@ angular.module('lets-hangout', [
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
+  .state('home', {
+    url: '/',
+    templateUrl: 'templates/home.html'
+  })
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html'
+  })
   .state('cards', {
     url: '/cards',
     templateUrl: 'templates/cards.html',
@@ -73,8 +80,7 @@ angular.module('lets-hangout', [
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/cards');
-
+  $urlRouterProvider.otherwise('/');
 })
 .directive('noScroll', function($document) {
 
