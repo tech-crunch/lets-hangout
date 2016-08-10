@@ -1,8 +1,14 @@
 <ion-view view-title="Lets Hangout" ng-controller="HomeController as vm">
   <ion-content class="padding">
-  <div class="button-bar bar-light">
+  	<div class="button-bar bar-light">
 	  <a class="button" href="#/login">Login</a>
-	  <a class="button" ng-click="vm.logout">Logout</a>
+	  <a class="button" ng-click="vm.logout()">Logout</a>
+	</div>
+	<div class="button-bar bar-light">
+	  <a class="button" href="#/cards">Let The Game Begin</a>
+	</div>
+	<div style="margin-top: 40%; text-align: center; color: red; font-size: 15px;" ng-if="vm.userName">
+		Welcome Back {{vm.userName}}
 	</div>
   </ion-content>
 </ion-view>
