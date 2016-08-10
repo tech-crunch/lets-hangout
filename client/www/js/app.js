@@ -4,7 +4,7 @@ angular.module('lets-hangout', [
   'angular-storage',
   'angular-jwt',
   'ionic.contrib.ui.tinderCards2',
-  'lets-hangout.services',
+  'lets-hangout.services'
   ])
 
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
