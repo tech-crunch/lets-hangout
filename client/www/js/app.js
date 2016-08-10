@@ -1,5 +1,6 @@
 angular.module('lets-hangout', [
   'ionic',
+  'auth0',
   'ionic.contrib.ui.tinderCards2',
   'lets-hangout.services',
   'lets-hangout.cards'
@@ -19,6 +20,37 @@ angular.module('lets-hangout', [
       StatusBar.styleDefault();
     }
   });
+
+  // This hooks all auth events to check everything as soon as the app starts
+  auth.hookEvents();
+
+  //This event gets triggered on URL change
+  var refreshingToken = null;
+  $rootScope.$on('$locationChangeStart', function () {
+    var token = store.get('token');
+    var refreshToken = store.get('refreshToken');
+    if (token) {
+      if (!jwtHelper.isTokenExpired(token)) {
+        if (!auth.isAuthenticated) {
+          auth.authenticate(store.get('profile'), token);
+        }
+      } else {
+        if (refreshToken) {
+          if (refreshingToken === null) {
+            refreshingToken = auth.refreshIdToken(refreshToken).then(function (idToken) {
+              store.set('token', idToken);
+              auth.authenticate(store.get('profile'), idToken);
+            }).finally(function () {
+              refreshingToken = null;
+            });
+          }
+          return refreshingToken;
+        } else {
+          $location.path('/login');
+        }                          
+      }
+    }
+  });
 })
 .config(function($stateProvider, $urlRouterProvider) {
   // Ionic uses AngularUI Router which uses the concept of states
@@ -31,6 +63,13 @@ angular.module('lets-hangout', [
     url: '/cards',
     templateUrl: 'templates/cards.html',
     controller: 'CardsCtrl'
+  });
+
+  // Initialized the Auth0 provider
+  authProvider.init({
+    domain: AUTH0_DOMAIN,
+    clientID: AUTH0_CLIENT_ID,
+    loginState: 'login'
   });
 
   // if none of the above states are matched, use this as the fallback
