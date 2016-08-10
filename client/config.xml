@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.letshangout" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>client</name>
-  <description>&#xD;
-    Add your desription here&#xD;
+  <description>&#xD;&#xD;
+    Add your desription here&#xD;&#xD;
   </description>
-  <author email="bader.a.khalifeh@gmail.com">&#xD;
-    Tech-Crunch&#xD;
+  <author email="bader.a.khalifeh@gmail.com">&#xD;&#xD;
+    Tech-Crunch&#xD;&#xD;
   </author>
   <content src="index.html"/>
   <access origin="*"/>
