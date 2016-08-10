@@ -1,6 +1,14 @@
-angular.module('lets-hangout.group', [])
+(function () {
+    'use strict';
 
-.controller('groupController', function($scope,Group,$location) {
+    angular
+        .module('lets-hangout')
+        .controller('groupController', groupController)
+
+groupController.$inject = ['$scope','$location', 'Group'];
+
+function groupController($scope,$location, Group) {
+
   $scope.group={};
   $scope.data=[];
 
@@ -37,4 +45,5 @@ angular.module('lets-hangout.group', [])
       $location.path('/group/'+name);
   }
 
-})
+}
+} ());

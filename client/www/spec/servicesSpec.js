@@ -51,4 +51,73 @@ describe('Services', function () {
       });
     });
   });
+
+  describe('Group factory', function () {
+    var $httpBackend, Group;
+
+    // Before each test set our injected Group factory (_group_) to our local Users variable
+    beforeEach(inject(function(_$httpBackend_, _Group_) {
+      Group = _Group_;
+      $httpBackend = _$httpBackend_;
+    }));
+
+    it('Group factory should exist', function() {
+      expect(Group).toBeDefined();
+    });
+
+     describe('.allGroups()', function() {
+      // A test to verify the method allGroups exists
+      it('allGroups should be exist', function() {
+        expect(Group.allGroups).toBeDefined();
+      });
+
+      it('allGroups should get groups data 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/group')
+            .respond (200); 
+      });
+    });
+
+     describe('.groupInfo()', function() {
+      // A test to verify the method groupInfo exists
+      it('groupInfo should be exist', function() {
+        expect(Group.groupInfo).toBeDefined();
+      });
+
+      it('groupInfo should get group data 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/:groupName')
+            .respond (200); 
+      });
+    });
+
+     describe('.dashboardInfo()', function() {
+      // A test to verify the method dashboardInfo exists
+      it('dashboardInfo should be exist', function() {
+        expect(Group.dashboardInfo).toBeDefined();
+      });
+
+      it('dashboardInfo should get dashboard data 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/:id')
+            .respond (200); 
+      });
+    });
+
+     describe('.newGroup()', function() {
+      // A test to verify the method newGroup exists
+      it('newGroup should be exist', function() {
+        expect(Group.newGroup).toBeDefined();
+      });
+
+      it('newGroup should post group data 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl +'/api/group/user/:id')
+            .respond (200); 
+      });
+    });
+
+  });
+
+
 });

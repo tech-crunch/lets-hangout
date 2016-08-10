@@ -13,5 +13,3 @@ var DashboardSchema = new Schema({
 });
 var Dashboard =mongoose.model('Dashboard', DashboardSchema);
 module.exports = Dashboard; 
-var dash = new Dashboard();
-dash.save();

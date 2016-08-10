@@ -77,40 +77,12 @@
 
   };
 
-  var addFriend = function (groupName,username){
-    return $http({
-      method:'POST',
-      url: localUrl+'/api/group/'+groupName,
-      data:{
-         username:username
-      }
-     })
-     .then(function(resp){
-        return resp;
-     });
-  };
-
-  var getAllFriends = function(){
-    return $http({
-      method: 'GET',
-      url: localUrl+'/api/users'
-    })
-    .then(function(resp){
-      return resp.data;
-    })
-
-  };
-
-
 
   return {
     newGroup:newGroup,
     allGroups:allGroups,
     groupInfo:groupInfo,
-    dashboardInfo:dashboardInfo,
-    addFriend:addFriend,
-    getAllFriends:getAllFriends
-    
+    dashboardInfo:dashboardInfo 
   }
 
 })

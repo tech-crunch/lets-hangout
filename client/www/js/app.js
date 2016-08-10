@@ -9,7 +9,7 @@ angular.module('lets-hangout', [
   ])
 
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -74,14 +74,14 @@ angular.module('lets-hangout', [
 
    .state('group', {
     url: '/group/user',
-    templateUrl: 'templates/group.html',
-    controller:'groupController'
+    templateUrl: 'templates/group.html'
+    
   })
   
-   .state('dashboards', {
+   .state('grouphome', {
     url: '/group/:groupName',
-    templateUrl: 'templates/dashboards.html',
-    controller:'dashboardsController'
+    templateUrl: 'templates/groupHome.html'
+   
   })
 
 
