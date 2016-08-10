@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Services', function () {
-  var baseUrl = 'http://letsshangout.herokuapp.com';
+  var baseUrl = 'http://localhost:8000';
   // Before each test load our lets-hangout.services module
   beforeEach(angular.mock.module('lets-hangout.services'));
 
@@ -52,6 +52,7 @@ describe('Services', function () {
     });
   });
 
+<<<<<<< ceb985dca229cdab5e3b2f4666ed9bd11b0db769
   describe('Group factory', function () {
     var $httpBackend, Group;
 
@@ -150,3 +151,95 @@ describe('Services', function () {
   });
 
 
+=======
+  describe('DashBoard factory', function () {
+    var $httpBackend, DashBoard;
+
+    // Before each test set our injected Categories factory (_Categories_) to our local Users variable
+    beforeEach(inject(function(_$httpBackend_, _DashBoard_) {
+      DashBoard = _DashBoard_;
+      $httpBackend = _$httpBackend_;
+    }));
+
+    it('DashBoard factory should exist', function() {
+      expect(DashBoard).toBeDefined();
+    });
+    describe('.createNew()', function() {
+      it('should add a new dachboard with `createNew`', function () {
+      $httpBackend
+        .when('POST', baseUrl + '/api/dashboard' )
+        .respond(201, {options: ['57ab09d1c665971c0daea5a1']});
+
+      DashBoard.createNew().then(function (resp) {
+        expect(resp.status).toEqual(201);
+        expect(resp.data.options).toContain('57ab09d1c665971c0daea5a1')
+      });
+
+       $httpBackend.flush();
+    });
+    
+    })
+      
+    describe('.getInfo()', function() {
+      it('getInfo should be exist', function() {
+        expect(DashBoard.getInfo).toBeDefined();
+      });
+
+      it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/:id')
+            .respond (200); 
+      });
+     });
+
+      describe('.addOption()', function() {
+      it('addOption should be exist', function() {
+        expect(DashBoard.addOption).toBeDefined();
+      });
+
+      it('addOption should add new option to dashboard with a given id 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/addOption/:id')
+            .respond (200); 
+      });
+     });
+
+      describe('.eleminateOptions()', function() {
+      it('eleminateOptions should be exist', function() {
+        expect(DashBoard.eleminateOptions).toBeDefined();
+      });
+
+      it('eleminateOptions should eleminate option from dashboard with a given id 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/eleminateOptions/:id')
+            .respond (200); 
+      });
+     });
+
+      describe('.voteForOption()', function() {
+      it('voteForOption should be exist', function() {
+        expect(DashBoard.voteForOption).toBeDefined();
+      });
+
+      it('voteForOption should increase voting proparety for a given subCategoryId 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/voteForOption/:id')
+            .respond (200); 
+      });
+     }); 
+
+      describe('.getchosenOption()', function() {
+      it('getchosenOption should be exist', function() {
+        expect(DashBoard.getchosenOption).toBeDefined();
+      });
+
+      it('getchosenOption should get option info with the most voting proparety 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/chosenID/:id')
+            .respond (200); 
+      });
+     }); 
+
+  })
+});
+>>>>>>> refactor app.js , making the frontend test

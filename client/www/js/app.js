@@ -74,8 +74,7 @@ angular.module('lets-hangout', [
 
   .state('dashBoard', {
     url: '/dashBoard',
-    templateUrl : 'templates/tab-dash.html',
-    controller: 'dashBoardCtrl'
+    templateUrl : 'templates/tab-dash.html'
   })
 
   // Initialized the Auth0 provider

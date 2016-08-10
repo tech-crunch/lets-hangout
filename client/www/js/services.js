@@ -20,7 +20,7 @@
 			.then(function(resp){
 				return resp.data;
 			});
-	  };
+		};
 
 		return {
 			getAll: getAll
@@ -45,7 +45,6 @@
        });
     };
 
-<<<<<<< 1644f0a21898fb2c0540b28a523173c6acba1b85
     var allGroups = function(){
       return $http({
         method: 'GET',
@@ -88,18 +87,6 @@
 
 } ());
 
-
-
-
-=======
-<<<<<<< 1abb973cc1f599e529d6fc143046f5d82130e0d1
-} ());
-=======
-	return {
-		getAll: getAll
-	};
-})
-
 .factory('DashBoard', function($http){
 	var baseUrl = 'http://localhost:8000';
 
@@ -109,7 +96,7 @@
 			url: baseUrl + '/api/dashboard'
 		})
 		.then(function(resp){
-			return resp.data;
+			return resp;
 		});
 	};
 
@@ -170,8 +157,6 @@
 		});
 	};
 
-
-
 	return {
 		createNew : createNew,
 		getInfo : getInfo,
@@ -202,5 +187,3 @@
 		getInfo : getInfo
 	}
 })
->>>>>>> dash board view , progress
->>>>>>> dash board view , progress

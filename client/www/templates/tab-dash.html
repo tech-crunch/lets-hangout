@@ -1,39 +1,16 @@
-<ion-view>
+<ion-view ng-controller="DashBoardController">
   <ion-pane class="background-grey">
-    <!-- *************************
-      TD Cards
-      - We start off with an ng-if so that the cards are not generated
-        unless $scope.cards is not 'null'
-    ************************* -->
     
-     <div ng-controller= "dashBoardCtrl" >
+     <div>
         <li ng-repeat="data in dash.subC">
-        <div>
-          <h6 ng-model="subID">{{data._id}}</h6>
-          <h6> {{data.name}} </h6>
-          <img src="{{data.poster}}" alt="subCat poster" height="128" width="128">
-          <button ng-click = "eleminateOptions(data._id)">elemenate option</button> 
-          <h4>{{vote}}</h4>
-          <p>{{data.details}} </p>
-        </div>
-          </li> 
-           <!-- *************************
-              Discard
-              - The card is removed from the deck and a fly away animation is triggered.
-              - onClickTransitionOut is found in ionic.tdcards.js
-              - Animation can be customized by changing defaults
-            ************************* -->
-        
-            <!-- <img ng-src="{{ card.poster }}" class="td-image"> -->
-          
-       
-        <!-- *************************
-          End Card
-          - 'drag' is set to false. The user cannot drag it.
-          - 'refreshCards()' reloads all cards that have NOT been discarded.
-        ************************* -->
-        
-      </td>
+          <div>
+            <h6> {{data.name}} </h6>
+            <img src="{{data.poster}}" alt="subCat poster" height="128" width="128">
+            <button ng-click = "eleminateOptions(data._id)">elemenate option</button> 
+            <p>{{data.details}} </p>
+          </div>
+        </li>         
     </div>
+    
   </ion-pane>
 </ion-view>
