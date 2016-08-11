@@ -71,11 +71,18 @@ angular.module('lets-hangout', [
     url: '/cards',
     templateUrl: 'templates/cards.html'
   })
-
   .state('dashBoard', {
     url: '/dashBoard',
-    templateUrl : 'templates/tab-dash.html'
+    templateUrl : 'templates/dashboard.html'
   })
+  .state('group', {
+    url: '/group/user',
+    templateUrl: 'templates/group.html'  
+  })
+  .state('grouphome', {
+    url: '/group/:groupName',
+    templateUrl: 'templates/groupHome.html' 
+  });
 
   // Initialized the Auth0 provider
   authProvider.init({
