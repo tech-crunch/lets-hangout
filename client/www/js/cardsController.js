@@ -54,14 +54,15 @@
 		
 		$scope.cardSwipedRight = function(index) {
 			console.log('RIGHT SWIPE');
-      SubCategory.getChildren($scope.cards.active[index]._id).then(function (cards) {
-        console.log(cards)
-        $scope.cards = {
-          master: Array.prototype.slice.call(cards, 0),
-          active: Array.prototype.slice.call(cards, 0),
-        };
-      });
-      $scope.refreshCards();
+			SubCategory.getChildren($scope.cards.active[index]._id)
+			.then(function (cards) {
+				console.log(cards);
+				$scope.cards = {
+					master: Array.prototype.slice.call(cards, 0),
+					active: Array.prototype.slice.call(cards, 0),
+				};
+			});
+			$scope.refreshCards();
 		};
 	}
 } ());
