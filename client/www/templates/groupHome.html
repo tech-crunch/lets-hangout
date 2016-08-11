@@ -1,0 +1,15 @@
+<ion-view ng-controller="grouphomeController" >
+  
+    <ion-content>
+    <h1>Group HomePage</h1>
+      <ion-list>
+        <ion-item ng-repeat="dashboard in data">
+         Dashboard: {{dashboard.date}}
+        </ion-item>
+       </ion-list>
+
+       <br>
+       <!-- <button ng-click="allFriends()">Add Friend</button> -->
+    </ion-content>
+
+</ion-view>

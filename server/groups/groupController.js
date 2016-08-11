@@ -53,5 +53,11 @@ module.exports = {
     	Group.findOneAndRemove({groupName:groupName},function (err,group){
     		repsonseHandler(err, req, res, {status: 201, returnObj:group}, next)
     	});
+  },
+  getAll: function (req,res,next){
+      Group.find({})
+      .exec(function (err,groups){
+        repsonseHandler(err, req, res, {status: 201, returnObj:groups}, next);
+      })
   }
 }

@@ -33,7 +33,7 @@ describe('Services', function () {
       it('getAll should get categories data 200(SUCCESS)', function() {
         var mockResponse = [
           {
-            "name": "Restaurants",
+            "name": "play",
             "poster": "https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg",
           },
           {
@@ -51,4 +51,102 @@ describe('Services', function () {
       });
     });
   });
-});
+
+  describe('Group factory', function () {
+    var $httpBackend, Group;
+
+    // Before each test set our injected Group factory (_group_) to our local Users variable
+    beforeEach(inject(function(_$httpBackend_, _Group_) {
+      Group = _Group_;
+      $httpBackend = _$httpBackend_;
+    }));
+
+    it('Group factory should exist', function() {
+      expect(Group).toBeDefined();
+    });
+
+     describe('.allGroups()', function() {
+      it('allGroups should get Groups data 200(SUCCESS)', function() {
+
+         var mockResponse = [
+              {
+                "groupName": "group1",
+                "groupAdmin": "22"
+              },
+              {
+                "groupName": "group2",
+                "groupAdmin": "11"
+              }
+            ];
+
+            $httpBackend.expect('GET', baseUrl + '/api/group').respond(mockResponse);
+
+            Group.allGroups().then(function (groups) {
+              expect(groups).toEqual(mockResponse);
+            });
+            $httpBackend.flush();
+          });
+        });
+
+     describe('.groupInfo()', function() {
+      // A test to verify the method groupInfo exists
+      it('groupInfo should be exist', function() {
+        expect(Group.groupInfo).toBeDefined();
+      });
+
+     it('groupInfo should get Group data 200(SUCCESS)', function() {
+
+         var mockResponse = [
+              {
+                "groupName": "group1",
+                "groupAdmin": "22"
+              }
+              
+            ];
+
+            $httpBackend.expect('GET', baseUrl + '/api/'+mockResponse.groupName).respond(mockResponse);
+
+            Group.groupInfo().then(function (groups) {
+              expect(groups).toEqual(mockResponse);
+            });
+            $httpBackend.flush();
+          });
+    });
+
+     describe('.dashboardInfo()', function() {
+      // A test to verify the method dashboardInfo exists
+      it('dashboardInfo should be exist', function() {
+        expect(Group.dashboardInfo).toBeDefined();
+      });
+
+        it('dashboardInfo should get Group data 200(SUCCESS)', function() {
+
+         var mockResponse = [
+              {
+                "_id": "4743580489"
+              }
+              
+            ];
+
+            $httpBackend.expect('GET', baseUrl + '/api/dashboard/'+mockResponse ._id).respond(mockResponse);
+
+            Group.dashboardInfo().then(function (groups) {
+              expect(groups).toEqual(mockResponse);
+            });
+            $httpBackend.flush();
+          });
+    });
+
+     describe('.newGroup()', function() {
+      // A test to verify the method newGroup exists
+      it('newGroup should be exist', function() {
+        expect(Group.newGroup).toBeDefined();
+      });
+
+   });
+
+    });
+
+  });
+
+

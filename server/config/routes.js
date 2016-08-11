@@ -4,6 +4,7 @@ var subCategoryController = require('../subCategories/subCategoryController.js')
 var DashboardController = require('../Dashboard/DashboardController.js');
 var categoryController = require ('../categories/categoryController.js');
 var groupController = require('../groups/groupController');
+var userController = require('../users/userController');
 
 module.exports = function (app, express) {
 	
@@ -26,11 +27,16 @@ module.exports = function (app, express) {
 	app.put('/api/dashboard/addOption/:id', DashboardController.addOption, helpers.errorHandler)
 	
 	// routes for the groups
+	app.get('/api/group',groupController.getAll, helpers.errorHandler);
 	app.post('/api/group/user/:id',groupController.createNewGroup, helpers.errorHandler);
 	app.post('/api/group/:groupName',groupController.addFriendsToGroup, helpers.errorHandler);
 	app.delete('/api/group/:groupName',groupController.removeFriendFromGroup, helpers.errorHandler);
 	app.delete('/api/:groupName',groupController.deleteGroup, helpers.errorHandler);
 	app.get('/api/:groupName',groupController.getInfo, helpers.errorHandler);
+	// routes for users
+
+    app.get('/api/users',groupController.getAll, helpers.errorHandler);
+
 	// If a request is sent somewhere other than the routes above,
 	// send it through our custom error handler
 	app.use(helpers.errorLogger);

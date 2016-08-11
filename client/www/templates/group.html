@@ -1,0 +1,19 @@
+<ion-view ng-controller="groupController">
+  
+    <ion-content>
+       <div>
+        <form ng-submit="createGroup()">
+        <label class="item item-input">
+        <span class="input-label">Group Name :</span>
+        <input type='text' name='group' ng-model='group.groupName' />
+    
+        <button  type="submit" class="button button-calm">New Group</button>
+        </form>
+        </div>
+        <button ng-click="selectGroup(group.groupName)" class="button button-full button-calm" ng-repeat='group in data.groups'>
+                {{group.groupName}}
+        
+        </button>
+    </ion-content>
+
+</ion-view>
