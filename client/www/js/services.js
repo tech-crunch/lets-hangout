@@ -1,193 +1,188 @@
 (function () {
-  'use strict';
+	'use strict';
 
-  var baseUrl = 'http://letsshangout.herokuapp.com';
-  var localUrl = 'http://localhost:8000'; 
+	var baseUrl = 'http://letsshangout.herokuapp.com';
+	var localUrl = 'http://localhost:8000'; 
 
-  angular
-    .module('lets-hangout.services', [])
-    .factory('Categories', Categories)
-    .factory('Group',Group)
-    .factory('DashBoard', DashBoard)
-    .factory('SubCategory', SubCategory)
+	angular
+		.module('lets-hangout.services', [])
+		.factory('Categories', Categories)
+		.factory('Group', Group)
+		.factory('DashBoard', DashBoard)
+		.factory('SubCategory', SubCategory);
 
-  // categories factory
-  Categories.$inject = ['$http'];
-
-  function Categories($http){
-  	var getAll = function(){
+	// categories factory
+	Categories.$inject = ['$http'];
+	function Categories($http) {
+		var getAll = function() {
 			return $http({
 				method: 'GET',
 				url: baseUrl + '/api/categories'
 			})
-			.then(function(resp){
+			.then(function(resp) {
 				return resp.data;
 			});
 		};
 
 		return {
-			getAll : getAll
+			getAll: getAll
 		};
-	};
+	}
 
 	// groups factory
-  Group.$inject = ['$http'];
-
-  function Group($http){
-    var newGroup = function (groupName,id){
-      return $http({
-        method:'POST',
-        url: baseUrl +'/api/group/user/'+id,
-        data:{
-           groupName:groupName
-        }
-       })
-       .then(function(resp){
-          return resp;
-       });
-    };
-
-    var allGroups = function(){
-      return $http({
-        method: 'GET',
-        url: baseUrl  +'/api/group'
-      })
-      .then(function(resp){
-        return resp.data;
-      });
-    };
-
-    var groupInfo = function(groupName){
-      console.log(1);
-      return $http({
-        method: 'GET',
-        url: baseUrl +'/api/'+groupName
-      })
-      .then(function(resp){
-        return resp.data;
-      });
-    };
-
-    var dashboardInfo = function(id){
-      return $http({
-        method: 'GET',
-        url: baseUrl  +'/api/dashboard/'+id
-      })
-      .then(function(resp){
-        return resp.data;
-      });
-    };
-
-    return {
-      newGroup:newGroup,
-      allGroups:allGroups,
-      groupInfo:groupInfo,
-      dashboardInfo:dashboardInfo 
-    };
-  };
-
-  // DashBoard factory
-  DashBoard.$inject = ['$http'];
-
-	function DashBoard($http){
-		var createNew = function(){
+	Group.$inject = ['$http'];
+	function Group($http) {
+		var newGroup = function (groupName, id) {
 			return $http({
-				method:'POST',
-				url: baseUrl + '/api/dashboard'
+				method: 'POST',
+				url: baseUrl + '/api/group/user/' + id,
+				data: {
+					groupName: groupName
+				}
 			})
-			.then(function(resp){
+			.then(function(resp) {
 				return resp;
 			});
 		};
 
-		var getInfo = function(dashBoardID){
+		var allGroups = function() {
 			return $http({
-				method:'GET',
-				url: baseUrl + '/api/dashboard/' + dashBoardID
+				method: 'GET',
+				url: baseUrl + '/api/group'
 			})
-			.then(function(resp){
+			.then(function(resp) {
 				return resp.data;
 			});
 		};
 
-		var addOption = function(dashBoardID, subCategoryID){
+		var groupInfo = function(groupName) {
+			console.log(1);
 			return $http({
-				method:'PUT',
-				url:baseUrl + '/api/dashboard/addOption/' + dashBoardID,
-				data:{
-					subCategoryId : subCategoryID
-				}
+				method: 'GET',
+				url: baseUrl + '/api/' + groupName
 			})
-			.then(function(resp){
-				return resp.data
+			.then(function(resp) {
+				return resp.data;
 			});
 		};
 
-		var eleminateOptions = function(dashBoardID, subCategoryID){
+		var dashboardInfo = function(id) {
 			return $http({
-				method:'PUT',
-				url:baseUrl + '/api/dashboard/eleminateOptions/' + dashBoardID,
-				data:{
-					subCategoryId : subCategoryID
-				}
+				method: 'GET',
+				url: baseUrl + '/api/dashboard/' + id
 			})
-			.then(function(resp){
-				return resp.data
-			});
-		};
-
-		var voteForOption = function(dashBoardID, optionID){
-			return $http({
-				method: 'PUT',
-				url:baseUrl + '/api/dashboard/voteForOption/' + dashBoardID,
-				data:{
-					subCategoryId : optionID
-				}
-			})
-			.then(function(resp){
-				return resp.data
-			});
-		};
-
-		var getchosenOption = function(optionID){
-			return $http({
-				method:'GET',
-				url:baseUrl + '/api/dashboard/chosenID/' + optionID
-			})
-			.then(function(resp){
-				return resp.data
+			.then(function(resp) {
+				return resp.data;
 			});
 		};
 
 		return {
-			createNew : createNew,
-			getInfo : getInfo,
-			addOption : addOption,
-			eleminateOptions : eleminateOptions,
-			voteForOption : voteForOption,
-			getchosenOption : getchosenOption
+			newGroup: newGroup,
+			allGroups: allGroups,
+			groupInfo: groupInfo,
+			dashboardInfo: dashboardInfo 
 		};
-  };
+	}
 
-  // SubCategory factory
-  SubCategory.$inject = ['$http'];
-  
-  function SubCategory($http){
+	// DashBoard factory
+	DashBoard.$inject = ['$http'];
+	function DashBoard($http) {
+		var createNew = function() {
+			return $http({
+				method: 'POST',
+				url: baseUrl + '/api/dashboard'
+			})
+			.then(function(resp) {
+				return resp;
+			});
+		};
 
-  	var getInfo = function(subCategoryID){
+		var getInfo = function(dashBoardID) {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/dashboard/' + dashBoardID
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var addOption = function(dashBoardID, subCategoryID) {
+			return $http({
+				method: 'PUT',
+				url: baseUrl + '/api/dashboard/addOption/' + dashBoardID,
+				data: {
+					subCategoryId: subCategoryID
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var eleminateOptions = function(dashBoardID, subCategoryID) {
+			return $http({
+				method: 'PUT',
+				url: baseUrl + '/api/dashboard/eleminateOptions/' + dashBoardID,
+				data: {
+					subCategoryId: subCategoryID
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var voteForOption = function(dashBoardID, optionID) {
+			return $http({
+				method: 'PUT',
+				url: baseUrl + '/api/dashboard/voteForOption/' + dashBoardID,
+				data: {
+					subCategoryId: optionID
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var getchosenOption = function(optionID) {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/dashboard/chosenID/' + optionID
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		return {
+			createNew: createNew,
+			getInfo: getInfo,
+			addOption: addOption,
+			eleminateOptions: eleminateOptions,
+			voteForOption: voteForOption,
+			getchosenOption: getchosenOption
+		};
+	}
+
+	// SubCategory factory
+	SubCategory.$inject = ['$http'];	
+	function SubCategory($http) {
+
+		var getInfo = function(subCategoryID) {
 			return $http({
 				method: 'GET',
 				url: baseUrl + '/api/subCategory/' + subCategoryID
 			})
-			.then(function(resp){
+			.then(function(resp) {
 				return resp.data;
 			});
 		};
 
 		return {
-			getInfo : getInfo
+			getInfo: getInfo
 		};
-  };
-
+	}
 } ());
 
