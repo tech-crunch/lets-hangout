@@ -30,7 +30,7 @@
 			getAll: getAll
 		};
 	}
-
+	
 	// groups factory
 	Group.$inject = ['$http'];
 	function Group($http) {
