@@ -7,9 +7,7 @@ angular.module('lets-hangout', [
   'lets-hangout.services'
   ])
 
-
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
-
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -61,7 +59,6 @@ angular.module('lets-hangout', [
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
   .state('home', {
     url: '/',
     templateUrl: 'templates/home.html'
@@ -70,19 +67,15 @@ angular.module('lets-hangout', [
     url: '/login',
     templateUrl: 'templates/login.html'
   })
-  .state('group', {
-    url: '/group/user',
-    templateUrl: 'templates/group.html'  
-  })
-  .state('grouphome', {
-    url: '/group/:groupName',
-    templateUrl: 'templates/groupHome.html' 
-  })
   .state('cards', {
     url: '/cards',
     templateUrl: 'templates/cards.html'
-  });
+  })
 
+  .state('dashBoard', {
+    url: '/dashBoard',
+    templateUrl : 'templates/tab-dash.html'
+  })
 
   // Initialized the Auth0 provider
   authProvider.init({
@@ -91,6 +84,7 @@ angular.module('lets-hangout', [
     loginState: 'login'
   });
 
+  // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
 })
 .directive('noScroll', function($document) {

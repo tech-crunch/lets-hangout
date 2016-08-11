@@ -147,6 +147,129 @@ describe('Services', function () {
 
     });
 
+
+  describe('DashBoard factory', function () {
+    var $httpBackend, DashBoard;
+
+    // Before each test set our injected Categories factory (_Categories_) to our local Users variable
+    beforeEach(inject(function(_$httpBackend_, _DashBoard_) {
+      DashBoard = _DashBoard_;
+      $httpBackend = _$httpBackend_;
+    }));
+
+    it('DashBoard factory should exist', function() {
+      expect(DashBoard).toBeDefined();
+    });
+    describe('.createNew()', function() {
+      it('should add a new dachboard with `createNew`', function () {
+      $httpBackend
+        .when('POST', baseUrl + '/api/dashboard' )
+        .respond(201, {options: ['57ab09d1c665971c0daea5a1']});
+      DashBoard.createNew().then(function (resp) {
+        expect(resp.status).toEqual(201);
+        expect(resp.data.options).toContain('57ab09d1c665971c0daea5a1')
+      });
+       $httpBackend.flush();
+    });
+    
+    })
+      
+    // describe('.getInfo()', function() {
+
+    //   it('getInfo should be exist', function() {
+    //     expect(DashBoard.getInfo).toBeDefined();
+    //   });
+
+    //   it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
+    //      var newDash = {
+    //     _id : "57ab0d66c665971c0daea5a4",
+    //     date : "2016-08-10 11:17:58.339Z",
+    //     options : []
+    //   }
+    //     $httpBackend
+    //         .expect('GET', baseUrl + '/api/dashboard/57ab0d66c665971c0daea5a4')
+    //         .respond (newDash);
+    //         DashBoard.getInfo().then(function (data) {
+    //         expect(data._id).toEqual(newDash._id);
+    //     }); 
+    //         $httpBackend.flush();
+    //   });
+    //  });
+
+      describe('.addOption()', function() {
+        var newDash = {
+        _id : "57ab0d66c665971c0daea5a4",
+        date : "2016-08-10 11:17:58.339Z",
+        options : []
+        };
+
+        var newOption = {
+          _id : "57ab09d1c665971c0daea5a1",
+          poster : "http://fontmeme.com/images/Ice-Age-Poster.jpg",
+          name : "ice age",
+          details : "Manny, Sid, and Diego discover that the ice age is coming to an end, and join everybody for a journey to higher ground"
+        }
+
+      it('addOption should be exist', function() {
+        expect(DashBoard.addOption).toBeDefined();
+      });
+
+      it('addOption should add new option to dashboard with a given id 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/addOption/'+newDash._id)
+            .respond (newOption); 
+      });
+     });
+
+      describe('.eleminateOptions()', function() {
+
+        var newDash = {
+          _id : "57ab0d66c665971c0daea5a4",
+          date : "2016-08-10 11:17:58.339Z",
+          options : []
+        };
+
+        var newOption = {
+          _id : "57ab09d1c665971c0daea5a1",
+          poster : "http://fontmeme.com/images/Ice-Age-Poster.jpg",
+          name : "ice age",
+          details : "Manny, Sid, and Diego discover that the ice age is coming to an end, and join everybody for a journey to higher ground",
+          chldren :[]
+        }
+
+      it('eleminateOptions should be exist', function() {
+        expect(DashBoard.eleminateOptions).toBeDefined();
+      });
+
+      it('eleminateOptions should eleminate option from dashboard with a given id 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/eleminateOptions/'+newDash._id)
+            .respond (newOption); 
+      });
+     });
+
+      describe('.voteForOption()', function() {
+      it('voteForOption should be exist', function() {
+        expect(DashBoard.voteForOption).toBeDefined();
+      });
+
+      it('voteForOption should increase voting proparety for a given subCategoryId 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/voteForOption/:id')
+            .respond (200); 
+      });
+     }); 
+
+      describe('.getchosenOption()', function() {
+      it('getchosenOption should be exist', function() {
+        expect(DashBoard.getchosenOption).toBeDefined();
+      });
+
+      it('getchosenOption should get option info with the most voting proparety 200(SUCCESS)', function() {
+        $httpBackend
+            .when(baseUrl + '/api/dashboard/chosenID/:id')
+            .respond (200); 
+      });
+     }); 
   });
-
-
+});
