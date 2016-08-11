@@ -1,3 +1,4 @@
+<<<<<<< 97bfe384042582499306544009f809f99ccce77a
 (function () {
 	'use strict';
 
@@ -30,6 +31,11 @@
 			getAll: getAll
 		};
 	}
+ // (function () {
+ //  'use strict';
+
+  // var baseUrl = 'http://localhost:8000';
+  // var localUrl = 'http://localhost:8000'; 
 
 	// groups factory
 	Group.$inject = ['$http'];
