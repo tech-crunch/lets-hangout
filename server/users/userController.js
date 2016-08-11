@@ -12,9 +12,9 @@ var repsonseHandler = function(error, req, res, body, next){
 
 module.exports = {
 	getAll: function (req,res,next){
-      User.find({})
-      .exec(function (err,groups){
-        repsonseHandler(err, req, res, {status: 201, returnObj:groups}, next);
-      })
+    User.find({})
+    .exec(function (err,groups){
+      repsonseHandler(err, req, res, {status: 201, returnObj:groups}, next);
+    })
   }
 }
