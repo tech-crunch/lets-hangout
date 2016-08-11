@@ -1,4 +1,3 @@
-
 angular.module('lets-hangout', [
   'ionic',
   'auth0',
@@ -71,20 +70,14 @@ angular.module('lets-hangout', [
     url: '/login',
     templateUrl: 'templates/login.html'
   })
-
-   .state('group', {
+  .state('group', {
     url: '/group/user',
-    templateUrl: 'templates/group.html'
-    
+    templateUrl: 'templates/group.html'  
   })
-  
-   .state('grouphome', {
+  .state('grouphome', {
     url: '/group/:groupName',
-    templateUrl: 'templates/groupHome.html'
-   
+    templateUrl: 'templates/groupHome.html' 
   })
-
-
   .state('cards', {
     url: '/cards',
     templateUrl: 'templates/cards.html'
@@ -98,10 +91,7 @@ angular.module('lets-hangout', [
     loginState: 'login'
   });
 
- 
-
-  $urlRouterProvider.otherwise('/group/user');
-
+  $urlRouterProvider.otherwise('/');
 })
 .directive('noScroll', function($document) {
 
