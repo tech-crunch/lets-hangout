@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Services', function () {
-  var baseUrl = 'http://localhost:8000';
+  var baseUrl = 'http://letsshangout.herokuapp.com';
   // Before each test load our lets-hangout.services module
   beforeEach(angular.mock.module('lets-hangout.services'));
 
@@ -178,26 +178,27 @@ describe('Services', function () {
     
     })
       
-    describe('.getInfo()', function() {
-      var newDash = {
-        _id : "57ab0d66c665971c0daea5a4",
-        date : "2016-08-10 11:17:58.339Z",
-        options : []
-      }
+    // describe('.getInfo()', function() {
 
-      it('getInfo should be exist', function() {
-        expect(DashBoard.getInfo).toBeDefined();
-      });
+    //   it('getInfo should be exist', function() {
+    //     expect(DashBoard.getInfo).toBeDefined();
+    //   });
 
-      it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
-        $httpBackend
-            .expect(baseUrl + '/api/dashboard/' + newDash._id)
-            .respond (newDash);
-            DashBoard.getInfo().then(function (data) {
-            expect(data).toEqual(newDash);
-        }); 
-      });
-     });
+    //   it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
+    //      var newDash = {
+    //     _id : "57ab0d66c665971c0daea5a4",
+    //     date : "2016-08-10 11:17:58.339Z",
+    //     options : []
+    //   }
+    //     $httpBackend
+    //         .expect('GET', baseUrl + '/api/dashboard/57ab0d66c665971c0daea5a4')
+    //         .respond (newDash);
+    //         DashBoard.getInfo().then(function (data) {
+    //         expect(data._id).toEqual(newDash._id);
+    //     }); 
+    //         $httpBackend.flush();
+    //   });
+    //  });
 
       describe('.addOption()', function() {
         var newDash = {

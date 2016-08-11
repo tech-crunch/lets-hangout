@@ -5,8 +5,7 @@
         <li ng-repeat="data in dash.subC">
           <div>
             <h5 style="text-align: center;"> {{data.name}}</h5>
-            <img src="{{data.poster}}" alt="subCat poster" height="128" width="128" style="margin-left:40%;">
-            <!-- <button ng-click = "eleminateOptions(data._id)">elemenate option</button> -->
+            <img src="{{data.poster}}" alt="subCat poster" height="128" width="180" style="margin-left:40%;">
             <button type="button" class="btn btn-outline-danger" ng-click = "eleminateOptions(data._id)">elemenate option</button>
             <div class="button" ng-click = "voteForOption(dash.option[$index])">
                 <p>{{dash.voting[$index]}}</p>
