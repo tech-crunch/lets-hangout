@@ -1,40 +1,40 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('lets-hangout')
-        .controller('HomeController', HomeController)
+  angular
+    .module('lets-hangout')
+    .controller('HomeController', HomeController)
 
-    HomeController.$inject = ['$state', '$scope', 'auth', 'store'];
+  HomeController.$inject = ['$state', '$scope', 'auth', 'store'];
 
-    function HomeController($state, $scope, auth, store) {
-        var vm = this;
+  function HomeController($state, $scope, auth, store) {
+    var vm = this;
 
-        vm.auth = auth;
+    vm.auth = auth;
 
-        vm.login = login;
-        vm.logout = logout;
+    vm.login = login;
+    vm.logout = logout;
 
-        vm.userName;
+    vm.userName;
 
-        $scope.$on('$ionicView.enter', function (viewInfo, state) {
-            if(store.get('profile')){
-                vm.userName = store.get('profile').name;
-            }
-        });
-
-        function login() {
-            $state.go("login");
+    $scope.$on('$ionicView.enter', function (viewInfo, state) {
+        if(store.get('profile')){
+            vm.userName = store.get('profile').name;
         }
+    });
 
-        function logout() {
-            auth.signout();
-            store.remove('profile');
-            store.remove('token');
-            store.remove('accessToken');
-            store.remove('refreshToken');
-            vm.userName = null;
-        }
-    }
+    function login() {
+        $state.go("login");
+    };
+
+    function logout() {
+        auth.signout();
+        store.remove('profile');
+        store.remove('token');
+        store.remove('accessToken');
+        store.remove('refreshToken');
+        vm.userName = null;
+    };
+  };
 
 } ());
