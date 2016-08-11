@@ -13,24 +13,24 @@
 		$scope.dash.option = [];
 		$scope.dash.subC = [];
 		$scope.dash.voting = [];
+    var dashBoardID = "57ab0d66c665971c0daea5a4"
+  	$scope.getDashBoardInfo = function() {
+  		DashBoard.getInfo(dashBoardID)
+  		.then (function(data) {
+        for (var i = 0; i < data.options.length; i++) {
+          var vote = data.options[i].voting;
+          var optionID = data.options[i].subCategoryId
+          $scope.dash.voting.push(vote)
+          $scope.dash.option.push(optionID)
+          SubCategory.getInfo(data.options[i].subCategoryId)
+  		   .then(function(subCat){
+            $scope.dash.subC.push(subCat)
+          })
+        }
+  		})
+  	}
+    $scope.getDashBoardInfo();
 
-		var dashBoardID = '57ab0d66c665971c0daea5a4';
-		$scope.getDashBoardInfo = function() {
-			DashBoard.getInfo(dashBoardID)
-			.then (function(data) {
-				for (var i = 0; i < data.options.length; i++) {
-					var vote = data.options[i].voting;
-					var optionID = data.options[i].subCategoryId;
-					$scope.dash.voting.push(vote);
-					$scope.dash.option.push(optionID);
-					SubCategory.getInfo(data.options[i].subCategoryId)
-					.then(function(subCat) {
-						$scope.dash.subC.push(subCat);
-					});
-				}
-			});
-		};
-		$scope.getDashBoardInfo();
 
 		$scope.createNewDashBoard = function() {
 			DashBoard.createNew()
