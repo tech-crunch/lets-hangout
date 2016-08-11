@@ -180,8 +180,19 @@
 			});
 		};
 
+		var getChildren = function (parentId) {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/subCategory/getChildren/' + parentId
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
 		return {
-			getInfo: getInfo
+			getInfo: getInfo,
+			getChildren: getChildren
 		};
 	}
 } ());
