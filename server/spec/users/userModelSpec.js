@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
 var path = require('path');
-var User = require(path.join(__dirname, '..', './users/userModel.js'));
+var User = require(path.join(__dirname, '..', '../users/userModel.js'));
 
 describe('User Model', function () {
 
