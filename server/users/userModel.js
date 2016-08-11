@@ -3,8 +3,10 @@ var Schema = mongoose.Schema;
 
 // users table here.
 var usersSchema = new Schema({
-	username : {type: String , required: true},
-	authentication : {type : String , required: true}
+	user_id : {type: String , required: true, unique: true},
+	name: {type: String , required: true},
+	picture: {type: String , required: true},
+	friends : [{ type: String, unique: true}]
 });
 
 var User = mongoose.model('User',  usersSchema);
