@@ -14,7 +14,7 @@ describe('Group Controller', function () {
   });
 
   it('should create new group in database responds with a 201 (Created)', function (done) {
-    var newUser = new User({user_id:"usertest",name:"test",picture:"test"});
+    var newUser = new User({userId:"usertest",name:"test",picture:"test"});
     newUser.save(function (err,user){
       chai.request(app)
       .post('/api/group/user/'+user._id)
@@ -30,7 +30,7 @@ describe('Group Controller', function () {
   });
 
   it('should responed with 500 error when trying to create Empty Group ', function (done) {
-    var newUser = new User({user_id:"usertest",name:"test",picture:"test"});
+    var newUser = new User({userId:"usertest",name:"test",picture:"test"});
     newUser.save(function (err,user){
       chai.request(app)
       .post('/api/group/user/'+user._id)
@@ -45,11 +45,11 @@ describe('Group Controller', function () {
   it('should add new friend to Group on /api/group/:groupName POST', function (done) {
     var newGroup = new Group({groupName:"group1"});
     newGroup.save(function (err,group){
-      var newUser = new User({user_id:"usertest",name:"test",picture:"test"});
+      var newUser = new User({userId:"usertest",name:"test",picture:"test"});
       newUser.save(function (err,user){
       chai.request(app)
       .post('/api/group/'+group.groupName)
-      .send({user_id:"usertest"})
+      .send({userId:"usertest"})
       .end(function(err, res){
         res.should.have.status(201);
         res.should.be.json;
@@ -64,11 +64,11 @@ describe('Group Controller', function () {
   it('should remove friend from Group on /api/group/:groupName DELETE', function (done) {
     var newGroup = new Group({groupName:"group1"});
     newGroup.save(function (err,group){
-      var newUser = new User({user_id:"usertest",name:"test",picture:"test"});
+      var newUser = new User({userId:"usertest",name:"test",picture:"test"});
       newUser.save(function (err,user){
       chai.request(app)
       .delete('/api/group/'+group.groupName)
-      .send({user_id:"usertest"})
+      .send({userId:"usertest"})
       .end(function(err, res){
         res.should.have.status(201);
         res.should.be.json;
