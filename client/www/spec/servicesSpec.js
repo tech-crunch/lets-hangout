@@ -52,7 +52,6 @@ describe('Services', function () {
     });
   });
 
-<<<<<<< ceb985dca229cdab5e3b2f4666ed9bd11b0db769
   describe('Group factory', function () {
     var $httpBackend, Group;
 
@@ -148,10 +147,7 @@ describe('Services', function () {
 
     });
 
-  });
 
-
-=======
   describe('DashBoard factory', function () {
     var $httpBackend, DashBoard;
 
@@ -275,7 +271,5 @@ describe('Services', function () {
             .respond (200); 
       });
      }); 
-
-  })
+  });
 });
->>>>>>> refactor app.js , making the frontend test
