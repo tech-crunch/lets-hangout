@@ -9,7 +9,9 @@
     "coverage": "./node_modules/.bin/istanbul cover %APPDATA%/npm/node_modules/mocha/bin/_mocha -- -R spec ./server/spec/**/*.js",
     "dev": "nodemon ./server/server.js",
     "start": "nodemon ./server/server.js",
-    "gulp": "./node_modules/.bin/gulp"
+    "gulp": "./node_modules/.bin/gulp",
+    "lintserver": "eslint ./server",
+    "lintclient": "eslint ./client/www/js/"
   },
   "engines": {
     "node": ">=6.3.0"
@@ -35,6 +37,7 @@
     "angular-ui-router": "^0.3.1",
     "chai": "~1.8.0",
     "chai-http": "^3.0.0",
+    "eslint": "^3.2.2",
     "istanbul": "^0.4.4",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",
