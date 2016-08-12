@@ -10,6 +10,7 @@ module.exports = function (app, express) {
 	// routes for users
 	app.get('/api/users', userController.getAll, helpers.errorHandler);
 	app.post('/api/users', userController.createNew, helpers.errorHandler);
+	app.get('/api/users/friends/:userId', userController.getFriends, helpers.errorHandler);
 	app.get('/api/users/:userId', userController.getOne, helpers.errorHandler);
 	app.put('/api/users/:userId', userController.updateInfo, helpers.errorHandler);
 

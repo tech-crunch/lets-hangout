@@ -53,5 +53,17 @@ module.exports = {
 				repsonseHandler(err, req, res, {status: 201, returnObj: savedUser}, next);
 			});
 		});
+	},
+
+	getFriends: function(req, res, next) {
+		var userId = req.params.userId.toString();
+		User.findOne({userId: userId})
+		.exec(function (err, user) {
+			var friendsList = user.friends;
+			User.find({userId: { $in: friendsList}})
+			.exec(function (err, friends){
+				repsonseHandler(err, req, res, {status: 200, returnObj: friends}, next);
+			});
+		});
 	}
 };

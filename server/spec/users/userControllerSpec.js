@@ -131,4 +131,37 @@ describe('User Controller', function () {
 		});
 	});
 
+	it('should get friends list of a user by userId and responds with a 200', function (done) {  
+		var usersArr = [
+			{
+				userId: 'testUserId1',
+				name: 'testName1',
+				picture: 'testPicture1',
+				friends: ['testFriend1', 'testFriend2']
+			},
+			{
+				userId: 'testFriend1',
+				name: 'testName2',
+				picture: 'testPicture2'
+			},
+			{
+				userId: 'testFriend2',
+				name: 'testName3',
+				picture: 'testPicture3'
+			}
+		];
+		User.create(usersArr, function(err, users) {
+			chai.request(app)
+				.get('/api/users/friends/' + usersArr[0].userId)
+				.end(function(err, res) {
+					res.should.have.status(200);
+					res.should.be.json;
+					res.body.should.be.a('array');
+					res.body.length.should.equal(2);
+					res.body[0].userId.should.equal(usersArr[1].userId);
+					res.body[1].userId.should.equal(usersArr[2].userId);
+					done();
+				});
+		});
+	});
 });
