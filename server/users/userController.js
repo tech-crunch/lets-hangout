@@ -40,5 +40,18 @@ module.exports = {
 		.exec(function (err, user) {
 			repsonseHandler(err, req, res, {status: 200, returnObj: user}, next);
 		});
+	},
+
+	updateInfo: function(req, res, next) {
+		var userId = req.params.userId.toString();
+		User.findOne({userId: userId})
+		.exec(function (err, user) {
+			user.name = req.body.name || user.name;
+			user.picture = req.body.picture || user.picture;
+			user.friends = req.body.friends || user.friends;
+			user.save(function (err, savedUser) {
+				repsonseHandler(err, req, res, {status: 201, returnObj: savedUser}, next);
+			});
+		});
 	}
 };
