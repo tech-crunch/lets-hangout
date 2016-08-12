@@ -61,7 +61,7 @@ module.exports = {
 		.exec(function (err, user) {
 			var friendsList = user.friends;
 			User.find({userId: { $in: friendsList}})
-			.exec(function (err, friends){
+			.exec(function (err, friends) {
 				repsonseHandler(err, req, res, {status: 200, returnObj: friends}, next);
 			});
 		});
