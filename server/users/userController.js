@@ -32,5 +32,13 @@ module.exports = {
 		.exec(function (err, users) {
 			repsonseHandler(err, req, res, {status: 200, returnObj: users}, next);
 		});
+	},
+
+	getOne: function(req, res, next) {
+		var userId = req.params.userId.toString();
+		User.findOne({userId: userId})
+		.exec(function (err, user) {
+			repsonseHandler(err, req, res, {status: 200, returnObj: user}, next);
+		});
 	}
 };

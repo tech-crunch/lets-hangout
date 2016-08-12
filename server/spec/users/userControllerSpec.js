@@ -81,4 +81,29 @@ describe('User Controller', function () {
 				});
 		});
 	});
+
+	it('should get information of a user by userId and responds with a 200', function (done) {  
+		var newUser = new User({
+			userId: 'userId',
+			name: 'name',
+			picture: 'picture'
+		});
+		newUser.save(function(err, data) {
+			chai.request(app)
+			.get('/api/users/' + data.userId)
+			.end(function(err, res) {
+					res.should.have.status(200);
+					res.should.be.json;
+					res.body.should.be.a('object');
+					res.body.should.have.property('picture');
+					res.body.should.have.property('name');
+					res.body.should.have.property('userId');
+					res.body.picture.should.equal(data.picture);
+					res.body.name.should.equal(data.name);
+					res.body.userId.should.equal(data.userId);
+					done();
+				});
+		});
+	});
+
 });

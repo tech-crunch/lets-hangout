@@ -10,6 +10,7 @@ module.exports = function (app, express) {
 	// routes for users
 	app.get('/api/users', userController.getAll, helpers.errorHandler);
 	app.post('/api/users', userController.createNew, helpers.errorHandler);
+	app.get('/api/users/:userId', userController.getOne, helpers.errorHandler);
 
 	// routes for the subCategories
 	app.post('/api/subCategory', subCategoryController.createNew, helpers.errorHandler);
