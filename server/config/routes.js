@@ -3,11 +3,13 @@ var categoryController = require ('../categories/categoryController.js');
 var subCategoryController = require('../subCategories/subCategoryController.js');
 var DashboardController = require('../Dashboard/DashboardController.js');
 var categoryController = require ('../categories/categoryController.js');
-var groupController = require('../groups/groupController');
-var userController = require('../users/userController');
+var groupController = require('../groups/groupController.js');
+var userController = require('../users/userController.js');
 
 module.exports = function (app, express) {
-	
+	// routes for users
+	app.get('/api/users', userController.getAll, helpers.errorHandler);
+
 	// routes for the subCategories
 	app.post('/api/subCategory', subCategoryController.createNew, helpers.errorHandler);
 	app.get('/api/subCategory/getChildren/:id', subCategoryController.getChildren, helpers.errorHandler);
@@ -34,9 +36,6 @@ module.exports = function (app, express) {
 	app.delete('/api/:groupName', groupController.deleteGroup, helpers.errorHandler);
 	app.get('/api/:groupName', groupController.getInfo, helpers.errorHandler);
 	
-	// routes for users
-	app.get('/api/users', groupController.getAll, helpers.errorHandler);
-
 	// If a request is sent somewhere other than the routes above,
 	// send it through our custom error handler
 	app.use(helpers.errorLogger);
