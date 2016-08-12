@@ -146,10 +146,10 @@
 			});
 		};
 
-		var getchosenOption = function(optionID) {
+		var getchosenOption = function(dachboardId) {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/dashboard/chosenID/' + optionID
+				url: baseUrl + '/api/dashboard/chosenID/' + dachboardId
 			})
 			.then(function(resp) {
 				return resp.data;

@@ -5,9 +5,9 @@
 		.module('lets-hangout')
 		.controller('CardsController', CardsController);
 
-	CardsController.$inject = ['$scope', '$state', '$timeout', 'Categories', 'SubCategory'];
+	CardsController.$inject = ['$scope', '$state', '$timeout', 'Categories', 'SubCategory', 'DashBoard'];
 
-	function CardsController($scope, $state, $timeout, Categories, SubCategory) {
+	function CardsController($scope, $state, $timeout, Categories, SubCategory, DashBoard) {
 		$scope.cards = {};
 
 		$scope.initialize = function() {
@@ -57,10 +57,18 @@
 			SubCategory.getChildren($scope.cards.active[index]._id)
 			.then(function (cards) {
 				console.log(cards);
-				$scope.cards = {
-					master: Array.prototype.slice.call(cards, 0),
-					active: Array.prototype.slice.call(cards, 0),
-				};
+				if (cards.length !== 0) {
+					$scope.cards = {
+						master: Array.prototype.slice.call(cards, 0),
+						active: Array.prototype.slice.call(cards, 0),
+					};
+				} else {
+					console.log('addOption');
+					// DashBoard.addOption(dashboardID, $scope.cards.active[index]._id)
+					// .then(function (dashboard) {
+					// 	$location.path('/dashBoard');
+					// });
+				}
 			});
 			$scope.refreshCards();
 		};
