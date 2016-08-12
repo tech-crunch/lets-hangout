@@ -1,4 +1,4 @@
 language: node_js
-script: npm test && npm run clientTest && npm run lint
+script: npm test && npm run clientTest
 services:
   - mongodb
