@@ -207,7 +207,7 @@
 				url: baseUrl + '/api/users'
 			})
 			.then(function(resp) {
-				return resp.data;
+				return resp;
 			});
 		};
 
@@ -218,17 +218,17 @@
 				data: user
 			})
 			.then(function(resp) {
-				return resp.data;
+				return resp;
 			});
 		};
 
 		var getFriends = function (userId) {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/users/friends' + userId
+				url: baseUrl + '/api/users/friends/' + userId
 			})
 			.then(function(resp) {
-				return resp.data;
+				return resp;
 			});
 		};
 
@@ -238,7 +238,7 @@
 				url: baseUrl + '/api/users/' + userId
 			})
 			.then(function(resp) {
-				return resp.data;
+				return resp;
 			});
 		};
 
@@ -249,12 +249,12 @@
 				data: userData
 			})
 			.then(function(resp) {
-				return resp.data;
+				return resp;
 			});
 		};
 
 		return {
-			getInfo: getInfo,
+			getAll: getAll,
 			addOne: addOne,
 			getFriends: getFriends,
 			getOne: getOne,
