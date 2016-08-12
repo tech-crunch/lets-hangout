@@ -10,8 +10,7 @@
     "dev": "nodemon ./server/server.js",
     "start": "nodemon ./server/server.js",
     "gulp": "./node_modules/.bin/gulp",
-    "lintserver": "eslint ./server",
-    "lintclient": "eslint ./client/www/js/ ./client/www/spec"
+    "lint" : "eslint ./server ./client/www/js ./client/www/spec"
   },
   "engines": {
     "node": ">=6.3.0"
