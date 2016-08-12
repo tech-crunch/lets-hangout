@@ -5,9 +5,9 @@
 		.module('lets-hangout')
 		.controller('LoginController', LoginController);
 	
-	LoginController.$inject = ['$scope', '$state', 'auth', 'store'];
+	LoginController.$inject = ['$scope', '$state', 'auth', 'store', 'Users'];
 
-	function LoginController($scope, $state, auth, store) {
+	function LoginController($scope, $state, auth, store, Users) {
 		var vm = this;
 
 		var doLogin = function() {
@@ -18,12 +18,47 @@
 					device: 'Mobile device'
 				}
 			}, function (profile, token, accessToken, state, refreshToken) {
-				console.log(profile);
 				// Success callback
 				store.set('profile', profile);
 				store.set('token', token);
 				store.set('accessToken', accessToken);
 				store.set('refreshToken', refreshToken);
+
+				// getting facebook friends that use the same app
+				var friends = [];
+				var facebookFriends = profile.context.mutual_friends.data;
+				for(var i=0; i<facebookFriends.length; i++){
+					friends.push(facebookFriends[i].id);
+				};
+				
+				var userObj = {
+					userId: profile.user_id.slice(9),
+					name: profile.name,
+					picture: profile.picture,
+					friends: friends
+				};
+
+				Users.getOne(store.get('profile').user_id.slice(9))
+				.then(function(resp) {
+					// update info
+					Users.updateInfo(userObj)
+					.then(function(result) {
+						store.set('userProfile', result.data);
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
+				})
+				.catch(function(error) {
+					// create new User
+					Users.addOne(userObj)
+					.then(function(result) {
+						store.set('userProfile', result.data);
+					})
+					.catch(function(error){
+						console.log(error);
+					});
+				});
 				
 				$state.go('home');
 			}, function (error) {

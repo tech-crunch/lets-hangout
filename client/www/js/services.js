@@ -242,10 +242,10 @@
 			});
 		};
 
-		var updateInfo = function (userId, userData) {
+		var updateInfo = function (userData) {
 			return $http({
 				method: 'PUT',
-				url: baseUrl + '/api/users/' + userId,
+				url: baseUrl + '/api/users/' + userData.userId,
 				data: userData
 			})
 			.then(function(resp) {
