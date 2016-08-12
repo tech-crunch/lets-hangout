@@ -9,7 +9,8 @@
 		.factory('Categories', Categories)
 		.factory('Group', Group)
 		.factory('DashBoard', DashBoard)
-		.factory('SubCategory', SubCategory);
+		.factory('SubCategory', SubCategory)
+		.factory('Users', Users);
 
 	// categories factory
 	Categories.$inject = ['$http'];
@@ -193,6 +194,71 @@
 		return {
 			getInfo: getInfo,
 			getChildren: getChildren
+		};
+	}
+
+	// Users factory
+	Users.$inject = ['$http'];	
+	function Users($http) {
+
+		var getAll = function() {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/users'
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var addOne = function (user) {
+			return $http({
+				method: 'POST',
+				url: baseUrl + '/api/users',
+				data: user
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var getFriends = function (userId) {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/users/friends' + userId
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var getOne = function (userId) {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/users/' + userId
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var updateInfo = function (userId, userData) {
+			return $http({
+				method: 'PUT',
+				url: baseUrl + '/api/users/' + userId,
+				data: userData
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		return {
+			getInfo: getInfo,
+			addOne: addOne,
+			getFriends: getFriends,
+			getOne: getOne,
+			updateInfo: updateInfo
 		};
 	}
 } ());
