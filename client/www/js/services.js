@@ -1,4 +1,3 @@
-<<<<<<< 97bfe384042582499306544009f809f99ccce77a
 (function () {
 	'use strict';
 
@@ -31,11 +30,6 @@
 			getAll: getAll
 		};
 	}
- // (function () {
- //  'use strict';
-
-  // var baseUrl = 'http://localhost:8000';
-  // var localUrl = 'http://localhost:8000'; 
 
 	// groups factory
 	Group.$inject = ['$http'];
@@ -154,23 +148,12 @@
 			});
 		};
 
-		var getchosenOption = function(dachboardId) {
-			return $http({
-				method: 'GET',
-				url: baseUrl + '/api/dashboard/chosenID/' + dachboardId
-			})
-			.then(function(resp) {
-				return resp.data;
-			});
-		};
-
 		return {
 			createNew: createNew,
 			getInfo: getInfo,
 			addOption: addOption,
 			eleminateOptions: eleminateOptions,
-			voteForOption: voteForOption,
-			getchosenOption: getchosenOption
+			voteForOption: voteForOption
 		};
 	}
 
