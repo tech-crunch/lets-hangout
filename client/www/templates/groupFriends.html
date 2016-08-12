@@ -1,0 +1,16 @@
+<ion-view ng-controller="groupFriendsController" >
+
+    <ion-content>
+    <h3>Friends in your group</h3>
+      <ion-list>
+        <ion-item ng-repeat="user in gfriends">
+         friend:{{user.username}}     
+          <button ng-click="deleteFriend(user.username)">delete</button>
+        </ion-item>
+       </ion-list>
+
+       
+       
+    </ion-content>
+
+</ion-view>

@@ -1,6 +1,18 @@
 <ion-view ng-controller="grouphomeController" >
-  
+<!-- <ion-side-menus>
+ <ion-side-menu side="right">
+
+  <ion-side-menu-content>
+   Add Friend
+  </ion-side-menu-content>
+  <ion-side-menu-content>
+    delete Friend
+  </ion-side-menu-content>
+  </ion-side-menu>
+    </ion-side-menus> -->
     <ion-content>
+       <button ng-click="allFriends()">Add Friend</button>
+       <button ng-click="friends()">Delete Friend</button>
     <h1>Group HomePage</h1>
       <ion-list>
         <ion-item ng-repeat="dashboard in data">
@@ -9,7 +21,22 @@
        </ion-list>
 
        <br>
-       <!-- <button ng-click="allFriends()">Add Friend</button> -->
+        <ion-list>
+        <ion-item ng-repeat="user in users">
+         {{user.username}}     
+          <button ng-click="addFriend(user.username)">add</button>
+          <button ng-click="deleteFriend(user.username)">delete</button>
+        </ion-item>
+       </ion-list>
+
+
+        <ion-list>
+        <ion-item ng-repeat="user in gfriends">
+         friend:{{user.username}}     
+          <button ng-click="deleteFriend(user.username)">delete</button>
+        </ion-item>
+       </ion-list>
+
     </ion-content>
 
 </ion-view>

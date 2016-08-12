@@ -52,35 +52,39 @@ angular.module('lets-hangout', [
 	});
 })
 .config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
-	// Ionic uses AngularUI Router which uses the concept of states
-	// Learn more here: https://github.com/angular-ui/ui-router
-	// Set up the various states which the app can be in.
-	// Each state's controller can be found in controllers.js
-	$stateProvider
-	.state('home', {
-		url: '/',
-		templateUrl: 'templates/home.html'
-	})
-	.state('login', {
-		url: '/login',
-		templateUrl: 'templates/login.html'
-	})
-	.state('cards', {
-		url: '/cards',
-		templateUrl: 'templates/cards.html'
-	})
-	.state('dashBoard', {
-		url: '/dashBoard',
-		templateUrl: 'templates/dashboard.html'
-	})
-	.state('group', {
-		url: '/group/user',
-		templateUrl: 'templates/group.html'  
-	})
-	.state('grouphome', {
-		url: '/group/:groupName',
-		templateUrl: 'templates/groupHome.html' 
-	});
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+  .state('home', {
+    url: '/',
+    templateUrl: 'templates/home.html'
+  })
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html'
+  })
+  .state('cards', {
+    url: '/cards',
+    templateUrl: 'templates/cards.html'
+  })
+  .state('dashBoard', {
+    url: '/dashBoard',
+    templateUrl : 'templates/dashboard.html'
+  })
+  .state('group', {
+    url: '/group/user',
+    templateUrl: 'templates/group.html'  
+  })
+  .state('grouphome', {
+    url: '/group/:groupName',
+    templateUrl: 'templates/groupHome.html' 
+  })
+  .state('groupFriends', {
+    url: '/group/:groupName/friends',
+    templateUrl: 'templates/groupFriends.html' 
+  });
 
 	// Initialized the Auth0 provider
 	authProvider.init({

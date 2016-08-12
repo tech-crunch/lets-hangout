@@ -1,5 +1,6 @@
 var User = require('../users/userModel.js');
 
+
 var repsonseHandler = function(error, req, res, body, next) {
 	if (error || !body.returnObj) {
 		next(error, req, res);
