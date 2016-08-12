@@ -27,9 +27,9 @@
 				// getting facebook friends that use the same app
 				var friends = [];
 				var facebookFriends = profile.context.mutual_friends.data;
-				for(var i=0; i<facebookFriends.length; i++){
+				for (var i = 0; i < facebookFriends.length; i++) {
 					friends.push(facebookFriends[i].id);
-				};
+				}
 				
 				var userObj = {
 					userId: profile.user_id.slice(9),
@@ -55,7 +55,7 @@
 					.then(function(result) {
 						store.set('userProfile', result.data);
 					})
-					.catch(function(error){
+					.catch(function(error) {
 						console.log(error);
 					});
 				});

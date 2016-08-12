@@ -334,25 +334,25 @@ describe('Services', function () {
 	});
 
 	describe('Users factory', function () {
-        var $httpBackend, Users;
-        
-        var newUser = {
+		var $httpBackend, Users;
+
+		var newUser = {
 			userId: '12345',
 			picture: 'testPicture',
 			friends: [],
 			name: 'testName'
 		};
 
-        beforeEach(inject(function(_$httpBackend_, _Users_) {
-            Users = _Users_;
-            $httpBackend = _$httpBackend_;
-        }));
+		beforeEach(inject(function(_$httpBackend_, _Users_) {
+			Users = _Users_;
+			$httpBackend = _$httpBackend_;
+		}));
 
-        it('Users factory should exist', function() {
-            expect(Users).toBeDefined();
-        });
+		it('Users factory should exist', function() {
+			expect(Users).toBeDefined();
+		});
 
-        describe('.addOne()', function() {
+		describe('.addOne()', function() {
 			it('should add a new user with `addOne`', function () {
 				$httpBackend
 					.when('POST', baseUrl + '/api/users' )
@@ -427,14 +427,14 @@ describe('Services', function () {
 
 			it('updateInfo should update users info with a given id 201(SUCCESS)', function() {
 				$httpBackend
-						.when('PUT', baseUrl + '/api/users/' + newUser.userId)
-						.respond ();
-				Users.updateInfo(newUser.userId)
+					.when('PUT', baseUrl + '/api/users/' + newUser.userId)
+					.respond ();
+				Users.updateInfo({userId: newUser.userId})
 				.then(function (resp) {
 					expect(resp.status).toEqual(200);
 				});
 				$httpBackend.flush();
 			});
 		});
-    });
+	});
 });
