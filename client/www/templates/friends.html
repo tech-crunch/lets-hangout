@@ -1,10 +1,12 @@
-<ion-view ng-controller="grouphomeController" >
+<ion-view ng-controller="friendsController" >
 
     <ion-content>
-    <h1>Group HomePage</h1>
+    <h2>your Friends</h2>
       <ion-list>
-        <ion-item ng-repeat="user in data">
+        <ion-item ng-repeat="user in users">
          user: {{user.username}}
+        <button ng-click="addFriend(user.username)">add</button>
+ 
         </ion-item>
        </ion-list>
 

@@ -82,16 +82,20 @@ angular.module('lets-hangout', [
     templateUrl: 'templates/groupHome.html' 
   })
   .state('groupFriends', {
-    url: '/group/:groupName/friends',
+    url: '/group/:groupName/groupFriends',
     templateUrl: 'templates/groupFriends.html' 
+  })
+  .state('facebookFriends', {
+    url: '/group/friends/:groupName',
+    templateUrl: 'templates/friends.html' 
   });
 
-	// Initialized the Auth0 provider
-	authProvider.init({
-		domain: AUTH0_DOMAIN,
-		clientID: AUTH0_CLIENT_ID,
-		loginState: 'login'
-	});
+  // Initialized the Auth0 provider
+  authProvider.init({
+    domain: AUTH0_DOMAIN,
+    clientID: AUTH0_CLIENT_ID,
+    loginState: 'login'
+  });
 
 	// if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/');

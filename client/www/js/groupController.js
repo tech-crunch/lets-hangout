@@ -15,12 +15,11 @@
     var id1= '57a9956eb5cc56040914fc1c';
     var id2= '57a996e6dcba0f714010db80';
     
-    // group Information
+    // groups Information
     var init = function (){
       Group.allGroups()
       .then(function (groups){
         $scope.data.groups=groups;
-        console.log($scope.data.groups);
       })
       .catch(function (err){
         console.log(err);

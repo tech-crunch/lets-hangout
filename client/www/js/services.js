@@ -31,66 +31,131 @@
 	}
 
 	// groups factory
-	Group.$inject = ['$http'];
-	function Group($http) {
-		var newGroup = function (groupName, id) {
-			return $http({
-				method: 'POST',
-				url: baseUrl + '/api/group/user/' + id,
-				data: {
-					groupName: groupName
-				}
-			})
-			.then(function(resp) {
-				return resp;
-			});
-		};
+  Group.$inject = ['$http'];
 
-		var allGroups = function() {
-			return $http({
-				method: 'GET',
-				url: baseUrl + '/api/group'
-			})
-			.then(function(resp) {
-				return resp.data;
-			});
-		};
+  function Group($http){
+    var newGroup = function (groupName,id){
+      return $http({
+        method:'POST',
+        url: localUrl +'/api/group/user/'+id,
+        data:{
+           groupName:groupName
+        }
+       })
+       .then(function(resp){
+          return resp;
+       });
+    };
 
-		var groupInfo = function(groupName) {
-			console.log(1);
-			return $http({
-				method: 'GET',
-				url: baseUrl + '/api/' + groupName
-			})
-			.then(function(resp) {
-				return resp.data;
-			});
-		};
+    var allGroups = function(){
+      return $http({
+        method: 'GET',
+        url: localUrl  +'/api/group'
+      })
+      .then(function(resp){
+        return resp.data;
+      });
+    };
 
-		var dashboardInfo = function(id) {
-			return $http({
-				method: 'GET',
-				url: baseUrl + '/api/dashboard/' + id
-			})
-			.then(function(resp) {
-				return resp.data;
-			});
-		};
+    var groupInfo = function(groupName){
+      return $http({
+        method: 'GET',
+        url: localUrl +'/api/'+groupName
+      })
+      .then(function(resp){
+        return resp.data;
+      });
+    };
 
-		return {
-			newGroup: newGroup,
-			allGroups: allGroups,
-			groupInfo: groupInfo,
-			dashboardInfo: dashboardInfo 
-		};
-	}
+    var deletingGroup = function (groupName){	
+    return $http({
+      method:'DELETE',
+      url: localUrl+'/api/'+groupName 
+     })
+     .then(function(resp){
+        return resp;
+     });
+  };
 
-	// DashBoard factory
-	DashBoard.$inject = ['$http'];
-	function DashBoard($http) {
-		var createNew = function() {
+    var dashboardInfo = function(id){
+      return $http({
+        method: 'GET',
+        url: localUrl  +'/api/dashboard/'+id
+      })
+      .then(function(resp){
+        return resp.data;
+      });
+    };
+
+    var addingFriend = function (groupName,username){
+    	
+    return $http({
+      method:'POST',
+      url: localUrl+'/api/group/'+groupName ,
+      data:{
+         username:username
+      }
+     })
+     .then(function(resp){
+        return resp;
+     });
+  };
+
+  var getAllFriends = function(){
+    return $http({
+      method: 'GET',
+      url: localUrl+'/api/user/friends'
+    })
+    .then(function(resp){
+    	console.log(resp.data)
+      return resp.data;
+    })
+
+  };
+  
+   var deletingFriend = function (groupName,username){	
+    return $http({
+      method:'PUT',
+      url: localUrl+'/api/group/'+groupName ,
+      data:{
+         username:username
+      }
+     })
+     .then(function(resp){
+        return resp;
+     });
+  };
+  
+  var userInfo = function(id){
+      return $http({
+        method: 'GET',
+        url: localUrl  +'/api/user/userInfo/'+id
+      })
+      .then(function(resp){
+        return resp.data;
+      });
+    };
+
+    return {
+      newGroup:newGroup,
+      allGroups:allGroups,
+      groupInfo:groupInfo,
+      dashboardInfo:dashboardInfo,
+      addingFriend:addingFriend,
+      getAllFriends:getAllFriends,
+      deletingFriend:deletingFriend,
+      userInfo:userInfo,
+      deletingGroup:deletingGroup
+    };
+  };
+
+  // DashBoard factory
+  DashBoard.$inject = ['$http'];
+
+	function DashBoard($http){
+		var createNew = function(){
 			return $http({
-				method: 'POST',
+				method:'POST',
 				url: baseUrl + '/api/dashboard'
 			})
 			.then(function(resp) {

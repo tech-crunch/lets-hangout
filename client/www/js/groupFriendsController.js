@@ -8,33 +8,22 @@
   groupFriendsController.$inject = ['$scope','$location', 'Group'];
 
   function groupFriendsController($scope,$location, Group) {
-    //delete friend
-    console.log($location.path().split('/'))
-    $scope.deleteFriend = function (user){
-      Group.deletingFriend(sgroup[3],user)
-        .then(function (data){
-          console.log(data);
-         
-        })
-        .catch(function (err){
-          console.log(err);
-        })
 
-    };
+    
+    var sgroup=$location.path().split('/')
+    $scope.gfriends = [];
+    
     //show friends in group
-    $scope.groupFriends = function (){
-       Group.groupInfo(sgroup[3])
+    var groupFriends = function (){
+       Group.groupInfo(sgroup[2])
       .then(function (group){
         for (var i=0;i<group.users.length;i++){
           Group.userInfo(group.users[i])
             .then(function (user){
-              console.log(user)
             $scope.gfriends.push(user);
           })
         }
         if ($scope.gfriends.length===0){
-          console.log($scope.gfriends)
-          console.log($scope.gfriends.length)
           // $scope.showAlert();
           console.log("no ff")
         }
@@ -43,7 +32,20 @@
          console.log(err);
       })
     }
+  
+   groupFriends();
+  //delete friend from group
+  $scope.deleteFriend = function (user){
+      Group.deletingFriend(sgroup[2],user)
+        .then(function (data){
+          location.reload();
+         
+        })
+        .catch(function (err){
+          console.log(err);
+        })
 
+    };
 
 
     
