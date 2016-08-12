@@ -5,9 +5,9 @@
 		.module('lets-hangout')
 		.controller('HomeController', HomeController);
 
-	HomeController.$inject = ['$state', '$scope', 'auth', 'store'];
+	HomeController.$inject = ['$state', '$scope', 'auth', 'store', 'Users'];
 
-	function HomeController($state, $scope, auth, store) {
+	function HomeController($state, $scope, auth, store, Users) {
 		var vm = this;
 
 		vm.auth = auth;
@@ -15,11 +15,11 @@
 		vm.login = login;
 		vm.logout = logout;
 
-		vm.userName;
+		vm.user = {};
 
 		$scope.$on('$ionicView.enter', function (viewInfo, state) {
-			if (store.get('profile')) {
-				vm.userName = store.get('profile').name;
+			if (store.get('userProfile')) {
+				vm.user = store.get('userProfile');
 			}
 		});
 
@@ -33,7 +33,8 @@
 			store.remove('token');
 			store.remove('accessToken');
 			store.remove('refreshToken');
-			vm.userName = null;
+			store.remove('userProfile');
+			vm.user = {};
 		}
 	}
 } ());

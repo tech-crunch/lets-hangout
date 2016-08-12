@@ -332,4 +332,109 @@ describe('Services', function () {
 			});
 		}); 
 	});
+
+	describe('Users factory', function () {
+		var $httpBackend, Users;
+
+		var newUser = {
+			userId: '12345',
+			picture: 'testPicture',
+			friends: [],
+			name: 'testName'
+		};
+
+		beforeEach(inject(function(_$httpBackend_, _Users_) {
+			Users = _Users_;
+			$httpBackend = _$httpBackend_;
+		}));
+
+		it('Users factory should exist', function() {
+			expect(Users).toBeDefined();
+		});
+
+		describe('.addOne()', function() {
+			it('should add a new user with `addOne`', function () {
+				$httpBackend
+					.when('POST', baseUrl + '/api/users' )
+					.respond(201, newUser);
+				Users.addOne(newUser).then(function (resp) {
+					expect(resp.status).toEqual(201);
+					expect(resp.data.userId).toEqual('12345');
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.getAll()', function() {
+
+			it('getAll should be exist', function() {
+				expect(Users.getAll).toBeDefined();
+			});
+
+			it('getAll should get Users data with 200(SUCCESS)', function() {
+				
+				$httpBackend
+						.expect('GET', baseUrl + '/api/users')
+						.respond ();
+				Users.getAll().then(function (resp) {
+					expect(resp.status).toEqual(200);
+				}); 
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.getFriends()', function() {
+
+			it('getFriends should be exist', function() {
+				expect(Users.getFriends).toBeDefined();
+			});
+
+			it('getFriends should get a user friends with a given id 200(SUCCESS)', function() {
+				$httpBackend
+						.when('GET', baseUrl + '/api/users/friends/' + newUser.userId)
+						.respond ();
+				Users.getFriends(newUser.userId)
+				.then(function (resp) {
+					expect(resp.status).toEqual(200);
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.getOne()', function() {
+
+			it('getOne should be exist', function() {
+				expect(Users.getOne).toBeDefined();
+			});
+
+			it('getOne should get a users info with a given id 200(SUCCESS)', function() {
+				$httpBackend
+						.when('GET', baseUrl + '/api/users/' + newUser.userId)
+						.respond ();
+				Users.getOne(newUser.userId)
+				.then(function (resp) {
+					expect(resp.status).toEqual(200);
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.updateInfo()', function() {
+
+			it('updateInfo should be exist', function() {
+				expect(Users.updateInfo).toBeDefined();
+			});
+
+			it('updateInfo should update users info with a given id 201(SUCCESS)', function() {
+				$httpBackend
+					.when('PUT', baseUrl + '/api/users/' + newUser.userId)
+					.respond ();
+				Users.updateInfo({userId: newUser.userId})
+				.then(function (resp) {
+					expect(resp.status).toEqual(200);
+				});
+				$httpBackend.flush();
+			});
+		});
+	});
 });
