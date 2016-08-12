@@ -221,6 +221,12 @@ describe('Services', function () {
 			DashBoard = _DashBoard_;
 			$httpBackend = _$httpBackend_;
 		}));
+		var newDash = {
+			_id: '57ab0d66c665971c0daea5a4',
+			date: '2016-08-10 11:17:58.339Z',
+			options: [],
+			chosenOption: '57ab0d66c555971c0daea5a4'
+		};
 
 		it('DashBoard factory should exist', function() {
 			expect(DashBoard).toBeDefined();
@@ -238,41 +244,25 @@ describe('Services', function () {
 			});
 		});
 			
-		// describe('.getInfo()', function() {
+		describe('.getInfo()', function() {
 
-		//   it('getInfo should be exist', function() {
-		//     expect(DashBoard.getInfo).toBeDefined();
-		//   });
+			it('getInfo should be exist', function() {
+				expect(DashBoard.getInfo).toBeDefined();
+			});
 
-		//   it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
-		//      var newDash = {
-		//     _id : '57ab0d66c665971c0daea5a4',
-		//     date : '2016-08-10 11:17:58.339Z',
-		//     options : []
-		//   }
-		//     $httpBackend
-		//         .expect('GET', baseUrl + '/api/dashboard/57ab0d66c665971c0daea5a4')
-		//         .respond (newDash);
-		//         DashBoard.getInfo().then(function (data) {
-		//         expect(data._id).toEqual(newDash._id);
-		//     }); 
-		//         $httpBackend.flush();
-		//   });
-		//  });
+			it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
+				
+				$httpBackend
+						.expect('GET', baseUrl + '/api/dashboard/57ab0d66c665971c0daea5a4')
+						.respond (newDash);
+				DashBoard.getInfo('57ab0d66c665971c0daea5a4').then(function (data) {
+					expect(data._id).toEqual(newDash._id);
+				}); 
+				$httpBackend.flush();
+			});
+		});
 
 		describe('.addOption()', function() {
-			var newDash = {
-				_id: '57ab0d66c665971c0daea5a4',
-				date: '2016-08-10 11:17:58.339Z',
-				options: []
-			};
-
-			var newOption = {
-				'_id': '57ab09d1c665971c0daea5a1',
-				'poster': 'http://fontmeme.com/images/Ice-Age-Poster.jpg',
-				'name': 'ice age',
-				'details': 'Manny, Sid, and Diego discover that the ice age is coming to an end, and join everybody for a journey to higher ground'
-			};
 
 			it('addOption should be exist', function() {
 				expect(DashBoard.addOption).toBeDefined();
@@ -280,26 +270,17 @@ describe('Services', function () {
 
 			it('addOption should add new option to dashboard with a given id 200(SUCCESS)', function() {
 				$httpBackend
-						.when(baseUrl + '/api/dashboard/addOption/' + newDash._id)
-						.respond (newOption); 
+						.when('PUT', baseUrl + '/api/dashboard/addOption/' + newDash._id)
+						.respond (newDash);
+				DashBoard.addOption(newDash._id, '57ab09d1c665971c0daea5a1')
+				.then(function (data) {
+					expect(data._id).toEqual(newDash._id);
+				});
+				$httpBackend.flush();
 			});
 		});
 
 		describe('.eleminateOptions()', function() {
-
-			var newDash = {
-				_id: '57ab0d66c665971c0daea5a4',
-				date: '2016-08-10 11:17:58.339Z',
-				options: []
-			};
-
-			var newOption = {
-				_id: '57ab09d1c665971c0daea5a1',
-				poster: 'http://fontmeme.com/images/Ice-Age-Poster.jpg',
-				name: 'ice age',
-				details: 'Manny, Sid, and Diego discover that the ice age is coming to an end, and join everybody for a journey to higher ground',
-				chlidren: []
-			};
 
 			it('eleminateOptions should be exist', function() {
 				expect(DashBoard.eleminateOptions).toBeDefined();
@@ -307,8 +288,13 @@ describe('Services', function () {
 
 			it('eleminateOptions should eleminate option from dashboard with a given id 200(SUCCESS)', function() {
 				$httpBackend
-						.when(baseUrl + '/api/dashboard/eleminateOptions/' + newDash._id)
-						.respond (newOption); 
+						.when('PUT', baseUrl + '/api/dashboard/eleminateOptions/' + newDash._id)
+						.respond (newDash);
+				DashBoard.eleminateOptions(newDash._id, '57ab09d1c665971c0daea5a1')
+				.then(function (data) {
+					expect(data._id).toEqual(newDash._id);
+				});
+				$httpBackend.flush();
 			});
 		});
 
@@ -319,8 +305,13 @@ describe('Services', function () {
 
 			it('voteForOption should increase voting proparety for a given subCategoryId 200(SUCCESS)', function() {
 				$httpBackend
-						.when(baseUrl + '/api/dashboard/voteForOption/:id')
-						.respond (200); 
+						.when('PUT', baseUrl + '/api/dashboard/voteForOption/' + newDash._id)
+						.respond (newDash);
+				DashBoard.voteForOption(newDash._id, '57ab09d1c665971c0daea5a1')
+				.then(function (data) {
+					expect(data._id).toEqual(newDash._id);
+				});
+				$httpBackend.flush();
 			});
 		}); 
 
@@ -331,8 +322,13 @@ describe('Services', function () {
 
 			it('getchosenOption should get option info with the most voting proparety 200(SUCCESS)', function() {
 				$httpBackend
-						.when(baseUrl + '/api/dashboard/chosenID/:id')
-						.respond (200); 
+						.when('GET', baseUrl + '/api/dashboard/chosenID/' + newDash._id)
+						.respond (newDash.chosenOption);
+				DashBoard.getchosenOption(newDash._id)
+				.then(function (data) {
+					expect(data).toEqual(newDash.chosenOption);
+				});
+				$httpBackend.flush();
 			});
 		}); 
 	});
