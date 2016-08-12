@@ -33,12 +33,12 @@ describe('Services', function () {
 			it('getAll should get categories data 200(SUCCESS)', function() {
 				var mockResponse = [
 					{
-						"name": "play",
-						"poster": "https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg",
+						'name': 'play',
+						'poster': 'https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg',
 					},
 					{
-						"name": "Movies",
-						"poster": "https://thumbs.dreamstime.com/z/cinema-poster-design-template-popcorn-box-disposable-cup-beverages-straw-film-strip-clapper-board-ticket-detailed-44098150.jpg",
+						'name': 'Movies',
+						'poster': 'https://thumbs.dreamstime.com/z/cinema-poster-design-template-popcorn-box-disposable-cup-beverages-straw-film-strip-clapper-board-ticket-detailed-44098150.jpg',
 					}
 				];
 
@@ -74,15 +74,15 @@ describe('Services', function () {
 
 			it('getInfo should get one category data', function() {
 				var mockResponse = {
-						"_id" : "57ab0333c665971c0daea5a1",
-						"name": "play",
-						"poster": "https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg",
-						"parentId": "57ab09d1c665971c0daea5a1"
-					};
+					'_id': '57ab0333c665971c0daea5a1',
+					'name': 'play',
+					'poster': 'https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg',
+					'parentId': '57ab09d1c665971c0daea5a1'
+				};
 
-				$httpBackend.when('GET', baseUrl + '/api/subCategory/' + "57ab0333c665971c0daea5a1").respond(mockResponse);
+				$httpBackend.when('GET', baseUrl + '/api/subCategory/' + '57ab0333c665971c0daea5a1').respond(mockResponse);
 
-				SubCategory.getInfo("57ab0333c665971c0daea5a1").then(function (subCategory) {
+				SubCategory.getInfo('57ab0333c665971c0daea5a1').then(function (subCategory) {
 					expect(subCategory).toEqual(mockResponse);
 				});
 				$httpBackend.flush();
@@ -98,20 +98,20 @@ describe('Services', function () {
 			it('getChildren should get categories data 200(SUCCESS)', function() {
 				var mockResponse = [
 					{
-						"name": "play",
-						"poster": "https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg",
-						"parentId": "57ab09d1c665971c0daea5a1"
+						'name': 'play',
+						'poster': 'https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg',
+						'parentId': '57ab09d1c665971c0daea5a1'
 					},
 					{
-						"name": "Movies",
-						"poster": "https://thumbs.dreamstime.com/z/cinema-poster-design-template-popcorn-box-disposable-cup-beverages-straw-film-strip-clapper-board-ticket-detailed-44098150.jpg",
-						"parentId": "57ab09d1c665971c0daea5a1"
+						'name': 'Movies',
+						'poster': 'https://thumbs.dreamstime.com/z/cinema-poster-design-template-popcorn-box-disposable-cup-beverages-straw-film-strip-clapper-board-ticket-detailed-44098150.jpg',
+						'parentId': '57ab09d1c665971c0daea5a1'
 					}
 				];
 
-				$httpBackend.expect('GET', baseUrl + '/api/subCategory/getChildren/' + "57ab09d1c665971c0daea5a1").respond(mockResponse);
+				$httpBackend.expect('GET', baseUrl + '/api/subCategory/getChildren/' + '57ab09d1c665971c0daea5a1').respond(mockResponse);
 
-				SubCategory.getChildren("57ab09d1c665971c0daea5a1").then(function (SubCategories) {
+				SubCategory.getChildren('57ab09d1c665971c0daea5a1').then(function (SubCategories) {
 					expect(SubCategories).toEqual(mockResponse);
 				});
 				$httpBackend.flush();
@@ -132,87 +132,85 @@ describe('Services', function () {
 			expect(Group).toBeDefined();
 		});
 
-		 describe('.allGroups()', function() {
+		describe('.allGroups()', function() {
 			it('allGroups should get Groups data 200(SUCCESS)', function() {
 
-				 var mockResponse = [
-							{
-								"groupName": "group1",
-								"groupAdmin": "22"
-							},
-							{
-								"groupName": "group2",
-								"groupAdmin": "11"
-							}
-						];
+				var mockResponse = [
+					{
+						'groupName': 'group1',
+						'groupAdmin': '22'
+					},
+					{
+						'groupName': 'group2',
+						'groupAdmin': '11'
+					}
+				];
 
-						$httpBackend.expect('GET', baseUrl + '/api/group').respond(mockResponse);
+				$httpBackend.expect('GET', baseUrl + '/api/group').respond(mockResponse);
 
-						Group.allGroups().then(function (groups) {
-							expect(groups).toEqual(mockResponse);
-						});
-						$httpBackend.flush();
-					});
+				Group.allGroups().then(function (groups) {
+					expect(groups).toEqual(mockResponse);
 				});
+				$httpBackend.flush();
+			});
+		});
 
-		 describe('.groupInfo()', function() {
+		describe('.groupInfo()', function() {
 			// A test to verify the method groupInfo exists
 			it('groupInfo should be exist', function() {
 				expect(Group.groupInfo).toBeDefined();
 			});
 
-		 it('groupInfo should get Group data 200(SUCCESS)', function() {
+			it('groupInfo should get Group data 200(SUCCESS)', function() {
 
-				 var mockResponse = [
-							{
-								"groupName": "group1",
-								"groupAdmin": "22"
-							}
-							
-						];
+				var mockResponse = [
+					{
+						'groupName': 'group1',
+						'groupAdmin': '22'
+					}
+					
+				];
 
-						$httpBackend.expect('GET', baseUrl + '/api/'+mockResponse.groupName).respond(mockResponse);
+				$httpBackend.expect('GET', baseUrl + '/api/' + mockResponse.groupName).respond(mockResponse);
 
-						Group.groupInfo().then(function (groups) {
-							expect(groups).toEqual(mockResponse);
-						});
-						$httpBackend.flush();
-					});
+				Group.groupInfo().then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
 		});
 
-		 describe('.dashboardInfo()', function() {
+		describe('.dashboardInfo()', function() {
 			// A test to verify the method dashboardInfo exists
 			it('dashboardInfo should be exist', function() {
 				expect(Group.dashboardInfo).toBeDefined();
 			});
 
-				it('dashboardInfo should get Group data 200(SUCCESS)', function() {
+			it('dashboardInfo should get Group data 200(SUCCESS)', function() {
 
-				 var mockResponse = [
-							{
-								"_id": "4743580489"
-							}
-							
-						];
+				var mockResponse = [
+					{
+						'_id': '4743580489'
+					}
+					
+				];
 
-						$httpBackend.expect('GET', baseUrl + '/api/dashboard/'+mockResponse ._id).respond(mockResponse);
+				$httpBackend.expect('GET', baseUrl + '/api/dashboard/' + mockResponse ._id).respond(mockResponse);
 
-						Group.dashboardInfo().then(function (groups) {
-							expect(groups).toEqual(mockResponse);
-						});
-						$httpBackend.flush();
-					});
+				Group.dashboardInfo().then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
 		});
 
-		 describe('.newGroup()', function() {
+		describe('.newGroup()', function() {
 			// A test to verify the method newGroup exists
 			it('newGroup should be exist', function() {
 				expect(Group.newGroup).toBeDefined();
 			});
-
-	 });
-
 		});
+	});
 
 
 	describe('DashBoard factory', function () {
@@ -229,17 +227,16 @@ describe('Services', function () {
 		});
 		describe('.createNew()', function() {
 			it('should add a new dachboard with `createNew`', function () {
-			$httpBackend
-				.when('POST', baseUrl + '/api/dashboard' )
-				.respond(201, {options: ['57ab09d1c665971c0daea5a1']});
-			DashBoard.createNew().then(function (resp) {
-				expect(resp.status).toEqual(201);
-				expect(resp.data.options).toContain('57ab09d1c665971c0daea5a1')
+				$httpBackend
+					.when('POST', baseUrl + '/api/dashboard' )
+					.respond(201, {options: ['57ab09d1c665971c0daea5a1']});
+				DashBoard.createNew().then(function (resp) {
+					expect(resp.status).toEqual(201);
+					expect(resp.data.options).toContain('57ab09d1c665971c0daea5a1');
+				});
+				$httpBackend.flush();
 			});
-			 $httpBackend.flush();
 		});
-		
-		})
 			
 		// describe('.getInfo()', function() {
 
@@ -249,8 +246,8 @@ describe('Services', function () {
 
 		//   it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
 		//      var newDash = {
-		//     _id : "57ab0d66c665971c0daea5a4",
-		//     date : "2016-08-10 11:17:58.339Z",
+		//     _id : '57ab0d66c665971c0daea5a4',
+		//     date : '2016-08-10 11:17:58.339Z',
 		//     options : []
 		//   }
 		//     $httpBackend
@@ -263,19 +260,19 @@ describe('Services', function () {
 		//   });
 		//  });
 
-			describe('.addOption()', function() {
-				var newDash = {
-				_id : "57ab0d66c665971c0daea5a4",
-				date : "2016-08-10 11:17:58.339Z",
-				options : []
-				};
+		describe('.addOption()', function() {
+			var newDash = {
+				_id: '57ab0d66c665971c0daea5a4',
+				date: '2016-08-10 11:17:58.339Z',
+				options: []
+			};
 
-				var newOption = {
-					_id : "57ab09d1c665971c0daea5a1",
-					poster : "http://fontmeme.com/images/Ice-Age-Poster.jpg",
-					name : "ice age",
-					details : "Manny, Sid, and Diego discover that the ice age is coming to an end, and join everybody for a journey to higher ground"
-				}
+			var newOption = {
+				'_id': '57ab09d1c665971c0daea5a1',
+				'poster': 'http://fontmeme.com/images/Ice-Age-Poster.jpg',
+				'name': 'ice age',
+				'details': 'Manny, Sid, and Diego discover that the ice age is coming to an end, and join everybody for a journey to higher ground'
+			};
 
 			it('addOption should be exist', function() {
 				expect(DashBoard.addOption).toBeDefined();
@@ -283,26 +280,26 @@ describe('Services', function () {
 
 			it('addOption should add new option to dashboard with a given id 200(SUCCESS)', function() {
 				$httpBackend
-						.when(baseUrl + '/api/dashboard/addOption/'+newDash._id)
+						.when(baseUrl + '/api/dashboard/addOption/' + newDash._id)
 						.respond (newOption); 
 			});
-		 });
+		});
 
-			describe('.eleminateOptions()', function() {
+		describe('.eleminateOptions()', function() {
 
-				var newDash = {
-					_id : "57ab0d66c665971c0daea5a4",
-					date : "2016-08-10 11:17:58.339Z",
-					options : []
-				};
+			var newDash = {
+				_id: '57ab0d66c665971c0daea5a4',
+				date: '2016-08-10 11:17:58.339Z',
+				options: []
+			};
 
-				var newOption = {
-					_id : "57ab09d1c665971c0daea5a1",
-					poster : "http://fontmeme.com/images/Ice-Age-Poster.jpg",
-					name : "ice age",
-					details : "Manny, Sid, and Diego discover that the ice age is coming to an end, and join everybody for a journey to higher ground",
-					chldren :[]
-				}
+			var newOption = {
+				_id: '57ab09d1c665971c0daea5a1',
+				poster: 'http://fontmeme.com/images/Ice-Age-Poster.jpg',
+				name: 'ice age',
+				details: 'Manny, Sid, and Diego discover that the ice age is coming to an end, and join everybody for a journey to higher ground',
+				chlidren: []
+			};
 
 			it('eleminateOptions should be exist', function() {
 				expect(DashBoard.eleminateOptions).toBeDefined();
@@ -310,12 +307,12 @@ describe('Services', function () {
 
 			it('eleminateOptions should eleminate option from dashboard with a given id 200(SUCCESS)', function() {
 				$httpBackend
-						.when(baseUrl + '/api/dashboard/eleminateOptions/'+newDash._id)
+						.when(baseUrl + '/api/dashboard/eleminateOptions/' + newDash._id)
 						.respond (newOption); 
 			});
-		 });
+		});
 
-			describe('.voteForOption()', function() {
+		describe('.voteForOption()', function() {
 			it('voteForOption should be exist', function() {
 				expect(DashBoard.voteForOption).toBeDefined();
 			});
@@ -325,9 +322,9 @@ describe('Services', function () {
 						.when(baseUrl + '/api/dashboard/voteForOption/:id')
 						.respond (200); 
 			});
-		 }); 
+		}); 
 
-			describe('.getchosenOption()', function() {
+		describe('.getchosenOption()', function() {
 			it('getchosenOption should be exist', function() {
 				expect(DashBoard.getchosenOption).toBeDefined();
 			});
@@ -337,6 +334,6 @@ describe('Services', function () {
 						.when(baseUrl + '/api/dashboard/chosenID/:id')
 						.respond (200); 
 			});
-		 }); 
+		}); 
 	});
 });
