@@ -60,7 +60,7 @@ npm run clientTest
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](issues)
 
 
 ## Contributing
