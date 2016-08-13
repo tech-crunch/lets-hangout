@@ -5,13 +5,12 @@
       <button danger clear style="margin-top: 50px;" ng-click = "eleminateOptions()">elemenate option</button>  
       <button type="button" class="btn btn-outline-danger" ng-click = "getChosenOption()">chosenOption</button>
 
-      <div ng-repeat = " data in dash.subC">
+      <div ng-repeat = "data in dash.subC track by $index">
          
         <h5 style="text-align: center;"> {{data.name}}</h5>
         <img ng-click="showAlert(data.name, data.details)" src="{{data.poster}}" alt="subCat poster" height="128" width="180" style="margin-left:40%;">
-       <img src ="https://1.bp.blogspot.com/-d3LozscUMBY/Vtz13aLffMI/AAAAAAAALp0/Y9pFym980s0/s1600/love.png" alt="like button" height="40" width="40" ng-click = "voteForOption(dash.option[$index])">
-       <h4 style="margin-left: 670px;
-    margin-top: -30px;">{{dash.voting[$index]}}</h4>
+       <img src ="http://www.clipartkid.com/images/757/thumbs-up-png-HOVALo-clipart.png" alt="like button" height="40" width="40" ng-click = "voteForOption(dash.option[$index])">
+       <h4 style="margin-left: 670px;margin-top: -30px;">{{dash.voting[$index]}}</h4>
        <!--         <div class="button" ng-click = "voteForOption(dash.option[$index])">-->
 
         </div>

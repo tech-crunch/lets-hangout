@@ -7,7 +7,7 @@ var SubCategorySchema = new Schema({
 	poster: {type: String, required: true},
 	name: {type: String, required: true},
 	details: {type: String, required: true},
-	parentId: {type: Schema.Types.ObjectId, ref: 'Categories', required: true}
+	parentId: {type: Schema.Types.ObjectId, ref: 'Categories'}
 });
 
 // Setting up the SubCategory Model
