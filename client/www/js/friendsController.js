@@ -12,7 +12,7 @@
     $scope.data = [];
     $scope.gfriends = [];
 
-    var sgroup = $location.path().split('/');
+    // var sgroup = $location.path().split('/');
 
     //view friends in user table (in futur facebook friends)
     var allFriends = function (){
