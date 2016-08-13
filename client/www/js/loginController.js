@@ -23,6 +23,15 @@
 				store.set('token', token);
 				store.set('accessToken', accessToken);
 				store.set('refreshToken', refreshToken);
+				
+				// getting userID
+				var userID;
+				for(var i=0; i<profile.identities.length; i++){
+					if(profile.identities[i].provider === 'facebook'){
+						userID = profile.identities[i].user_id;
+						break;
+					}
+				}
 
 				// getting facebook friends that use the same app
 				var friends = [];
@@ -32,7 +41,7 @@
 				}
 				
 				var userObj = {
-					userId: profile.user_id.slice(9),
+					userId: userID || profile.user_id.slice(9),
 					name: profile.name,
 					picture: profile.picture,
 					friends: friends
