@@ -41,8 +41,7 @@ module.exports = function (app, express) {
 	app.get('/api/groups/:id',groupController.getInfo, helpers.errorHandler);
 
 	// routes for users
-    app.get('/api/user/friends',userController.getAll, helpers.errorHandler);
-    app.get('/api/user/userInfo/:id',userController.userInfo, helpers.errorHandler);
+    
 
 	// If a request is sent somewhere other than the routes above,
 	// send it through our custom error handler
