@@ -26,7 +26,7 @@ module.exports = {
 	eleminateOptions: function (req, res, next) {
 		Dashboard.findOneAndUpdate(
 			{_id: req.params.id},
-			{$pull: {options: {subCategoryId: req.body.subCategoryId}}},
+			{$pull: {options: {subCategoryId:{$in:req.body.subCategoryIds}}}},
 			{new: true},
 			function(err, dashboard) {
 				repsonseHandler(err, req, res, {status: 200, returnObj: dashboard}, next);
@@ -40,13 +40,6 @@ module.exports = {
 			{new: true},
 			function(err, dashboard) {
 				repsonseHandler(err, req, res, {status: 200, returnObj: dashboard}, next);
-			});
-	},
-
-	getchosenOption: function (req, res, next) {
-		Dashboard.findOne({_id: req.params.id})
-			.exec(function(err, dashboard) {
-				repsonseHandler(err, req, res, {status: 200, returnObj: dashboard.chosenOption}, next);
 			});
 	},
 
