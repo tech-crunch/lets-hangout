@@ -1,35 +1,18 @@
 <ion-view ng-controller="grouphomeController" >
-<!-- <ion-side-menus>
- <ion-side-menu side="right">
+<ion-nav-buttons side="right">
+    <button class="button icon ion-gear-a button-clear" ng-click="showActionsheet()"></button>
+</ion-nav-buttons>
 
-  <ion-side-menu-content>
-   Add Friend
-  </ion-side-menu-content>
-  <ion-side-menu-content>
-    delete Friend
-  </ion-side-menu-content>
-  </ion-side-menu>
-    </ion-side-menus> -->
     <ion-content>
-       <button ng-click="facebookFriend()">Add Friend</button>
+       <!-- <button ng-click="facebookFriend()">Add Friend</button>
        <button ng-click="friends()">Show Friend</button>
-       <button ng-click="deleteGroup()">Delete Group</button>
+       <button ng-click="deleteGroup()">Delete Group</button> -->
     <h1>Group HomePage</h1>
       <ion-list>
         <ion-item ng-repeat="dashboard in data">
          Dashboard: {{dashboard.date}}
         </ion-item>
        </ion-list>
-
-      <!--  <br>
-        <ion-list>
-        <ion-item ng-repeat="user in users">
-         {{user.username}}     
-          <button ng-click="addFriend(user.username)">add</button>
- 
-        </ion-item>
-       </ion-list>
- -->
 
         
     </ion-content>

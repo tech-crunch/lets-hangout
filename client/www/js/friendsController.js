@@ -5,9 +5,9 @@
     .module('lets-hangout')
     .controller('friendsController', friendsController)
 
-  friendsController.$inject = ['$scope', '$state', '$timeout','$location','$ionicPopup','Group'];
+  friendsController.$inject = ['$scope', '$state', '$timeout','$location','$ionicPopup','$stateParams','Group'];
 
-  function friendsController($scope, $state, $timeout,$location,$ionicPopup, Group) {
+  function friendsController($scope, $state, $timeout,$location,$ionicPopup,$stateParams, Group) {
 
     $scope.data = [];
     $scope.gfriends = [];
@@ -27,8 +27,11 @@
     allFriends();
     // add friend 
     $scope.addFriend = function (user){
-      Group.addingFriend(sgroup[3],user)
+      console.log(user)
+      Group.addingFriend($stateParams.groupID,user)
         .then(function (data){
+          // document.getElementById(user.username).style.visibility='hidden';
+
           console.log(data);
          
         })

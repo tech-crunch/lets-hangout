@@ -13,7 +13,7 @@
     $scope.data=[];
 
     var id1= '57a9956eb5cc56040914fc1c';
-    var id2= '57a996e6dcba0f714010db80';
+    // var id2= '57a996e6dcba0f714010db80';
     
     // groups Information
     var init = function (){
@@ -41,7 +41,7 @@
 
     // select group
     $scope.selectGroup = function(name){
-        $location.path('/group/'+name);
+        $location.path('/groups/'+name);
     };
 
   }

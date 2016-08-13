@@ -34,77 +34,78 @@
   Group.$inject = ['$http'];
 
   function Group($http){
-    var newGroup = function (groupName,id){
+    var newGroup = function (groupName,userid){
       return $http({
         method:'POST',
-        url: localUrl +'/api/group/user/'+id,
+        url: baseUrl +'/api/groups',
         data:{
-           groupName:groupName
+           groupName:groupName,
+           userid:userid
         }
        })
        .then(function(resp){
-          return resp;
+          return resp.data;
        });
     };
 
     var allGroups = function(){
       return $http({
         method: 'GET',
-        url: localUrl  +'/api/group'
+        url: baseUrl  +'/api/groups'
       })
       .then(function(resp){
         return resp.data;
       });
     };
 
-    var groupInfo = function(groupName){
+    var groupInfo = function(id){
       return $http({
         method: 'GET',
-        url: localUrl +'/api/'+groupName
+        url: baseUrl +'/api/groups/'+id
       })
       .then(function(resp){
         return resp.data;
       });
     };
 
-    var deletingGroup = function (groupName){	
+    var deletingGroup = function (id){	
     return $http({
       method:'DELETE',
-      url: localUrl+'/api/'+groupName 
+      url: baseUrl+'/api/groups/'+id
      })
      .then(function(resp){
-        return resp;
+        return resp.data;
      });
   };
 
     var dashboardInfo = function(id){
       return $http({
         method: 'GET',
-        url: localUrl  +'/api/dashboard/'+id
+        url: baseUrl  +'/api/dashboard/'+id
       })
       .then(function(resp){
         return resp.data;
       });
     };
 
-    var addingFriend = function (groupName,username){
+    var addingFriend = function (id,userid){
     	
     return $http({
       method:'POST',
-      url: localUrl+'/api/group/'+groupName ,
+      url: baseUrl+'/api/groups/addFriend/'+id ,
       data:{
-         username:username
+         userid:userid
       }
      })
      .then(function(resp){
-        return resp;
+        return resp.data;
      });
   };
 
   var getAllFriends = function(){
     return $http({
       method: 'GET',
-      url: localUrl+'/api/user/friends'
+      url: baseUrl+'/api/user/friends'
     })
     .then(function(resp){
     	console.log(resp.data)
@@ -113,23 +114,23 @@
 
   };
   
-   var deletingFriend = function (groupName,username){	
+   var deletingFriend = function (id,userid){	
     return $http({
       method:'PUT',
-      url: localUrl+'/api/group/'+groupName ,
+      url: baseUrl+'/api/groups/removeFriend/'+id ,
       data:{
-         username:username
+         userid:userid
       }
      })
      .then(function(resp){
-        return resp;
+        return resp.data;
      });
   };
   
   var userInfo = function(id){
       return $http({
         method: 'GET',
-        url: localUrl  +'/api/user/userInfo/'+id
+        url: baseUrl  +'/api/user/userInfo/'+id
       })
       .then(function(resp){
         return resp.data;

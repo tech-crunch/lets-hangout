@@ -4,8 +4,8 @@
     <h3>Friends in your group</h3>
       <ion-list>
         <ion-item ng-repeat="user in gfriends">
-         friend:{{user.username}}     
-          <button ng-click="deleteFriend(user.username)">delete</button>
+         {{user.username}}     
+          <button ng-click="deleteFriend(user._id)">delete</button>
         </ion-item>
        </ion-list>
 

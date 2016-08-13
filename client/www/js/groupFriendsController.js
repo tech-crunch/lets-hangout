@@ -5,17 +5,17 @@
     .module('lets-hangout')
     .controller('groupFriendsController', groupFriendsController)
 
-  groupFriendsController.$inject = ['$scope','$location', 'Group'];
+  groupFriendsController.$inject = ['$scope','$location','$stateParams','Group'];
 
-  function groupFriendsController($scope,$location, Group) {
+  function groupFriendsController($scope,$location,$stateParams, Group) {
 
     
-    var sgroup=$location.path().split('/')
+    // var sgroup=$location.path().split('/')
     $scope.gfriends = [];
     
     //show friends in group
     var groupFriends = function (){
-       Group.groupInfo(sgroup[2])
+       Group.groupInfo($stateParams.groupID)
       .then(function (group){
         for (var i=0;i<group.users.length;i++){
           Group.userInfo(group.users[i])
@@ -36,7 +36,8 @@
    groupFriends();
   //delete friend from group
   $scope.deleteFriend = function (user){
-      Group.deletingFriend(sgroup[2],user)
+    console.log(user)
+      Group.deletingFriend($stateParams.groupID,user)
         .then(function (data){
           location.reload();
          
