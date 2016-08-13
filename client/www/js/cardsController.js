@@ -54,7 +54,7 @@
 
 		$scope.cardSwipedLeft = function(index) {
 			console.log('LEFT SWIPE');
-			if($scope.cards.active.length === 1){
+			if ($scope.cards.active.length === 1) {
 				$scope.showRefresh = true;
 			}
 		};
