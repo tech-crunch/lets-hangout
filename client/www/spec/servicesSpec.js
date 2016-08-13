@@ -314,23 +314,6 @@ describe('Services', function () {
 				$httpBackend.flush();
 			});
 		}); 
-
-		describe('.getchosenOption()', function() {
-			it('getchosenOption should be exist', function() {
-				expect(DashBoard.getchosenOption).toBeDefined();
-			});
-
-			it('getchosenOption should get option info with the most voting proparety 200(SUCCESS)', function() {
-				$httpBackend
-						.when('GET', baseUrl + '/api/dashboard/chosenID/' + newDash._id)
-						.respond (newDash.chosenOption);
-				DashBoard.getchosenOption(newDash._id)
-				.then(function (data) {
-					expect(data).toEqual(newDash.chosenOption);
-				});
-				$httpBackend.flush();
-			});
-		}); 
 	});
 
 	describe('Users factory', function () {
