@@ -30,7 +30,7 @@
           - 'refreshCards()' reloads all cards that have NOT been discarded.
         ************************* -->
         <td-card id="end-card" drag="false">
-          <i class="icon ion-ios-refresh disable-user-behavior" ng-click="refreshCards()"></i>
+          <i class="icon ion-ios-refresh disable-user-behavior" ng-click="initialize()" ng-if="showRefresh"></i>
         </td-card>
       </td-cards>
     </div>

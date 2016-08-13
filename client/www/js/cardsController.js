@@ -10,7 +10,10 @@
 	function CardsController($scope, $state, $timeout, Categories, SubCategory, DashBoard) {
 		$scope.cards = {};
 
+		$scope.showRefresh = false;
+
 		$scope.initialize = function() {
+			$scope.showRefresh = false;
 			Categories.getAll()
 			.then(function(categories) {
 				//$scope.categories = categories;
@@ -18,6 +21,7 @@
 					master: Array.prototype.slice.call(categories, 0),
 					active: Array.prototype.slice.call(categories, 0),
 				};
+				$scope.refreshCards();
 			})
 			.catch(function(error) {
 				console.log(error);
@@ -50,6 +54,9 @@
 
 		$scope.cardSwipedLeft = function(index) {
 			console.log('LEFT SWIPE');
+			if($scope.cards.active.length === 1){
+				$scope.showRefresh = true;
+			}
 		};
 		
 		$scope.cardSwipedRight = function(index) {
@@ -62,6 +69,7 @@
 						master: Array.prototype.slice.call(cards, 0),
 						active: Array.prototype.slice.call(cards, 0),
 					};
+					$scope.refreshCards();
 				} else {
 					console.log('addOption');
 					// DashBoard.addOption(dashboardID, $scope.cards.active[index]._id)
@@ -70,7 +78,6 @@
 					// });
 				}
 			});
-			$scope.refreshCards();
 		};
 	}
 } ());
