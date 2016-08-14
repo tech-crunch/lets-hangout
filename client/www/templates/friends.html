@@ -1,0 +1,19 @@
+<ion-view ng-controller="friendsController" >
+
+    <ion-content>
+    <h2>your Friends</h2>
+      <ion-list>
+        <ion-item ng-repeat="user in users">
+           <img  src={{user.picture}}>
+          {{user.name}}
+        <button ng-click="addFriend(user.userId)" >add</button>
+ 
+        </ion-item>
+       </ion-list>
+
+       <br>
+       
+       
+    </ion-content>
+
+</ion-view>

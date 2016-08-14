@@ -38,7 +38,7 @@
 		var newGroup = function (groupName, userid) {
 			return $http({
 				method: 'POST',
-				url: baseUrl + '/api/groups',
+				url: localUrl + '/api/groups',
 				data: {
 					groupName: groupName,
 					userid: userid
@@ -52,7 +52,7 @@
 		var allGroups = function() {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/groups'
+				url: localUrl + '/api/groups'
 			})
 			.then(function(resp) {
 				return resp.data;
@@ -62,7 +62,7 @@
 		var groupInfo = function(id) {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/groups/' + id
+				url: localUrl + '/api/groups/' + id
 			})
 			.then(function(resp) {
 				return resp.data;
@@ -72,7 +72,7 @@
 		var deletingGroup = function (id) {	
 			return $http({
 				method: 'DELETE',
-				url: baseUrl + '/api/groups/' + id
+				url: localUrl + '/api/groups/' + id
 			})
 			.then(function(resp) {
 				return resp.data;
@@ -82,7 +82,7 @@
 		var dashboardInfo = function(id) {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/dashboard/' + id
+				url: localUrl + '/api/dashboard/' + id
 			})
 			.then(function(resp) {
 				return resp.data;
@@ -92,7 +92,7 @@
 		var addingFriend = function (id, userid) {	
 			return $http({
 				method: 'POST',
-				url: baseUrl + '/api/groups/addFriend/' + id,
+				url: localUrl + '/api/groups/addFriend/' + id,
 				data: {
 					userid: userid
 				}
@@ -105,7 +105,7 @@
 		var getAllFriends = function() {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/user/friends'
+				url: localUrl + '/api/user/friends'
 			})
 			.then(function(resp) {
 				console.log(resp.data);
@@ -117,7 +117,7 @@
 		var deletingFriend = function (id, userid) {	
 			return $http({
 				method: 'PUT',
-				url: baseUrl + '/api/groups/removeFriend/' + id,
+				url: localUrl + '/api/groups/removeFriend/' + id,
 				data: {
 					userid: userid
 				}
@@ -248,7 +248,7 @@
 		var getAll = function() {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/users'
+				url: localUrl + '/api/users'
 			})
 			.then(function(resp) {
 				return resp;
@@ -258,7 +258,7 @@
 		var addOne = function (user) {
 			return $http({
 				method: 'POST',
-				url: baseUrl + '/api/users',
+				url: localUrl + '/api/users',
 				data: user
 			})
 			.then(function(resp) {
@@ -269,7 +269,7 @@
 		var getFriends = function (userId) {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/users/friends/' + userId
+				url: localUrl + '/api/users/friends/' + userId
 			})
 			.then(function(resp) {
 				return resp;
@@ -279,7 +279,7 @@
 		var getOne = function (userId) {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/users/' + userId
+				url: localUrl + '/api/users/' + userId
 			})
 			.then(function(resp) {
 				return resp;
@@ -289,7 +289,7 @@
 		var updateInfo = function (userData) {
 			return $http({
 				method: 'PUT',
-				url: baseUrl + '/api/users/' + userData.userId,
+				url: localUrl + '/api/users/' + userData.userId,
 				data: userData
 			})
 			.then(function(resp) {
