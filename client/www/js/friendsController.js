@@ -15,7 +15,6 @@
 		var allFriends = function () {
 			Users.getFriends(store.get('userProfile').userId)
 			.then(function (users) {
-				console.log(users)
 				$scope.users = users.data;
 			})
 			.catch(function (err) {

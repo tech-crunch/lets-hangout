@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Services', function () {
-	var baseUrl = 'http://letsshangout.herokuapp.com';
+	var baseUrl = 'https://letsshangout.herokuapp.com';
 	// Before each test load our lets-hangout.services module
 	beforeEach(angular.mock.module('lets-hangout.services'));
 
@@ -113,232 +113,6 @@ describe('Services', function () {
 
 				SubCategory.getChildren('57ab09d1c665971c0daea5a1').then(function (SubCategories) {
 					expect(SubCategories).toEqual(mockResponse);
-				});
-				$httpBackend.flush();
-			});
-		});
-	});
-
-	
-	describe('DashBoard factory', function () {
-		var $httpBackend, DashBoard;
-
-		// Before each test set our injected Categories factory (_Categories_) to our local Users variable
-		beforeEach(inject(function(_$httpBackend_, _DashBoard_) {
-			DashBoard = _DashBoard_;
-			$httpBackend = _$httpBackend_;
-		}));
-		var newDash = {
-			_id: '57ab0d66c665971c0daea5a4',
-			date: '2016-08-10 11:17:58.339Z',
-			options: [],
-			chosenOption: '57ab0d66c555971c0daea5a4'
-		};
-
-		it('DashBoard factory should exist', function() {
-			expect(DashBoard).toBeDefined();
-		});
-		describe('.createNew()', function() {
-			it('should add a new dachboard with `createNew`', function () {
-				$httpBackend
-					.when('POST', baseUrl + '/api/dashboard' )
-					.respond(201, {options: ['57ab09d1c665971c0daea5a1']});
-				DashBoard.createNew().then(function (resp) {
-					expect(resp.status).toEqual(201);
-					expect(resp.data.options).toContain('57ab09d1c665971c0daea5a1');
-				});
-				$httpBackend.flush();
-			});
-		});
-			
-		describe('.getInfo()', function() {
-
-			it('getInfo should be exist', function() {
-				expect(DashBoard.getInfo).toBeDefined();
-			});
-
-			it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
-				
-				$httpBackend
-						.expect('GET', baseUrl + '/api/dashboard/57ab0d66c665971c0daea5a4')
-						.respond (newDash);
-				DashBoard.getInfo('57ab0d66c665971c0daea5a4').then(function (data) {
-					expect(data._id).toEqual(newDash._id);
-				}); 
-				$httpBackend.flush();
-			});
-		});
-
-		describe('.addOption()', function() {
-
-			it('addOption should be exist', function() {
-				expect(DashBoard.addOption).toBeDefined();
-			});
-
-			it('addOption should add new option to dashboard with a given id 200(SUCCESS)', function() {
-				$httpBackend
-						.when('PUT', baseUrl + '/api/dashboard/addOption/' + newDash._id)
-						.respond (newDash);
-				DashBoard.addOption(newDash._id, '57ab09d1c665971c0daea5a1')
-				.then(function (data) {
-					expect(data._id).toEqual(newDash._id);
-				});
-				$httpBackend.flush();
-			});
-		});
-
-		describe('.eleminateOptions()', function() {
-
-			it('eleminateOptions should be exist', function() {
-				expect(DashBoard.eleminateOptions).toBeDefined();
-			});
-
-			it('eleminateOptions should eleminate option from dashboard with a given id 200(SUCCESS)', function() {
-				$httpBackend
-						.when('PUT', baseUrl + '/api/dashboard/eleminateOptions/' + newDash._id)
-						.respond (newDash);
-				DashBoard.eleminateOptions(newDash._id, '57ab09d1c665971c0daea5a1')
-				.then(function (data) {
-					expect(data._id).toEqual(newDash._id);
-				});
-				$httpBackend.flush();
-			});
-		});
-
-		describe('.voteForOption()', function() {
-			it('voteForOption should be exist', function() {
-				expect(DashBoard.voteForOption).toBeDefined();
-			});
-
-			it('voteForOption should increase voting proparety for a given subCategoryId 200(SUCCESS)', function() {
-				$httpBackend
-						.when('PUT', baseUrl + '/api/dashboard/voteForOption/' + newDash._id)
-						.respond (newDash);
-				DashBoard.voteForOption(newDash._id, '57ab09d1c665971c0daea5a1')
-				.then(function (data) {
-					expect(data._id).toEqual(newDash._id);
-				});
-				$httpBackend.flush();
-			});
-		}); 
-
-		describe('.getchosenOption()', function() {
-			it('getchosenOption should be exist', function() {
-				expect(DashBoard.getchosenOption).toBeDefined();
-			});
-
-			it('getchosenOption should get option info with the most voting proparety 200(SUCCESS)', function() {
-				$httpBackend
-						.when('GET', baseUrl + '/api/dashboard/chosenID/' + newDash._id)
-						.respond (newDash.chosenOption);
-				DashBoard.getchosenOption(newDash._id)
-				.then(function (data) {
-					expect(data).toEqual(newDash.chosenOption);
-				});
-				$httpBackend.flush();
-			});
-		}); 
-	});
-
-	describe('Users factory', function () {
-		var $httpBackend, Users;
-
-		var newUser = {
-			userId: '12345',
-			picture: 'testPicture',
-			friends: [],
-			name: 'testName'
-		};
-
-		beforeEach(inject(function(_$httpBackend_, _Users_) {
-			Users = _Users_;
-			$httpBackend = _$httpBackend_;
-		}));
-
-		it('Users factory should exist', function() {
-			expect(Users).toBeDefined();
-		});
-
-		describe('.addOne()', function() {
-			it('should add a new user with `addOne`', function () {
-				$httpBackend
-					.when('POST', baseUrl + '/api/users' )
-					.respond(201, newUser);
-				Users.addOne(newUser).then(function (resp) {
-					expect(resp.status).toEqual(201);
-					expect(resp.data.userId).toEqual('12345');
-				});
-				$httpBackend.flush();
-			});
-		});
-
-		describe('.getAll()', function() {
-
-			it('getAll should be exist', function() {
-				expect(Users.getAll).toBeDefined();
-			});
-
-			it('getAll should get Users data with 200(SUCCESS)', function() {
-				
-				$httpBackend
-						.expect('GET', baseUrl + '/api/users')
-						.respond ();
-				Users.getAll().then(function (resp) {
-					expect(resp.status).toEqual(200);
-				}); 
-				$httpBackend.flush();
-			});
-		});
-
-		describe('.getFriends()', function() {
-
-			it('getFriends should be exist', function() {
-				expect(Users.getFriends).toBeDefined();
-			});
-
-			it('getFriends should get a user friends with a given id 200(SUCCESS)', function() {
-				$httpBackend
-						.when('GET', baseUrl + '/api/users/friends/' + newUser.userId)
-						.respond ();
-				Users.getFriends(newUser.userId)
-				.then(function (resp) {
-					expect(resp.status).toEqual(200);
-				});
-				$httpBackend.flush();
-			});
-		});
-
-		describe('.getOne()', function() {
-
-			it('getOne should be exist', function() {
-				expect(Users.getOne).toBeDefined();
-			});
-
-			it('getOne should get a users info with a given id 200(SUCCESS)', function() {
-				$httpBackend
-						.when('GET', baseUrl + '/api/users/' + newUser.userId)
-						.respond ();
-				Users.getOne(newUser.userId)
-				.then(function (resp) {
-					expect(resp.status).toEqual(200);
-				});
-				$httpBackend.flush();
-			});
-		});
-
-		describe('.updateInfo()', function() {
-
-			it('updateInfo should be exist', function() {
-				expect(Users.updateInfo).toBeDefined();
-			});
-
-			it('updateInfo should update users info with a given id 201(SUCCESS)', function() {
-				$httpBackend
-					.when('PUT', baseUrl + '/api/users/' + newUser.userId)
-					.respond ();
-				Users.updateInfo({userId: newUser.userId})
-				.then(function (resp) {
-					expect(resp.status).toEqual(200);
 				});
 				$httpBackend.flush();
 			});
@@ -496,6 +270,250 @@ describe('Services', function () {
 				$httpBackend.expect('POST', baseUrl + '/api/groups').respond(mockResponse);
 				Group.newGroup({groupName: mockResponse.groupName, userid: '22'}).then(function (groups) {
 					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
+	});
+
+	describe('DashBoard factory', function () {
+		var $httpBackend, DashBoard;
+
+		// Before each test set our injected Categories factory (_Categories_) to our local Users variable
+		beforeEach(inject(function(_$httpBackend_, _DashBoard_) {
+			DashBoard = _DashBoard_;
+			$httpBackend = _$httpBackend_;
+		}));
+		var newDash = {
+			_id: '57ab0d66c665971c0daea5a4',
+			date: '2016-08-10 11:17:58.339Z',
+			options: [],
+			chosenOption: '57ab0d66c555971c0daea5a4'
+		};
+
+		it('DashBoard factory should exist', function() {
+			expect(DashBoard).toBeDefined();
+		});
+		describe('.createNew()', function() {
+			it('should add a new dachboard with `createNew`', function () {
+				$httpBackend
+					.when('POST', baseUrl + '/api/dashboard' )
+					.respond(201, {options: ['57ab09d1c665971c0daea5a1']});
+				DashBoard.createNew().then(function (resp) {
+					expect(resp.status).toEqual(201);
+					expect(resp.data.options).toContain('57ab09d1c665971c0daea5a1');
+				});
+				$httpBackend.flush();
+			});
+		});
+			
+		describe('.getInfo()', function() {
+
+			it('getInfo should be exist', function() {
+				expect(DashBoard.getInfo).toBeDefined();
+			});
+
+			it('getInfo should get dashboard data with a given id 200(SUCCESS)', function() {
+				
+				$httpBackend
+						.expect('GET', baseUrl + '/api/dashboard/57ab0d66c665971c0daea5a4')
+						.respond (newDash);
+				DashBoard.getInfo('57ab0d66c665971c0daea5a4').then(function (data) {
+					expect(data._id).toEqual(newDash._id);
+				}); 
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.addOption()', function() {
+
+			it('addOption should be exist', function() {
+				expect(DashBoard.addOption).toBeDefined();
+			});
+
+			it('addOption should add new option to dashboard with a given id 200(SUCCESS)', function() {
+				$httpBackend
+						.when('PUT', baseUrl + '/api/dashboard/addOption/' + newDash._id)
+						.respond (newDash);
+				DashBoard.addOption(newDash._id, '57ab09d1c665971c0daea5a1')
+				.then(function (data) {
+					expect(data._id).toEqual(newDash._id);
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.eleminateOptions()', function() {
+
+			it('eleminateOptions should be exist', function() {
+				expect(DashBoard.eleminateOptions).toBeDefined();
+			});
+
+			it('eleminateOptions should eleminate option from dashboard with a given id 200(SUCCESS)', function() {
+				$httpBackend
+						.when('PUT', baseUrl + '/api/dashboard/eleminateOptions/' + newDash._id)
+						.respond (newDash);
+				DashBoard.eleminateOptions(newDash._id, '57ab09d1c665971c0daea5a1')
+				.then(function (data) {
+					expect(data._id).toEqual(newDash._id);
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.voteForOption()', function() {
+			it('voteForOption should be exist', function() {
+				expect(DashBoard.voteForOption).toBeDefined();
+			});
+
+			it('voteForOption should increase voting proparety for a given subCategoryId 200(SUCCESS)', function() {
+				$httpBackend
+						.when('PUT', baseUrl + '/api/dashboard/voteForOption/' + newDash._id)
+						.respond (newDash);
+				DashBoard.voteForOption(newDash._id, '57ab09d1c665971c0daea5a1')
+				.then(function (data) {
+					expect(data._id).toEqual(newDash._id);
+				});
+				$httpBackend.flush();
+			});
+		}); 
+	});
+
+	describe('Users factory', function () {
+		var $httpBackend, Users;
+
+		var newUser = {
+			userId: '12345',
+			picture: 'testPicture',
+			friends: [],
+			name: 'testName'
+		};
+
+		beforeEach(inject(function(_$httpBackend_, _Users_) {
+			Users = _Users_;
+			$httpBackend = _$httpBackend_;
+		}));
+
+		it('Users factory should exist', function() {
+			expect(Users).toBeDefined();
+		});
+
+		describe('.addOne()', function() {
+			it('should add a new user with `addOne`', function () {
+				$httpBackend
+					.when('POST', baseUrl + '/api/users' )
+					.respond(201, newUser);
+				Users.addOne(newUser).then(function (resp) {
+					expect(resp.status).toEqual(201);
+					expect(resp.data.userId).toEqual('12345');
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.getAll()', function() {
+
+			it('getAll should be exist', function() {
+				expect(Users.getAll).toBeDefined();
+			});
+
+			it('getAll should get Users data with 200(SUCCESS)', function() {
+				
+				$httpBackend
+						.expect('GET', baseUrl + '/api/users')
+						.respond ();
+				Users.getAll().then(function (resp) {
+					expect(resp.status).toEqual(200);
+				}); 
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.getFriends()', function() {
+
+			it('getFriends should be exist', function() {
+				expect(Users.getFriends).toBeDefined();
+			});
+
+			it('getFriends should get a user friends with a given id 200(SUCCESS)', function() {
+				$httpBackend
+						.when('GET', baseUrl + '/api/users/friends/' + newUser.userId)
+						.respond ();
+				Users.getFriends(newUser.userId)
+				.then(function (resp) {
+					expect(resp.status).toEqual(200);
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.getOne()', function() {
+
+			it('getOne should be exist', function() {
+				expect(Users.getOne).toBeDefined();
+			});
+
+			it('getOne should get a users info with a given id 200(SUCCESS)', function() {
+				$httpBackend
+						.when('GET', baseUrl + '/api/users/' + newUser.userId)
+						.respond ();
+				Users.getOne(newUser.userId)
+				.then(function (resp) {
+					expect(resp.status).toEqual(200);
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.updateInfo()', function() {
+
+			it('updateInfo should be exist', function() {
+				expect(Users.updateInfo).toBeDefined();
+			});
+
+			it('updateInfo should update users info with a given id 201(SUCCESS)', function() {
+				$httpBackend
+					.when('PUT', baseUrl + '/api/users/' + newUser.userId)
+					.respond ();
+				Users.updateInfo({userId: newUser.userId})
+				.then(function (resp) {
+					expect(resp.status).toEqual(200);
+				});
+				$httpBackend.flush();
+			});
+		});
+	});
+
+	describe('Credentials factory', function () {
+		var $httpBackend, Credentials;
+
+		var newUser = {
+			userId: '12345',
+			picture: 'testPicture',
+			friends: [],
+			name: 'testName'
+		};
+
+		beforeEach(inject(function(_$httpBackend_, _Credentials_) {
+			Credentials = _Credentials_;
+			$httpBackend = _$httpBackend_;
+		}));
+
+		it('Credentials factory should exist', function() {
+			expect(Credentials).toBeDefined();
+		});
+
+		describe('.getCredentials()', function() {
+			it('should get auth credentials with `getCredentials`', function () {
+				$httpBackend
+					.when('GET', baseUrl + '/api/authCredentials' )
+					.respond(200, {
+						AUTH0_CLIENT_ID: '1234',
+						AUTH0_DOMAIN: '5678'
+					});
+				Credentials.getCredentials().then(function (resp) {
+					expect(resp.status).toEqual(200);
+					expect(resp.data['AUTH0_CLIENT_ID']).toEqual('1234');
 				});
 				$httpBackend.flush();
 			});
