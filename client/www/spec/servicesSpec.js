@@ -345,190 +345,160 @@ describe('Services', function () {
 		});
 	});
 
-
 	describe('Group factory', function () {
-    var $httpBackend, Group;
+		var $httpBackend, Group;
 
-    // Before each test set our injected Group factory (_group_) to our local Users variable
-    beforeEach(inject(function(_$httpBackend_, _Group_) {
-      Group = _Group_;
-      $httpBackend = _$httpBackend_;
-    }));
+		// Before each test set our injected Group factory (_group_) to our local Users variable
+		beforeEach(inject(function(_$httpBackend_, _Group_) {
+			Group = _Group_;
+			$httpBackend = _$httpBackend_;
+		}));
 
-    it('Group factory should exist', function() {
-      expect(Group).toBeDefined();
-    });
+		it('Group factory should exist', function() {
+			expect(Group).toBeDefined();
+		});
 
-     describe('.allGroups()', function() {
-      it('allGroups should get Groups data 200(SUCCESS)', function() {
+		describe('.allGroups()', function() {
+			it('allGroups should get Groups data 200(SUCCESS)', function() {
+				var mockResponse = [
+					{
+						'groupName': 'group1',
+						'groupAdmin': '22'
+					},
+					{
+						'groupName': 'group2',
+						'groupAdmin': '11'
+					}
+				];
+				$httpBackend.expect('GET', baseUrl + '/api/groups').respond(mockResponse);
+				Group.allGroups().then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
 
-         var mockResponse = [
-              {
-                "groupName": "group1",
-                "groupAdmin": "22"
-              },
-              {
-                "groupName": "group2",
-                "groupAdmin": "11"
-              }
-            ];
+		describe('.groupInfo()', function() {
+			// A test to verify the method groupInfo exists
+			it('groupInfo should be exist', function() {
+				expect(Group.groupInfo).toBeDefined();
+			});
 
-            $httpBackend.expect('GET', baseUrl + '/api/groups').respond(mockResponse);
+			it('groupInfo should get Group data 200(SUCCESS)', function() {
+				var mockResponse = [
+					{
+						'_id': '57aef47bf78029102600843d',
+						'groupName': 'group1',
+						'groupAdmin': '22'
+					}			
+				];
+				$httpBackend.expect('GET', baseUrl + '/api/groups/' + mockResponse._id).respond(mockResponse);
+				Group.groupInfo().then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
 
-            Group.allGroups().then(function (groups) {
-              expect(groups).toEqual(mockResponse);
-            });
-            $httpBackend.flush();
-          });
-        });
+		describe('.dashboardInfo()', function() {
+			// A test to verify the method dashboardInfo exists
+			it('dashboardInfo should be exist', function() {
+				expect(Group.dashboardInfo).toBeDefined();
+			});
 
-     describe('.groupInfo()', function() {
-      // A test to verify the method groupInfo exists
-      it('groupInfo should be exist', function() {
-        expect(Group.groupInfo).toBeDefined();
-      });
+			it('dashboardInfo should get Group data 200(SUCCESS)', function() {
+				var mockResponse = [
+					{
+						'_id': '4743580489'
+					} 
+				];
+				$httpBackend.expect('GET', baseUrl + '/api/dashboard/' + mockResponse ._id).respond(mockResponse);
+				Group.dashboardInfo().then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
 
-     it('groupInfo should get Group data 200(SUCCESS)', function() {
+		describe('.deletingGroup()', function() {
+			// A test to verify the method deletingGroup exists
+			it('deletingGroup should be exist', function() {
+				expect(Group.deletingGroup).toBeDefined();
+			});
 
-         var mockResponse = [
-              {
-                "_id":"57aef47bf78029102600843d",
-                "groupName": "group1",
-                "groupAdmin": "22"
-              }
-              
-            ];
+			it('deletingGroup should delete Group  200(SUCCESS)', function() {
+				var mockResponse = {
+					'_id': '57aef47bf78029102600843d',
+					'groupName': 'group1',
+					'groupAdmin': '22'
+				};
+				$httpBackend.expect('DELETE', baseUrl + '/api/groups/' + mockResponse._id).respond(mockResponse);
+				Group.deletingGroup(mockResponse._id).then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
 
-            $httpBackend.expect('GET', baseUrl + '/api/groups/'+mockResponse._id).respond(mockResponse);
+		describe('.addingFriend()', function() {
+			// A test to verify the method addingFriend exists
+			it('addingFriend should be exist', function() {
+				expect(Group.addingFriend).toBeDefined();
+			});
 
-            Group.groupInfo().then(function (groups) {
-              expect(groups).toEqual(mockResponse);
-            });
-            $httpBackend.flush();
-          });
-    });
+			it('addingFriend should add friend to Group 200(SUCCESS)', function() {
+				var mockResponse = {
+					'_id': '57aef47bf78029102600843d',
+					'groupName': 'group1',
+					'groupAdmin': '22',
+					users: ['8934965']
+				};
+				$httpBackend.expect('POST', baseUrl + '/api/groups/addFriend/' + mockResponse._id).respond(mockResponse);
+				Group.addingFriend(mockResponse._id, {userid: '8934965'}).then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
 
-     describe('.dashboardInfo()', function() {
-      // A test to verify the method dashboardInfo exists
-      it('dashboardInfo should be exist', function() {
-        expect(Group.dashboardInfo).toBeDefined();
-      });
+		describe('.deletingFriend()', function() {
+			// A test to verify the method deletingFriend exists
+			it('deletingFriend should be exist', function() {
+				expect(Group.deletingFriend).toBeDefined();
+			});
 
-        it('dashboardInfo should get Group data 200(SUCCESS)', function() {
+			it('deletingFriend should delete friend from group 200(SUCCESS)', function() {
+				var mockResponse = {
+					'_id': '57aef47bf78029102600843d',
+					'groupName': 'group1',
+					'groupAdmin': '22'
+				};
+				$httpBackend.expect('PUT', baseUrl + '/api/groups/removeFriend/' + mockResponse._id).respond(mockResponse);
+				Group.deletingFriend(mockResponse._id, {userid: '5364854'}).then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
 
-         var mockResponse = [
-              {
-                "_id": "4743580489"
-              }
-              
-            ];
+		describe('.newGroup()', function() {
+			// A test to verify the method newGroup exists
+			it('newGroup should be exist', function() {
+				expect(Group.newGroup).toBeDefined();
+			});
 
-            $httpBackend.expect('GET', baseUrl + '/api/dashboard/'+mockResponse ._id).respond(mockResponse);
-
-            Group.dashboardInfo().then(function (groups) {
-              expect(groups).toEqual(mockResponse);
-            });
-            $httpBackend.flush();
-          });
-    });
-
-     
-    describe('.deletingGroup()', function() {
-      // A test to verify the method deletingGroup exists
-      it('deletingGroup should be exist', function() {
-        expect(Group.deletingGroup).toBeDefined();
-      });
-
-     it('deletingGroup should delete Group  200(SUCCESS)', function() {
-
-         var mockResponse = 
-              {
-                "_id":"57aef47bf78029102600843d",
-                "groupName": "group1",
-                "groupAdmin": "22"
-              };
-
-            $httpBackend.expect('DELETE', baseUrl + '/api/groups/'+mockResponse._id).respond(mockResponse);
-
-            Group.deletingGroup(mockResponse._id).then(function (groups) {
-              expect(groups).toEqual(mockResponse);
-            });
-            $httpBackend.flush();
-          });
-    });
-
-    describe('.addingFriend()', function() {
-      // A test to verify the method addingFriend exists
-      it('addingFriend should be exist', function() {
-        expect(Group.addingFriend).toBeDefined();
-      });
-
-     it('addingFriend should add friend to Group 200(SUCCESS)', function() {
-
-         var mockResponse = 
-              {
-                "_id":"57aef47bf78029102600843d",
-                "groupName": "group1",
-                "groupAdmin": "22",
-                users:["8934965"]
-              };
-
-            $httpBackend.expect('POST', baseUrl +'/api/groups/addFriend/'+mockResponse._id).respond(mockResponse);
-
-            Group.addingFriend(mockResponse._id,{userid:"8934965"}).then(function (groups) {
-              expect(groups).toEqual(mockResponse);
-            });
-            $httpBackend.flush();
-          });
-    });
-
-    describe('.deletingFriend()', function() {
-      // A test to verify the method deletingFriend exists
-      it('deletingFriend should be exist', function() {
-        expect(Group.deletingFriend).toBeDefined();
-      });
-
-     it('deletingFriend should delete friend from group 200(SUCCESS)', function() {
-
-         var mockResponse = 
-              {
-                "_id":"57aef47bf78029102600843d",
-                "groupName": "group1",
-                "groupAdmin": "22"
-              };
-
-            $httpBackend.expect('PUT', baseUrl + '/api/groups/removeFriend/'+mockResponse._id).respond(mockResponse);
-
-            Group.deletingFriend(mockResponse._id,{userid:"5364854"}).then(function (groups) {
-              expect(groups).toEqual(mockResponse);
-            });
-            $httpBackend.flush();
-          });
-    });
-
-     describe('.newGroup()', function() {
-      // A test to verify the method newGroup exists
-      it('newGroup should be exist', function() {
-        expect(Group.newGroup).toBeDefined();
-      });
-
-     it('newGroup should create Group  200(SUCCESS)', function() {
-
-         var mockResponse = 
-              {
-                "_id":"57aef47bf78029102600843d",
-                "groupName": "group1",
-                "groupAdmin": "22"
-              };
-
-            $httpBackend.expect('POST', baseUrl + '/api/groups').respond(mockResponse);
-
-            Group.newGroup({groupName:mockResponse.groupName,userid:"22"}).then(function (groups) {
-              expect(groups).toEqual(mockResponse);
-            });
-            $httpBackend.flush();
-          });
-
-        });
-   });
+			it('newGroup should create Group  200(SUCCESS)', function() {
+				var mockResponse = {
+					'_id': '57aef47bf78029102600843d',
+					'groupName': 'group1',
+					'groupAdmin': '22'
+				};
+				$httpBackend.expect('POST', baseUrl + '/api/groups').respond(mockResponse);
+				Group.newGroup({groupName: mockResponse.groupName, userid: '22'}).then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
+	});
 });

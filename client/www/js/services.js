@@ -31,132 +31,120 @@
 	}
 
 	// groups factory
-  Group.$inject = ['$http'];
+	Group.$inject = ['$http'];
 
-  function Group($http){
-    var newGroup = function (groupName,userid){
-      return $http({
-        method:'POST',
-        url: baseUrl +'/api/groups',
-        data:{
-           groupName:groupName,
-           userid:userid
-        }
-       })
-       .then(function(resp){
-          return resp.data;
-       });
-    };
-
-    var allGroups = function(){
-      return $http({
-        method: 'GET',
-        url: baseUrl  +'/api/groups'
-      })
-      .then(function(resp){
-        return resp.data;
-      });
-    };
-
-    var groupInfo = function(id){
-      return $http({
-        method: 'GET',
-        url: baseUrl +'/api/groups/'+id
-      })
-      .then(function(resp){
-        return resp.data;
-      });
-    };
-
-    var deletingGroup = function (id){	
-    return $http({
-      method:'DELETE',
-      url: baseUrl+'/api/groups/'+id
-     })
-     .then(function(resp){
-        return resp.data;
-     });
-  };
-
-    var dashboardInfo = function(id){
-      return $http({
-        method: 'GET',
-        url: baseUrl  +'/api/dashboard/'+id
-      })
-      .then(function(resp){
-        return resp.data;
-      });
-    };
-
-    var addingFriend = function (id,userid){
-    	
-    return $http({
-      method:'POST',
-      url: baseUrl+'/api/groups/addFriend/'+id ,
-      data:{
-         userid:userid
-      }
-     })
-     .then(function(resp){
-        return resp.data;
-     });
-  };
-
-  var getAllFriends = function(){
-    return $http({
-      method: 'GET',
-      url: baseUrl+'/api/user/friends'
-    })
-    .then(function(resp){
-    	console.log(resp.data)
-      return resp.data;
-    })
-
-  };
-  
-   var deletingFriend = function (id,userid){	
-    return $http({
-      method:'PUT',
-      url: baseUrl+'/api/groups/removeFriend/'+id ,
-      data:{
-         userid:userid
-      }
-     })
-     .then(function(resp){
-        return resp.data;
-     });
-  };
-  
-  var userInfo = function(id){
-      return $http({
-        method: 'GET',
-        url: baseUrl  +'/api/user/userInfo/'+id
-      })
-      .then(function(resp){
-        return resp.data;
-      });
-    };
-
-    return {
-      newGroup:newGroup,
-      allGroups:allGroups,
-      groupInfo:groupInfo,
-      dashboardInfo:dashboardInfo,
-      addingFriend:addingFriend,
-      getAllFriends:getAllFriends,
-      deletingFriend:deletingFriend,
-      userInfo:userInfo,
-      deletingGroup:deletingGroup
-    };
-  };
-
-  // DashBoard factory
-  DashBoard.$inject = ['$http'];
-
-	function DashBoard($http){
-		var createNew = function(){
+	function Group($http) {
+		var newGroup = function (groupName, userid) {
 			return $http({
-				method:'POST',
+				method: 'POST',
+				url: localUrl + '/api/groups',
+				data: {
+					groupName: groupName,
+					userid: userid
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var allGroups = function() {
+			return $http({
+				method: 'GET',
+				url: localUrl + '/api/groups'
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var groupInfo = function(id) {
+			return $http({
+				method: 'GET',
+				url: localUrl + '/api/groups/' + id
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var deletingGroup = function (id) {	
+			return $http({
+				method: 'DELETE',
+				url: localUrl + '/api/groups/' + id
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var dashboardInfo = function(id) {
+			return $http({
+				method: 'GET',
+				url: localUrl + '/api/dashboard/' + id
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var addingFriend = function (id, userid) {	
+			return $http({
+				method: 'POST',
+				url: localUrl + '/api/groups/addFriend/' + id,
+				data: {
+					userid: userid
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var getAllFriends = function() {
+			return $http({
+				method: 'GET',
+				url: localUrl + '/api/user/friends'
+			})
+			.then(function(resp) {
+				console.log(resp.data);
+				return resp.data;
+			});
+
+		};
+
+		var deletingFriend = function (id, userid) {	
+			return $http({
+				method: 'PUT',
+				url: localUrl + '/api/groups/removeFriend/' + id,
+				data: {
+					userid: userid
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		return {
+			newGroup: newGroup,
+			allGroups: allGroups,
+			groupInfo: groupInfo,
+			dashboardInfo: dashboardInfo,
+			addingFriend: addingFriend,
+			getAllFriends: getAllFriends,
+			deletingFriend: deletingFriend,
+			deletingGroup: deletingGroup
+		};
+	}
+
+	// DashBoard factory
+	DashBoard.$inject = ['$http'];
+
+	function DashBoard($http) {
+		var createNew = function() {
+			return $http({
+				method: 'POST',
 				url: baseUrl + '/api/dashboard'
 			})
 			.then(function(resp) {
@@ -270,7 +258,7 @@
 		var getAll = function() {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/users'
+				url: localUrl + '/api/users'
 			})
 			.then(function(resp) {
 				return resp;
@@ -280,7 +268,7 @@
 		var addOne = function (user) {
 			return $http({
 				method: 'POST',
-				url: baseUrl + '/api/users',
+				url: localUrl + '/api/users',
 				data: user
 			})
 			.then(function(resp) {
@@ -291,27 +279,27 @@
 		var getFriends = function (userId) {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/users/friends/' + userId
+				url: localUrl + '/api/users/friends/' + userId
 			})
 			.then(function(resp) {
-				return resp;
+				return resp.data;
 			});
 		};
 
 		var getOne = function (userId) {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/users/' + userId
+				url: localUrl + '/api/users/' + userId
 			})
 			.then(function(resp) {
-				return resp;
+				return resp.data;
 			});
 		};
 
 		var updateInfo = function (userData) {
 			return $http({
 				method: 'PUT',
-				url: baseUrl + '/api/users/' + userData.userId,
+				url: localUrl + '/api/users/' + userData.userId,
 				data: userData
 			})
 			.then(function(resp) {

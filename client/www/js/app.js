@@ -28,30 +28,27 @@ angular.module('lets-hangout', [
 	$rootScope.$on('$locationChangeStart', function () {
 		var token = store.get('token');
 		var refreshToken = store.get('refreshToken');
-		if (!token) {
-			return
+		if (token) {
+			if (!jwtHelper.isTokenExpired(token)) {
+				if (!auth.isAuthenticated) {
+					auth.authenticate(store.get('profile'), token);
+				}
+			} else {
+				if (refreshToken) {
+					if (refreshingToken === null) {
+						refreshingToken = auth.refreshIdToken(refreshToken).then(function (idToken) {
+							store.set('token', idToken);
+							auth.authenticate(store.get('profile'), idToken);
+						}).finally(function () {
+							refreshingToken = null;
+						});
+					}
+					return refreshingToken;
+				} else {
+					$location.path('/login');
+				}                          
+			}
 		}
-
-		if(isLoggedIn(token)){
-			return
-		}
-		
-		if (!auth.isAuthenticated) {
-			auth.authenticate(store.get('profile'), token);
-		} 
-
-		if (refreshToken) {
-			refreshingToken = auth.refreshIdToken(refreshToken).then(function (idToken) {
-				store.set('token', idToken);
-				auth.authenticate(store.get('profile'), idToken);
-			}).finally(function () {
-				refreshingToken = null;
-			});
-			return refreshingToken;
-		} else {
-			$location.path('/login');
-		}                          
-		
 	});
 })
 .config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
@@ -88,11 +85,12 @@ angular.module('lets-hangout', [
 		url: '/groups/friends/:groupID',
 		templateUrl: 'templates/friends.html' 
 	})
-    .state('groupMembers', {
-		url: '/groups/members/:groupID',
-		templateUrl: 'templates/grouphome.html' 
-	});
-	
+		.state('groupMembers', {
+			url: '/groups/members/:groupID',
+			templateUrl: 'templates/groupFriends.html' 
+		});
+
+
 	// Initialized the Auth0 provider
 	authProvider.init({
 		domain: AUTH0_DOMAIN,
