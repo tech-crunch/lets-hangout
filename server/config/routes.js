@@ -7,6 +7,21 @@ var groupController = require('../groups/groupController.js');
 var userController = require('../users/userController.js');
 
 module.exports = function (app, express) {
+
+	// route for getting the AUTH0 Client_ID and Domain
+	app.get('/api/authCredentials', function(req, res, next) {
+		var AUTH0_CLIENT_ID = process.env.AuthClientID;
+		var AUTH0_DOMAIN = process.env.AuthDomain;
+		if (AUTH0_DOMAIN && AUTH0_CLIENT_ID) {
+			res.status(200).send({
+				AUTH0_CLIENT_ID: AUTH0_CLIENT_ID,
+				AUTH0_DOMAIN: AUTH0_DOMAIN
+			});
+		} else {
+			next('Credentials Were Not Provided', req, res);
+		}
+	}, helpers.errorHandler);
+
 	// routes for users
 	app.get('/api/users', userController.getAll, helpers.errorHandler);
 	app.post('/api/users', userController.createNew, helpers.errorHandler);

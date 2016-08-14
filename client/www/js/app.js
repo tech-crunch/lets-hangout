@@ -52,6 +52,8 @@ angular.module('lets-hangout', [
 	});
 })
 .config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
+	var AUTH0_CALLBACK_URL = location.href;
+
 	// Ionic uses AngularUI Router which uses the concept of states
 	// Learn more here: https://github.com/angular-ui/ui-router
 	// Set up the various states which the app can be in.
@@ -59,7 +61,20 @@ angular.module('lets-hangout', [
 	$stateProvider
 	.state('home', {
 		url: '/',
-		templateUrl: 'templates/home.html'
+		templateUrl: 'templates/home.html',
+		resolve: {
+			data: function(Credentials) {
+				Credentials.getCredentials()
+				.then(function(resp) {
+					// Initialized the Auth0 provider
+					authProvider.init({
+						clientID: resp.data.AUTH0_CLIENT_ID,
+						domain: resp.data.AUTH0_DOMAIN,
+						loginState: 'login'
+					});
+				});
+			}
+		}
 	})
 	.state('login', {
 		url: '/login',
@@ -80,13 +95,6 @@ angular.module('lets-hangout', [
 	.state('grouphome', {
 		url: '/group/:groupName',
 		templateUrl: 'templates/groupHome.html' 
-	});
-
-	// Initialized the Auth0 provider
-	authProvider.init({
-		domain: AUTH0_DOMAIN,
-		clientID: AUTH0_CLIENT_ID,
-		loginState: 'login'
 	});
 
 	// if none of the above states are matched, use this as the fallback

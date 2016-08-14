@@ -1,5 +1,5 @@
 {
-  "name": "lets-hangout",
+  "name": "Lets-Hangout",
   "version": "0.1.0",
   "description": "",
   "main": "./server/server.js",
@@ -10,7 +10,8 @@
     "dev": "nodemon ./server/server.js",
     "start": "nodemon ./server/server.js",
     "gulp": "./node_modules/.bin/gulp",
-    "lint" : "eslint ./server ./client/www/js ./client/www/spec"
+    "lint" : "eslint ./server ./client/www/js ./client/www/spec",
+    "postinstall": "npm install -g bower; bower install"
   },
   "engines": {
     "node": ">=6.3.0"
