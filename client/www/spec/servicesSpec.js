@@ -437,4 +437,40 @@ describe('Services', function () {
 			});
 		});
 	});
+
+	describe('Credentials factory', function () {
+		var $httpBackend, Credentials;
+
+		var newUser = {
+			userId: '12345',
+			picture: 'testPicture',
+			friends: [],
+			name: 'testName'
+		};
+
+		beforeEach(inject(function(_$httpBackend_, _Credentials_) {
+			Credentials = _Credentials_;
+			$httpBackend = _$httpBackend_;
+		}));
+
+		it('Credentials factory should exist', function() {
+			expect(Credentials).toBeDefined();
+		});
+
+		describe('.getCredentials()', function() {
+			it('should get auth credentials with `getCredentials`', function () {
+				$httpBackend
+					.when('GET', baseUrl + '/api/authCredentials' )
+					.respond(200, {
+						AUTH0_CLIENT_ID: '1234',
+  						AUTH0_DOMAIN: '5678'
+					});
+				Credentials.getCredentials().then(function (resp) {
+					expect(resp.status).toEqual(200);
+					expect(resp.data['AUTH0_CLIENT_ID']).toEqual('1234');
+				});
+				$httpBackend.flush();
+			});
+		});
+	});
 });
