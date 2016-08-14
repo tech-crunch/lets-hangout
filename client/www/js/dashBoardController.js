@@ -5,16 +5,19 @@
 		.module('lets-hangout')
 		.controller('DashBoardController', DashBoardController);
 
-	DashBoardController.$inject = ['$scope', 'DashBoard', '$location', '$window', 'SubCategory', '$ionicPopup', '$ionicLoading', '$ionicPopover', '$ionicModal'];
+	DashBoardController.$inject = ['$scope', 'DashBoard', '$location', '$window', '$stateParams',
+	 'SubCategory', '$ionicPopup', '$ionicLoading', '$ionicPopover', '$ionicModal'];
 
-	function DashBoardController($scope, DashBoard, $location, $window, SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal) { 
+	function DashBoardController($scope, DashBoard, $location, $window, $stateParams,
+	 SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal) { 
 		$scope.dash = {};
 		$scope.dash.option = [];
 		$scope.dash.subC = [];
 		$scope.dash.voting = [];
 		$scope.dash.ids = [];
 		$scope.dash.eleminate = [];
-		var dashBoardID = '57af85c343fbbac4272cea23';
+		var dashBoardID = $stateParams.id;  
+
 		$scope.getDashBoardInfo = function() {
 			DashBoard.getInfo(dashBoardID)
 			.then (function(data) {
@@ -40,19 +43,12 @@
 			});
 		};
 
-		$scope.createNewDashBoard = function() {
-			DashBoard.createNew()
-			.then( function (data) {
-				console.log(data);
-			})
-			.catch(function(err) {
-				console.log(err);
-			});
-		};
-
 		$scope.eleminate = function(id, datas) {
 			DashBoard.eleminateOptions(id, datas)
 			.then(function( data) {
+				console.log(data.options);
+				//$scope.data.option = data.options;
+				// TODO: Refresh the Page
 			// $window.location.reload();
 			})
 			.catch(function(err) {
