@@ -33,35 +33,46 @@
 	
 	// groups factory
 	Group.$inject = ['$http'];
+
 	function Group($http) {
-		var newGroup = function (groupName, id) {
+		var newGroup = function (groupName, userid) {
 			return $http({
 				method: 'POST',
-				url: baseUrl + '/api/group/user/' + id,
+				url: baseUrl + '/api/groups',
 				data: {
-					groupName: groupName
+					groupName: groupName,
+					userid: userid
 				}
-			})
-			.then(function(resp) {
-				return resp;
-			});
-		};
-
-		var allGroups = function() {
-			return $http({
-				method: 'GET',
-				url: baseUrl + '/api/group'
 			})
 			.then(function(resp) {
 				return resp.data;
 			});
 		};
 
-		var groupInfo = function(groupName) {
-			console.log(1);
+		var allGroups = function() {
 			return $http({
 				method: 'GET',
-				url: baseUrl + '/api/' + groupName
+				url: baseUrl + '/api/groups'
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var groupInfo = function(id) {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/groups/' + id
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var deletingGroup = function (id) {	
+			return $http({
+				method: 'DELETE',
+				url: baseUrl + '/api/groups/' + id
 			})
 			.then(function(resp) {
 				return resp.data;
@@ -78,16 +89,59 @@
 			});
 		};
 
+		var addingFriend = function (id, userid) {	
+			return $http({
+				method: 'POST',
+				url: baseUrl + '/api/groups/addFriend/' + id,
+				data: {
+					userid: userid
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+		var getAllFriends = function() {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/user/friends'
+			})
+			.then(function(resp) {
+				console.log(resp.data);
+				return resp.data;
+			});
+
+		};
+
+		var deletingFriend = function (id, userid) {	
+			return $http({
+				method: 'PUT',
+				url: baseUrl + '/api/groups/removeFriend/' + id,
+				data: {
+					userid: userid
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
 		return {
 			newGroup: newGroup,
 			allGroups: allGroups,
 			groupInfo: groupInfo,
-			dashboardInfo: dashboardInfo 
+			dashboardInfo: dashboardInfo,
+			addingFriend: addingFriend,
+			getAllFriends: getAllFriends,
+			deletingFriend: deletingFriend,
+			deletingGroup: deletingGroup
 		};
 	}
 
 	// DashBoard factory
 	DashBoard.$inject = ['$http'];
+
 	function DashBoard($http) {
 		var createNew = function() {
 			return $http({

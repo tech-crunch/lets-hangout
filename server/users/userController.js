@@ -1,5 +1,6 @@
 var User = require('../users/userModel.js');
 
+
 var repsonseHandler = function(error, req, res, body, next) {
 	if (error || !body.returnObj) {
 		next(error, req, res);
@@ -35,8 +36,8 @@ module.exports = {
 	},
 
 	getOne: function(req, res, next) {
-		var userId = req.params.userId.toString();
-		User.findOne({userId: userId})
+		var userId = req.params.userId;
+		User.findOne({_id: userId})
 		.exec(function (err, user) {
 			repsonseHandler(err, req, res, {status: 200, returnObj: user}, next);
 		});

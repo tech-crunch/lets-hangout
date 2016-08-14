@@ -13,12 +13,15 @@ describe('Group Controller', function () {
 		mongoose.connection.db.dropDatabase(done);
 	});
 
+
+	
+
 	it('should create new group in database responds with a 201 (Created)', function (done) {
 		var newUser = new User({userId: 'usertest', name: 'test', picture: 'test'});
 		newUser.save(function (err, user) {
 			chai.request(app)
-			.post('/api/group/user/' + user._id)
-			.send({groupName: 'testGroup'})
+			.post('/api/groups')
+			.send({groupName: 'testGroup', _id: user._id})
 			.end(function(err, res) {
 				res.should.have.status(201);
 				res.should.be.json;
@@ -32,7 +35,7 @@ describe('Group Controller', function () {
 		var newUser = new User({userId: 'usertest', name: 'test', picture: 'test'});
 		newUser.save(function (err, user) {
 			chai.request(app)
-			.post('/api/group/user/' + user._id)
+			.post('/api/groups')
 			.send({})
 			.end(function(err, res) {
 				res.should.have.status(500);
@@ -41,14 +44,14 @@ describe('Group Controller', function () {
 		});
 	});
 	
-	it('should add new friend to Group on /api/group/:groupName POST', function (done) {
+	it('should add new friend to Group on /api/groups/addFriend/:id POST', function (done) {
 		var newGroup = new Group({groupName: 'group1'});
 		newGroup.save(function (err, group) {
 			var newUser = new User({userId: 'usertest', name: 'test', picture: 'test'});
 			newUser.save(function (err, user) {
 				chai.request(app)
-				.post('/api/group/' + group.groupName)
-				.send({userId: 'usertest'})
+				.post('/api/groups/addFriend/' + group._id)
+				.send({_id: user._id})
 				.end(function(err, res) {
 					res.should.have.status(201);
 					res.should.be.json;
@@ -59,14 +62,14 @@ describe('Group Controller', function () {
 		});
 	});
 
-	it('should remove friend from Group on /api/group/:groupName DELETE', function (done) {
+	it('should remove friend from Group on /api/groups/removeFriend/:id PUT', function (done) {
 		var newGroup = new Group({groupName: 'group1'});
 		newGroup.save(function (err, group) {
 			var newUser = new User({userId: 'usertest', name: 'test', picture: 'test'});
 			newUser.save(function (err, user) {
 				chai.request(app)
-				.delete('/api/group/' + group.groupName)
-				.send({userId: 'usertest'})
+				.put('/api/groups/removeFriend/' + group._id)
+				.send({_id: user._id})
 				.end(function(err, res) {
 					res.should.have.status(201);
 					res.should.be.json;
@@ -77,11 +80,11 @@ describe('Group Controller', function () {
 		});
 	});
 
-	it('should remove Group from database on /api/:group DELETE', function (done) {
+	it('should remove Group from database on /api/groups/:id DELETE', function (done) {
 		var newGroup = new Group({groupName: 'group1'});
 		newGroup.save(function (err, group) {
 			chai.request(app)
-			.delete('/api/' + group.groupName)
+			.delete('/api/groups/' + group._id)
 			.send()
 			.end(function(err, res) {
 				res.should.have.status(201);
@@ -92,11 +95,11 @@ describe('Group Controller', function () {
 		});
 	});
 
-	it('should return Group information from database on /api/:group GET', function (done) {
-		var newGroup = new Group({groupName: 'group1'});
+	it('should return Group information from database on /api/groups/:id GET', function (done) {
+		var newGroup = new Group({groupName: 'test'});
 		newGroup.save(function (err, group) {
 			chai.request(app)
-			.get('/api/' + group.groupName)
+			.get('/api/groups/' + group._id)
 			.send()
 			.end(function(err, res) {
 				res.should.have.status(201);
@@ -104,6 +107,27 @@ describe('Group Controller', function () {
 				res.body.should.be.a('object');
 				done();
 			});
+		}); 
+	});
+
+	it('should return Groups information from database on /api/groups GET', function (done) {
+		var newGroup = new Group({groupName: 'test'});
+		newGroup.save(function (err, group) {
+			chai.request(app)
+			.get('/api/groups')
+			.send()
+			.end(function(err, res) {
+				res.should.have.status(201);
+				res.should.be.json;
+				res.body[0].should.be.a('object');
+				done();
+			});
 		});
 	});
+
+
+
 });
+	
+
+

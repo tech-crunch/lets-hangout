@@ -90,7 +90,7 @@ describe('User Controller', function () {
 		});
 		newUser.save(function(err, data) {
 			chai.request(app)
-			.get('/api/users/' + data.userId)
+			.get('/api/users/' + data._id)
 			.end(function(err, res) {
 				res.should.have.status(200);
 				res.should.be.json;

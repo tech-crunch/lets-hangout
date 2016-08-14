@@ -7,13 +7,13 @@
         <span class="input-label">Group Name :</span>
         <input type='text' name='group' ng-model='group.groupName' />
     
-        <button  type="submit" class="button button-calm">New Group</button>
+        <button  type="submit" class="button button-assertive">New Group</button>
         </form>
         </div>
-        <button ng-click="selectGroup(group.groupName)" class="button button-full button-calm" ng-repeat='group in data.groups'>
-                {{group.groupName}}
-        
-        </button>
+        <a ng-repeat='group in data.groups' href='#/groups/{{group._id}}'
+        class="button button button-outline button-full button-stable">
+        {{group.groupName}}
+        </a>
     </ion-content>
 
 </ion-view>
