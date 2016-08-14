@@ -10,7 +10,8 @@
 		.factory('Group', Group)
 		.factory('DashBoard', DashBoard)
 		.factory('SubCategory', SubCategory)
-		.factory('Users', Users);
+		.factory('Users', Users)
+		.factory('Credentials', Credentials);
 
 	// categories factory
 	Categories.$inject = ['$http'];
@@ -248,6 +249,24 @@
 			getFriends: getFriends,
 			getOne: getOne,
 			updateInfo: updateInfo
+		};
+	}
+
+	// Credentials factory
+	Credentials.$inject = ['$http'];
+	function Credentials($http) {
+		var getCredentials = function() {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/authCredentials'
+			})
+			.then(function(resp) {
+				return resp;
+			});
+		};
+
+		return {
+			getCredentials: getCredentials
 		};
 	}
 } ());
