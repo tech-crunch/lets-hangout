@@ -67,9 +67,9 @@
 				var minVoting = Math.min.apply(Math, $scope.dash.voting);
 				var index = $scope.dash.voting.indexOf(minVoting);
 				if ($scope.dash.option.length > 1 && minVoting !== max) {
-					$scope.dash.eleminate.push($scope.dash.option[index])
+					$scope.dash.eleminate.push($scope.dash.option[index]);
 				}
-				$scope.dash.voting.splice(index,1)
+				$scope.dash.voting.splice(index, 1);
 			}
 			$scope.eleminate(dashBoardID, $scope.dash.eleminate);
 		};
