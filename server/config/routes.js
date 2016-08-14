@@ -12,7 +12,7 @@ module.exports = function (app, express) {
 	app.get('/api/authCredentials', function(req, res, next) {
 		var AUTH0_CLIENT_ID = process.env.AuthClientID;
 		var AUTH0_DOMAIN = process.env.AuthDomain;
-		if(AUTH0_DOMAIN && AUTH0_CLIENT_ID){
+		if (AUTH0_DOMAIN && AUTH0_CLIENT_ID) {
 			res.status(200).send({
 				AUTH0_CLIENT_ID: AUTH0_CLIENT_ID,
 				AUTH0_DOMAIN: AUTH0_DOMAIN

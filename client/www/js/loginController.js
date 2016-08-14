@@ -26,8 +26,8 @@
 				
 				// getting userID
 				var userID;
-				for(var i=0; i<profile.identities.length; i++){
-					if(profile.identities[i].provider === 'facebook'){
+				for (var i = 0; i < profile.identities.length; i++) {
+					if (profile.identities[i].provider === 'facebook') {
 						userID = profile.identities[i].user_id;
 						break;
 					}

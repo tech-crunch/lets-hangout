@@ -61,11 +61,15 @@ angular.module('lets-hangout', [
 	$stateProvider
 	.state('home', {
 		url: '/',
-		templateUrl: 'templates/home.html',
+		templateUrl: 'templates/home.html'
+	})
+	.state('login', {
+		url: '/login',
+		templateUrl: 'templates/login.html',
 		resolve: {
-			data: function(Credentials){
+			data: function(Credentials) {
 				Credentials.getCredentials()
-				.then(function(resp){
+				.then(function(resp) {
 					// Initialized the Auth0 provider
 					authProvider.init({
 						clientID: resp.data.AUTH0_CLIENT_ID,
@@ -75,10 +79,6 @@ angular.module('lets-hangout', [
 				});
 			}
 		}
-	})
-	.state('login', {
-		url: '/login',
-		templateUrl: 'templates/login.html'
 	})
 	.state('cards', {
 		url: '/cards',

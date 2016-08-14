@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Services', function () {
-	var baseUrl = 'http://letsshangout.herokuapp.com';
+	var baseUrl = 'https://letsshangout.herokuapp.com';
 	// Before each test load our lets-hangout.services module
 	beforeEach(angular.mock.module('lets-hangout.services'));
 
@@ -463,7 +463,7 @@ describe('Services', function () {
 					.when('GET', baseUrl + '/api/authCredentials' )
 					.respond(200, {
 						AUTH0_CLIENT_ID: '1234',
-  						AUTH0_DOMAIN: '5678'
+						AUTH0_DOMAIN: '5678'
 					});
 				Credentials.getCredentials().then(function (resp) {
 					expect(resp.status).toEqual(200);
