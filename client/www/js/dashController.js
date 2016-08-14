@@ -9,14 +9,14 @@
 
 	function dashController($scope, $state, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, Categories, SubCategory) {
 		// Activate ink for controller
-	    ionicMaterialInk.displayEffect();
-	    ionicMaterialMotion.pushDown({
-        selector: '.push-down'
-	    });
-	    
+		ionicMaterialInk.displayEffect();
+		ionicMaterialMotion.pushDown({
+			selector: '.push-down'
+		});
+			
 		Categories.getAll()
 		.then(function(categories) {
-			console.log(categories)
+			console.log(categories);
 			SubCategory.getChildren(categories[0]._id)
 			.then(function (options) {
 				$scope.options = options;
@@ -27,7 +27,7 @@
 			console.log(error);
 		});
 		
-	    
+			
 		
 
 	}
