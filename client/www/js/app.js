@@ -4,6 +4,7 @@ angular.module('lets-hangout', [
 	'angular-storage',
 	'angular-jwt',
 	'ionic.contrib.ui.tinderCards2',
+	'ionic-material',
 	'lets-hangout.services'
 ])
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
@@ -75,6 +76,10 @@ angular.module('lets-hangout', [
 				});
 			}
 		}
+	})
+	.state('dash', {
+		url: '/dash',
+		templateUrl: 'templates/dash.html'
 	})
 	.state('login', {
 		url: '/login',
