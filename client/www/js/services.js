@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	var baseUrl = 'http://letsshangout.herokuapp.com';
+	var baseUrl = 'https://letsshangout.herokuapp.com';
 	var localUrl = 'http://localhost:8000'; 
 
 	angular
