@@ -6,7 +6,7 @@
         <ion-item ng-repeat="user in gfriends">
          <img  src={{user.picture}}>
          {{user.name}}     
-          <button ng-click="deleteFriend(user._id)">delete</button>
+          <button ng-click="deleteFriend(user.userId)">delete</button>
         </ion-item>
        </ion-list>
 
