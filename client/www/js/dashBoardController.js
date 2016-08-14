@@ -6,10 +6,10 @@
 		.controller('DashBoardController', DashBoardController);
 
 	DashBoardController.$inject = ['$scope', 'DashBoard', '$location', '$window', '$stateParams',
-	 'SubCategory', '$ionicPopup', '$ionicLoading', '$ionicPopover', '$ionicModal'];
+	'SubCategory', '$ionicPopup', '$ionicLoading', '$ionicPopover', '$ionicModal'];
 
 	function DashBoardController($scope, DashBoard, $location, $window, $stateParams,
-	 SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal) { 
+	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal) { 
 		$scope.dash = {};
 		$scope.dash.option = [];
 		$scope.dash.subC = [];
