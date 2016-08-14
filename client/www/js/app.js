@@ -85,7 +85,7 @@ angular.module('lets-hangout', [
 		templateUrl: 'templates/cards.html'
 	})
 	.state('dashBoard', {
-		url: '/dashBoard',
+		url: '/dashBoard/:id',
 		templateUrl: 'templates/dashboard.html'
 	})
 	.state('group', {
