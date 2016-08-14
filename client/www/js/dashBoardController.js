@@ -17,7 +17,7 @@
 		$scope.dash.voting = [];
 		$scope.dash.ids = [];
 		$scope.dash.eleminate = [];
-		var dashBoardID = $stateParams.id;  
+		var dashBoardID = $stateParams.id; 
 
 		$scope.getDashBoardInfo = function() {
 			DashBoard.getInfo(dashBoardID)
