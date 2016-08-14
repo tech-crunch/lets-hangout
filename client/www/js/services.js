@@ -30,7 +30,7 @@
 			getAll: getAll
 		};
 	}
-
+	
 	// groups factory
 	Group.$inject = ['$http'];
 	function Group($http) {
@@ -127,7 +127,7 @@
 				method: 'PUT',
 				url: baseUrl + '/api/dashboard/eleminateOptions/' + dashBoardID,
 				data: {
-					subCategoryId: subCategoryID
+					subCategoryIds: subCategoryID
 				}
 			})
 			.then(function(resp) {
@@ -148,23 +148,12 @@
 			});
 		};
 
-		var getchosenOption = function(dachboardId) {
-			return $http({
-				method: 'GET',
-				url: baseUrl + '/api/dashboard/chosenID/' + dachboardId
-			})
-			.then(function(resp) {
-				return resp.data;
-			});
-		};
-
 		return {
 			createNew: createNew,
 			getInfo: getInfo,
 			addOption: addOption,
 			eleminateOptions: eleminateOptions,
-			voteForOption: voteForOption,
-			getchosenOption: getchosenOption
+			voteForOption: voteForOption
 		};
 	}
 
@@ -282,3 +271,4 @@
 	}
 } ());
 
+ 

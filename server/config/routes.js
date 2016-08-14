@@ -42,7 +42,6 @@ module.exports = function (app, express) {
 	// routes for the dashboard
 	app.post('/api/dashboard', DashboardController.createNew, helpers.errorHandler);
 	app.put('/api/dashboard/eleminateOptions/:id', DashboardController.eleminateOptions, helpers.errorHandler);
-	app.get('/api/dashboard/chosenID/:id', DashboardController.getchosenOption, helpers.errorHandler);
 	app.put('/api/dashboard/voteForOption/:id', DashboardController.voteForOption, helpers.errorHandler);
 	app.get('/api/dashboard/:id', DashboardController.getInfo, helpers.errorHandler);
 	app.put('/api/dashboard/addOption/:id', DashboardController.addOption, helpers.errorHandler);

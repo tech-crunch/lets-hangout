@@ -65,7 +65,7 @@ describe('Dashboard Controller', function () {
 			Dashboard.findOneAndUpdate({_id: data._id}, {$push: { options: {subCategoryId: '57a336baaf059e280e510c45'} }}, {new: true}, function (err, dashboard) {
 				chai.request(app)
 					.put('/api/dashboard/eleminateOptions/' + data._id)
-					.send({'subCategoryId': '57a336baaf059e280e510c45'})
+					.send({'subCategoryIds': ['57a336baaf059e280e510c45']})
 					.end(function(err, res) {
 						res.should.have.status(200);
 						res.should.be.json;
@@ -88,22 +88,6 @@ describe('Dashboard Controller', function () {
 			done();
 		});
 	});
-
-	it('should get chosen option of dashboard with a 200', function (done) {
-		var newDashboard = new Dashboard({
-			chosenOption: '57a336baaf059e280e510c45'
-		});
-		newDashboard.save(function(err, data) {
-			chai.request(app)
-			.get('/api/dashboard/chosenID/' + data._id)
-			.end(function(err, res) {
-				res.should.have.status(200);
-				res.body.should.equal('57a336baaf059e280e510c45');
-				done();
-			});
-		});
-	});
-
 
 	it('should increment the voting of one option', function (done) {
 		var newDashboard = new Dashboard();
