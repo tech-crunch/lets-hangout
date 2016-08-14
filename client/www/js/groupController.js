@@ -27,7 +27,7 @@
 		// create new Group
 		$scope.createGroup = function () {
 			console.log(store.get('userProfile'));
-			Group.newGroup($scope.group.groupName, store.get('userProfile')._id)
+			Group.newGroup($scope.group.groupName, store.get('userProfile').userId)
 			.then(function (data) {
 				init();
 			})

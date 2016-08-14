@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
  //creating Groups Model
 var groupSchema = new mongoose.Schema({
 	groupName: {type: String, required: true},
-	groupAdmin: {type: mongoose.Schema.Types.ObjectId, ref: 'User' }, 
-	users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+	groupAdmin: String, 
+	users: [String],
 	dashboard: [{type: mongoose.Schema.Types.ObjectId, ref: 'Dashboard'}]
 });
 

@@ -6,7 +6,7 @@
         <ion-item ng-repeat="user in users">
            <img  src={{user.picture}}>
           {{user.name}}
-        <button ng-click="addFriend(user._id)" >add</button>
+        <button ng-click="addFriend(user.userId)" >add</button>
  
         </ion-item>
        </ion-list>
