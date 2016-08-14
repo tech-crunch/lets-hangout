@@ -61,11 +61,7 @@ angular.module('lets-hangout', [
 	$stateProvider
 	.state('home', {
 		url: '/',
-		templateUrl: 'templates/home.html'
-	})
-	.state('login', {
-		url: '/login',
-		templateUrl: 'templates/login.html',
+		templateUrl: 'templates/home.html',
 		resolve: {
 			data: function(Credentials) {
 				Credentials.getCredentials()
@@ -79,6 +75,10 @@ angular.module('lets-hangout', [
 				});
 			}
 		}
+	})
+	.state('login', {
+		url: '/login',
+		templateUrl: 'templates/login.html'
 	})
 	.state('cards', {
 		url: '/cards',
