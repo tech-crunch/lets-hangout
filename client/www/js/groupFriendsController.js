@@ -19,7 +19,7 @@
 				for (var i = 0; i < group.users.length; i++) {
 					Users.getOne(group.users[i])
 						.then(function (user) {
-							$scope.gfriends.push(user);
+							$scope.gfriends.push(user.data);
 						});
 				}
 				if ($scope.gfriends.length === 0) {
