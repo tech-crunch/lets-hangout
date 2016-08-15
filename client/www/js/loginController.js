@@ -11,7 +11,7 @@
 		var vm = this;
 
 		var doLogin = function() {
-			if(store.get('userProfile')){
+			if (store.get('userProfile')) {
 				$state.go('home');
 				return;
 			}

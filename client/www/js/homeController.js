@@ -18,10 +18,10 @@
 		vm.user = {};
 
 		setInterval( function() {
-			if(store.get('Initialized') && !store.get('userProfile')) {
+			if (store.get('Initialized') && !store.get('userProfile')) {
 				$state.go('login');
 			}
-		},1000);
+		}, 1000);
 
 		$scope.$on('$ionicView.enter', function (viewInfo, state) {
 			if (store.get('userProfile')) {

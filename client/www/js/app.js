@@ -73,7 +73,7 @@ angular.module('lets-hangout', [
 		templateUrl: 'templates/home.html',
 		resolve: {
 			data: function($state, store, Credentials) {
-				if(notInitializedFlag){
+				if (notInitializedFlag) {
 					store.remove('Initialized');
 					Credentials.getCredentials()
 					.then(function(resp) {
