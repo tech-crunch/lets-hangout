@@ -12,7 +12,6 @@
 
 		var doLogin = function() {
 			auth.signin({
-				container: 'lock-container',
 				authParams: {
 					scope: 'openid offline_access',
 					device: 'Mobile device'
@@ -75,6 +74,10 @@
 			});
 		};
 
-		doLogin();
+		if(store.get('profile')){
+			$state.go('home');
+		} else {
+			doLogin();
+		}
 	}
 } ());
