@@ -59,7 +59,7 @@ angular.module('lets-hangout', [
 		}
 	});
 })
-.config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
 	var AUTH0_CALLBACK_URL = location.href;
 
 	// Ionic uses AngularUI Router which uses the concept of states
@@ -67,12 +67,41 @@ angular.module('lets-hangout', [
 	// Set up the various states which the app can be in.
 	// Each state's controller can be found in controllers.js
 	var notInitializedFlag = true;
+	
+	
+	$ionicConfigProvider.views.maxCache(0);
+
 	$stateProvider
-	.state('home', {
-		url: '/',
-		templateUrl: 'templates/home.html',
+	.state('app', {
+		url: '/app',
+		abstract: true,
+		templateUrl: 'templates/menu.html'
+	})
+	.state('app.login', {
+		url: '/login',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/login.html'
+			}
+		}
+	})
+	.state('app.dash', {
+		url: '/dash',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/dash.html'
+			}
+		}
+	})
+	.state('app.home', {
+		url: '/home',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/home.html'
+			}
+		},
 		resolve: {
-			data: function($state, store, Credentials) {
+			function($state, store, Credentials) {
 				if (notInitializedFlag) {
 					store.remove('Initialized');
 					Credentials.getCredentials()
@@ -84,39 +113,38 @@ angular.module('lets-hangout', [
 							loginState: 'login'
 						});
 						store.set('Initialized', true);
-					});
-					notInitializedFlag = false;
+					})
 				}
 			}
 		}
 	})
-	.state('dash', {
-		url: '/dash',
-		templateUrl: 'templates/dash.html'
-	})
-	.state('login', {
-		url: '/login',
-		templateUrl: 'templates/login.html'
-	})
-	.state('cards', {
-		url: '/cards',
-		templateUrl: 'templates/cards.html'
-	})
-	.state('dashBoard', {
+	.state('app.dashBoard', {
 		url: '/dashBoard/:id',
-		templateUrl: 'templates/dashboard.html'
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/dashBoard.html',
+			}
+		}
 	})
-	.state('group', {
-		url: '/groups',
-		templateUrl: 'templates/group.html'  
-	})
-	.state('grouphome', {
+	.state('app.grouphome', {
 		url: '/groups/:groupID',
-		templateUrl: 'templates/groupHome.html' 
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/groupHome.html',
+			}
+		}
+	})
+	.state('app.group', {
+		url: '/groups',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/group.html'
+			}
+		}
 	});
 
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/app/home');
 })
 .directive('noScroll', function($document) {
 
@@ -129,4 +157,86 @@ angular.module('lets-hangout', [
 			});
 		}
 	};
-});
+})
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+	// Form data for the login modal
+	$scope.loginData = {};
+	$scope.isExpanded = false;
+	$scope.hasHeaderFabLeft = false;
+	$scope.hasHeaderFabRight = false;
+
+	var navIcons = document.getElementsByClassName('ion-navicon');
+	for (var i = 0; i < navIcons.length; i++) {
+		navIcons.addEventListener('click', function() {
+			this.classList.toggle('active');
+		});
+	}
+
+	////////////////////////////////////////
+	// Layout Methods
+	////////////////////////////////////////
+
+	$scope.hideNavBar = function() {
+		document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
+	};
+
+	$scope.showNavBar = function() {
+		document.getElementsByTagName('ion-nav-bar')[0].style.display = 'block';
+	};
+
+	$scope.noHeader = function() {
+		var content = document.getElementsByTagName('ion-content');
+		for (var i = 0; i < content.length; i++) {
+			if (content[i].classList.contains('has-header')) {
+				content[i].classList.toggle('has-header');
+			}
+		}
+	};
+
+	$scope.setExpanded = function(bool) {
+		$scope.isExpanded = bool;
+	};
+
+	$scope.setHeaderFab = function(location) {
+		var hasHeaderFabLeft = false;
+		var hasHeaderFabRight = false;
+
+		switch (location) {
+			case 'left':
+				hasHeaderFabLeft = true;
+				break;
+			case 'right':
+				hasHeaderFabRight = true;
+				break;
+		}
+
+		$scope.hasHeaderFabLeft = hasHeaderFabLeft;
+		$scope.hasHeaderFabRight = hasHeaderFabRight;
+	};
+
+	$scope.hasHeader = function() {
+		var content = document.getElementsByTagName('ion-content');
+		for (var i = 0; i < content.length; i++) {
+			if (!content[i].classList.contains('has-header')) {
+				content[i].classList.toggle('has-header');
+			}
+		}
+	};
+
+	$scope.hideHeader = function() {
+		$scope.hideNavBar();
+		$scope.noHeader();
+	};
+
+	$scope.showHeader = function() {
+		$scope.showNavBar();
+		$scope.hasHeader();
+	};
+
+	$scope.clearFabs = function() {
+		var fabs = document.getElementsByClassName('button-fab');
+		if (fabs.length && fabs.length > 1) {
+			fabs[0].remove();
+		}
+	};
+})
