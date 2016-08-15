@@ -11,8 +11,12 @@
 		var vm = this;
 
 		var doLogin = function() {
+			if (store.get('userProfile')) {
+				$state.go('home');
+				return;
+			}
+
 			auth.signin({
-				container: 'lock-container',
 				authParams: {
 					scope: 'openid offline_access',
 					device: 'Mobile device'
@@ -23,7 +27,7 @@
 				store.set('token', token);
 				store.set('accessToken', accessToken);
 				store.set('refreshToken', refreshToken);
-				
+
 				// getting userID
 				var userID;
 				for (var i = 0; i < profile.identities.length; i++) {
@@ -53,6 +57,7 @@
 					Users.updateInfo(userObj)
 					.then(function(result) {
 						store.set('userProfile', result.data);
+						$state.go('home');
 					})
 					.catch(function(error) {
 						console.log(error);
@@ -63,13 +68,13 @@
 					Users.addOne(userObj)
 					.then(function(result) {
 						store.set('userProfile', result.data);
+						$state.go('home');
 					})
 					.catch(function(error) {
 						console.log(error);
 					});
 				});
 				
-				$state.go('home');
 			}, function (error) {
 				console.log(error);
 			});
