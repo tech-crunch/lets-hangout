@@ -28,27 +28,34 @@ angular.module('lets-hangout', [
 	var refreshingToken = null;
 	$rootScope.$on('$locationChangeStart', function () {
 		var token = store.get('token');
-		var refreshToken = store.get('refreshToken');
-		if (token) {
-			if (!jwtHelper.isTokenExpired(token)) {
-				if (!auth.isAuthenticated) {
-					auth.authenticate(store.get('profile'), token);
-				}
-			} else {
-				if (refreshToken) {
-					if (refreshingToken === null) {
-						refreshingToken = auth.refreshIdToken(refreshToken).then(function (idToken) {
-							store.set('token', idToken);
-							auth.authenticate(store.get('profile'), idToken);
-						}).finally(function () {
-							refreshingToken = null;
-						});
-					}
-					return refreshingToken;
-				} else {
-					$location.path('/login');
-				}                          
-			}
+		// var refreshToken = store.get('refreshToken');
+		// if (token) {
+		// 	if (!jwtHelper.isTokenExpired(token)) {
+		// 		if (!auth.isAuthenticated) {
+		// 			auth.authenticate(store.get('profile'), token);
+		// 		}
+		// 	} else {
+		// 		if (refreshToken) {
+		// 			if (refreshingToken === null) {
+		// 				refreshingToken = auth.refreshIdToken(refreshToken).then(function (idToken) {
+		// 					store.set('token', idToken);
+		// 					auth.authenticate(store.get('profile'), idToken);
+		// 				}).finally(function () {
+		// 					refreshingToken = null;
+		// 				});
+		// 			}
+		// 			return refreshingToken;
+		// 		} else {
+		// 			$location.path('/login');
+		// 		}                          
+		// 	}
+		// } 
+		if (token && jwtHelper.isTokenExpired(token)) {
+			store.remove('profile');
+			store.remove('token');
+			store.remove('accessToken');
+			store.remove('refreshToken');
+			store.remove('userProfile');
 		}
 	});
 })
@@ -59,21 +66,27 @@ angular.module('lets-hangout', [
 	// Learn more here: https://github.com/angular-ui/ui-router
 	// Set up the various states which the app can be in.
 	// Each state's controller can be found in controllers.js
+	var notInitializedFlag = true;
 	$stateProvider
 	.state('home', {
 		url: '/',
 		templateUrl: 'templates/home.html',
 		resolve: {
-			data: function(Credentials) {
-				Credentials.getCredentials()
-				.then(function(resp) {
-					// Initialized the Auth0 provider
-					authProvider.init({
-						clientID: resp.data.AUTH0_CLIENT_ID,
-						domain: resp.data.AUTH0_DOMAIN,
-						loginState: 'login'
+			data: function($state, store, Credentials) {
+				if(notInitializedFlag){
+					store.remove('Initialized');
+					Credentials.getCredentials()
+					.then(function(resp) {
+						// Initialized the Auth0 provider
+						authProvider.init({
+							clientID: resp.data.AUTH0_CLIENT_ID,
+							domain: resp.data.AUTH0_DOMAIN,
+							loginState: 'login'
+						});
+						store.set('Initialized', true);
 					});
-				});
+					notInitializedFlag = false;
+				}
 			}
 		}
 	})
