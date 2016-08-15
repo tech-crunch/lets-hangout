@@ -9,7 +9,7 @@
 
 	function dashController($scope, $state, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, Categories, SubCategory) {
 
-		 // Set Header
+		// Set Header
 		$scope.$parent.showHeader();
 		$scope.isExpanded = false;
 		$scope.$parent.setExpanded(false);
@@ -38,7 +38,5 @@
 		});
 		
 			
-		
-
 	}
 } ());

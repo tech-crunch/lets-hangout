@@ -215,4 +215,4 @@ angular.module('lets-hangout', [
 		$scope.showNavBar();
 		$scope.hasHeader();
 	};
-})
+});
