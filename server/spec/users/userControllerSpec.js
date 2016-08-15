@@ -115,7 +115,7 @@ describe('User Controller', function () {
 		newUser.save(function(err, data) {
 			chai.request(app)
 			.put('/api/users/' + data.userId)
-			.send({name: 'UpdatedName'})
+			.send()
 			.end(function(err, res) {
 				res.should.have.status(201);
 				res.should.be.json;
@@ -124,7 +124,7 @@ describe('User Controller', function () {
 				res.body.should.have.property('name');
 				res.body.should.have.property('userId');
 				res.body.picture.should.equal(data.picture);
-				res.body.name.should.equal('UpdatedName');
+				res.body.name.should.equal('name');
 				res.body.userId.should.equal(data.userId);
 				done();
 			});
