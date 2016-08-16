@@ -1,27 +1,29 @@
 <ion-view ng-controller="DashBoardController">
-  <ion-pane class="background-grey">
-    
-    <div>
-      <button danger clear style="margin-top: 50px;" ng-click = "eleminateOptions()">elemenate option</button>  
-      <button type="button" class="btn btn-outline-danger" ng-click = "getChosenOption()">chosenOption</button>
+	<ion-pane class="background-grey">
+		
+		<div>
+			<button danger clear style="margin-top: 50px;" ng-click = "eleminateOptions()">elemenate option</button>  
+			<button type="button" class="btn btn-outline-danger" ng-click = "getChosenOption()">chosenOption</button>
 
-      <div ng-repeat = "data in subC track by $index">
-         
-        <h5 style="text-align: center;"> {{data.name}}</h5>
-        <img ng-click="showAlert(data.name, data.details)" src="{{data.poster}}" alt="subCat poster" height="128" width="180" style="margin-left:40%;">
-        <img src ="http://www.clipartkid.com/images/757/thumbs-up-png-HOVALo-clipart.png" alt="like button" height="40" width="40" ng-click = "voteForOption(subCatID[$index])">
-         <h4 style="margin-left: 670px;margin-top: -30px;">{{vote[$index]}}</h4> 
+			<div ng-repeat = "data in subC track by $index">
+				 
+				<h5 style="text-align: center;"> {{data.name}}</h5>
+				<img ng-click="showAlert(data.name, data.details)" src="{{data.poster}}" alt="subCat poster" height="128" width="180" style="margin-left:40%;">
+				<img src ="http://www.clipartkid.com/images/757/thumbs-up-png-HOVALo-clipart.png" alt="like button" height="40" width="40" ng-click = "voteForOption(subCatID[$index])">
+				 <h4 style="margin-left: 670px;margin-top: -30px;">{{vote[$index]}}</h4> 
 
-      </div>
-    </div>
+			</div>
+		</div>
 
-    <script id="image-modal.html" type="text/ng-template">
-      <div class="modal image-modal transparent" ng-click="closeModal()">
-        <ion-pane class="transparent">
-          <img ng-src="{{imageSrc}}" class="fullscreen-image"/>
-        </ion-pane>
-      </div>
-    </script>
-    
-  </ion-pane>
+		<script id="image-modal.html" type="text/ng-template">
+			<div class="modal image-modal transparent" ng-click="closeModal()">
+				<ion-pane class="transparent">
+					<img ng-src="{{imageSrc}}" class="fullscreen-image"/>
+				</ion-pane>
+			</div>
+		</script>
+		
+	</ion-pane>
 </ion-view>
+
+
