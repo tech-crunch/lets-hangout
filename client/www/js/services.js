@@ -115,18 +115,6 @@
 			});
 		};
 
-		var getAllFriends = function() {
-			return $http({
-				method: 'GET',
-				url: baseUrl + '/api/user/friends'
-			})
-			.then(function(resp) {
-				console.log(resp.data);
-				return resp.data;
-			});
-
-		};
-
 		var deletingFriend = function (id, userId) {	
 			return $http({
 				method: 'PUT',
@@ -157,7 +145,6 @@
 			groupInfo: groupInfo,
 			dashboardInfo: dashboardInfo,
 			addingFriend: addingFriend,
-			getAllFriends: getAllFriends,
 			deletingFriend: deletingFriend,
 			deletingGroup: deletingGroup,
 			allGroupsByAdmin: allGroupsByAdmin
