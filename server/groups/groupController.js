@@ -77,7 +77,7 @@ module.exports = {
 		var dashboardId = req.body.dashboardId.toString();
 		Group.findOne({_id: groupId})
 		.exec(function(err, group) {
-			if(group.dashboards.indexOf(dashboardId) === -1){
+			if (group.dashboards.indexOf(dashboardId) === -1) {
 				group.dashboards.push(dashboardId);
 			}
 			group.save( function(err, savedGroup) {

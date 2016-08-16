@@ -171,7 +171,7 @@
 					DashBoard.createNew(date)
 					.then(function(resp) {
 						Group.addDashboard($stateParams.groupID, resp.data._id)
-						.then(function(response){
+						.then(function(response) {
 							$location.path('/app/dashBoard/' + resp.data._id);
 						});
 					})
