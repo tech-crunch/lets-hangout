@@ -43,8 +43,8 @@ module.exports = function (app, express) {
 	app.post('/api/dashboard', DashboardController.createNew, helpers.errorHandler);
 	app.put('/api/dashboard/eleminateOptions/:id', DashboardController.eleminateOptions, helpers.errorHandler);
 	app.put('/api/dashboard/voteForOption/:id', DashboardController.voteForOption, helpers.errorHandler);
-	app.get('/api/dashboard/:id', DashboardController.getInfo, helpers.errorHandler);
 	app.put('/api/dashboard/addOption/:id', DashboardController.addOption, helpers.errorHandler);
+	app.get('/api/dashboard/:id', DashboardController.getInfo, helpers.errorHandler);
 	
 	// routes for the groups
 	app.get('/api/groups', groupController.getAll, helpers.errorHandler);

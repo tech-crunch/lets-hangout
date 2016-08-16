@@ -200,12 +200,13 @@
 			});
 		};
 
-		var voteForOption = function(dashBoardID, optionID) {
+		var voteForOption = function(dashBoardID, optionID, userID) {
 			return $http({
 				method: 'PUT',
 				url: baseUrl + '/api/dashboard/voteForOption/' + dashBoardID,
 				data: {
-					subCategoryId: optionID
+					subCategoryId: optionID,
+					userId: userID
 				}
 			})
 			.then(function(resp) {

@@ -50,7 +50,6 @@ describe('Dashboard Controller', function () {
 				.end(function(err, res) {
 					res.should.have.status(200);
 					res.should.be.json;
-					res.body.options[0].voting.should.equal(0);
 					res.body.options[0].subCategoryId.should.equal('57a336baaf059e280e510c45');
 					res.body.should.be.a('object');
 					res.body.should.have.property('_id');
@@ -89,16 +88,20 @@ describe('Dashboard Controller', function () {
 		});
 	});
 
-	it('should increment the voting of one option', function (done) {
+	it('should add new key to voting object', function (done) {
 		var newDashboard = new Dashboard();
 		newDashboard.save(function(err, data) {
-			Dashboard.findOneAndUpdate({_id: data._id}, {$push: { options: {subCategoryId: '57a336baaf059e280e510c45'} }}, {new: true}, function (err, dashboard) {
+			Dashboard.findOne({_id: data._id}, function (err, dashboard) {
 				chai.request(app)
 				.put('/api/dashboard/voteForOption/' + data._id)
-				.send({subCategoryId: '57a336baaf059e280e510c45'})
+				.send({
+					userId: 'testuserId',
+					subCategoryId: '57a336baaf059e280e510c45'
+				})
 				.end(function(err, res) {
 					res.should.have.status(200);
-					res.body.options[0].voting.should.equal(1);
+					var voting = JSON.parse(res.body.voting);
+					voting.testuserId.should.equal('57a336baaf059e280e510c45');
 					done();
 				});
 			});
@@ -107,7 +110,7 @@ describe('Dashboard Controller', function () {
 
 	it('should respond with an 500 error when trying to eleminate option to non-existence option', function (done) {  
 		chai.request(app)
-		.put('/api/dashboard/voteForOption/1')
+		.put('/api/dashboard/eleminateOptions/1')
 		.end(function(err, res) {
 			res.should.have.status(500);
 			done();

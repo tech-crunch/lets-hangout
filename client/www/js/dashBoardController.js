@@ -6,37 +6,41 @@
 		.controller('DashBoardController', DashBoardController);
 
 	DashBoardController.$inject = ['$scope', 'DashBoard', '$location', '$window', '$stateParams',
-	'SubCategory', '$ionicPopup', '$ionicLoading', '$ionicPopover', '$ionicModal'];
+	'SubCategory', '$ionicPopup', '$ionicLoading', '$ionicPopover', '$ionicModal', 'store'];
 
-	function DashBoardController($scope, DashBoard, $location, $window, $stateParams,
-	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal) { 
-
-		$scope.dash = {};
-		$scope.dash.option = [];
-		$scope.dash.subC = [];
-		$scope.dash.voting = [];
-		$scope.dash.ids = [];
-		$scope.dash.eleminate = [];
-		var dashBoardID = $stateParams.id;  
+	function DashBoardController($scope, DashBoard, $location, $window, $stateParams,	
+	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, store) {
+		
+		$scope.subCatID = [];
+		$scope.subC = [];
+		$scope.vote = [];
+		var dashBoardID = $stateParams.id; 
 
 		$scope.getDashBoardInfo = function() {
 			DashBoard.getInfo(dashBoardID)
 			.then (function(data) {
+				var voting = JSON.parse(data.voting);
 				for (var i = 0; i < data.options.length; i++) {
-					var vote = data.options[i].voting;
 					var optionID = data.options[i].subCategoryId;
-					var id = data.options[i]._id;
-					$scope.dash.ids.push(id);
-					$scope.dash.voting.push(vote);
-					$scope.dash.option.push(optionID);
+					$scope.subCatID.push(optionID);
+					
 					SubCategory.getInfo(data.options[i].subCategoryId)
 					.then( function(subCat) {
-						$scope.dash.subC.push(subCat);
+						var counter = 0;
+						for (var key in voting) {
+							if (voting[key] === subCat._id) {
+								counter++;
+							}
+						}
+						$scope.subC.push(subCat);
+						$scope.vote.push(counter);
 					});
 				}
 			});
 		};
+
 		$scope.getDashBoardInfo();
+
 		$scope.showAlert = function(name, details) {
 			var alertPopup = $ionicPopup.alert({
 				title: name,
@@ -47,34 +51,34 @@
 		$scope.eleminate = function(id, datas) {
 			DashBoard.eleminateOptions(id, datas)
 			.then(function( data) {
-				console.log(data.options);
-				//$scope.data.option = data.options;
 				// TODO: Refresh the Page
-			// $window.location.reload();
 			})
 			.catch(function(err) {
 				console.log(err);
 			});
 		};
 
+		var elemination = [];
 		$scope.eleminateOptions = function() {
-			var len = $scope.dash.option.length;
-			var max = Math.max.apply(Math, $scope.dash.voting);
+			var len = $scope.subCatID.length;
+			var max = Math.max.apply(Math, $scope.vote);
 			for (var i = 0; i < len; i++) { 
-				var minVoting = Math.min.apply(Math, $scope.dash.voting);
-				var index = $scope.dash.voting.indexOf(minVoting);
-				if ($scope.dash.option.length > 1 && minVoting !== max) {
-					$scope.dash.eleminate.push($scope.dash.option[index]);
+				var minVoting = Math.min.apply(Math, $scope.vote);
+				var index = $scope.vote.indexOf(minVoting);
+				if ($scope.subCatID.length > 1 && minVoting !== max) {
+					elemination.push($scope.subCatID[index]);
 				}
-				$scope.dash.voting.splice(index, 1);
+				$scope.vote.splice(index, 1);
 			}
-			$scope.eleminate(dashBoardID, $scope.dash.eleminate);
+			$scope.eleminate(dashBoardID, elemination);
 		};
 
+		var userID = store.get('userProfile').userId;
 		$scope.voteForOption = function(optionID) {
-			DashBoard.voteForOption(dashBoardID, optionID)
+			var userID = store.get('userProfile').userId;
+			DashBoard.voteForOption(dashBoardID, optionID, userID)
 			.then( function(data) {
-				$window.location.reload(); 
+				//TODO refresh page
 			})
 			.catch(function(err) {
 				console.log(err);
@@ -82,10 +86,11 @@
 		};
 
 		var template;
+
 		$scope.getChosenOption = function() {
-			var maxi = Math.max.apply(Math, $scope.dash.voting);
-			var maxIndex = $scope.dash.voting.indexOf(maxi);
-			var chosenOption = $scope.dash.option[maxIndex];
+			var max = Math.max.apply(Math, $scope.vote);
+			var maxIndex = $scope.vote.indexOf(max);
+			var chosenOption = $scope.subCatID[maxIndex];
 			SubCategory.getInfo(chosenOption)
 			.then(function(data) {
 				template = data.poster;

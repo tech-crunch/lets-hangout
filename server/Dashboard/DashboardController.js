@@ -18,9 +18,9 @@ module.exports = {
 
 	getInfo: function (req, res, next) {
 		Dashboard.findOne({_id: req.params.id})
-			.exec(function(err, dashboard) {
-				repsonseHandler(err, req, res, {status: 200, returnObj: dashboard}, next);
-			});
+		.exec(function(err, dashboard) {
+			repsonseHandler(err, req, res, {status: 200, returnObj: dashboard}, next);
+		});
 	},
 
 	eleminateOptions: function (req, res, next) {
@@ -44,12 +44,16 @@ module.exports = {
 	},
 
 	voteForOption: function (req, res, next) {
-		Dashboard.findOneAndUpdate(
-			{_id: req.params.id, 'options.subCategoryId': req.body.subCategoryId},
-			{$inc: {'options.$.voting': 1}},
-			{new: true},
-			function(err, dashboard) {
-				repsonseHandler(err, req, res, {status: 200, returnObj: dashboard}, next);
+		var userId = req.body.userId;
+		var subC = req.body.subCategoryId;
+		Dashboard.findOne({_id: req.params.id})
+		.exec(function(err, dashboard) {
+			var votingObj = JSON.parse(dashboard.voting);
+			votingObj[userId] = subC;
+			dashboard.voting = JSON.stringify(votingObj);
+			dashboard.save(function(err, savedDashboard) {
+				repsonseHandler(err, req, res, {status: 200, returnObj: savedDashboard}, next);
 			});
+		});
 	}
 };
