@@ -53,9 +53,9 @@ module.exports = function (app, express) {
 	app.put('/api/groups/removeFriend/:id', groupController.removeFriendFromGroup, helpers.errorHandler);
 	app.delete('/api/groups/:id', groupController.deleteGroup, helpers.errorHandler);
 	app.get('/api/groups/:id', groupController.getInfo, helpers.errorHandler);
-
+	app.get('/api/groups/groupsByAdmin/:userId', groupController.getAllByGroupAdmin, helpers.errorHandler);
 	// routes for users
-    
+		
 
 	// If a request is sent somewhere other than the routes above,
 	// send it through our custom error handler

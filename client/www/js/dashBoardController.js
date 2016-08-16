@@ -10,6 +10,7 @@
 
 	function DashBoardController($scope, DashBoard, $location, $window, $stateParams,
 	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal) { 
+
 		$scope.dash = {};
 		$scope.dash.option = [];
 		$scope.dash.subC = [];

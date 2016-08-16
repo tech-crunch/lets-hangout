@@ -113,14 +113,6 @@ angular.module('lets-hangout', [
 	.state('grouphome', {
 		url: '/groups/:groupID',
 		templateUrl: 'templates/groupHome.html' 
-	})
-	.state('facebookfriends', {
-		url: '/groups/friends/:groupID',
-		templateUrl: 'templates/friends.html' 
-	})
-	.state('groupMembers', {
-		url: '/groups/members/:groupID',
-		templateUrl: 'templates/groupFriends.html' 
 	});
 
 	// if none of the above states are matched, use this as the fallback
