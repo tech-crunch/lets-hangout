@@ -78,29 +78,13 @@ angular.module('lets-hangout', [
 		abstract: true,
 		templateUrl: 'templates/menu.html'
 	})
-	.state('app.login', {
-		url: '/login',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/login.html'
-			}
-		}
-	})
-	.state('app.dash', {
-		url: '/dash',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/dash.html'
-			}
-		}
-	})
 	.state('app.home', {
 		url: '/home',
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/home.html',
 				resolve: {
-					function($state, store, Credentials) {
+					data: function($state, store, Credentials) {
 						if (notInitializedFlag) {
 							store.remove('Initialized');
 							Credentials.getCredentials()
@@ -112,13 +96,37 @@ angular.module('lets-hangout', [
 									loginState: 'app.login'
 								});
 								store.set('Initialized', true);
-							})
+							});
 						}
 					}
 				}
 			}
 		}
-	})        
+	})      
+	.state('app.login', {
+		url: '/login',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/login.html'
+			}
+		}
+	})
+	.state('app.cards', {
+		url: '/cards',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/cards.html'
+			}
+		}
+	})
+	.state('app.dash', {
+		url: '/dash',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/dash.html'
+			}
+		}
+	})  
 	.state('app.dashBoard', {
 		url: '/dashBoard/:id',
 		views: {
@@ -161,24 +169,24 @@ angular.module('lets-hangout', [
 })
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
 
-  // Form data for the login modal
-  $scope.loginData = {};
-  $scope.isExpanded = false;
+	// Form data for the login modal
+	$scope.loginData = {};
+	$scope.isExpanded = false;
 
-  var navIcons = document.getElementsByClassName('ion-navicon');
-  for (var i = 0; i < navIcons.length; i++) {
-    navIcons.addEventListener('click', function() {
-      this.classList.toggle('active');
-    });
-  }
+	var navIcons = document.getElementsByClassName('ion-navicon');
+	for (var i = 0; i < navIcons.length; i++) {
+		navIcons.addEventListener('click', function() {
+			this.classList.toggle('active');
+		});
+	}
 
-  ////////////////////////////////////////
-  // Layout Methods
-  ////////////////////////////////////////
+	////////////////////////////////////////
+	// Layout Methods
+	////////////////////////////////////////
 
-  $scope.hideNavBar = function() {
-    document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
-  };
+	$scope.hideNavBar = function() {
+		document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
+	};
 
 	$scope.showNavBar = function() {
 		document.getElementsByTagName('ion-nav-bar')[0].style.display = 'block';
