@@ -167,7 +167,7 @@ angular.module('lets-hangout', [
 		}
 	};
 })
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, auth, store) {
 
 	// Form data for the login modal
 	$scope.loginData = {};
@@ -179,6 +179,15 @@ angular.module('lets-hangout', [
 			this.classList.toggle('active');
 		});
 	}
+
+	$scope.logout = function() {
+			auth.signout();
+			store.remove('profile');
+			store.remove('token');
+			store.remove('accessToken');
+			store.remove('refreshToken');
+			store.remove('userProfile');
+		}
 
 	////////////////////////////////////////
 	// Layout Methods
