@@ -40,20 +40,20 @@
 		init();
 
 		$scope.showActionsheet = function() {
-
+			
 			var buttonClicked = function(index) {
-				switch(index){
-					case 0:
-						createDashboard();
-						break;
-					case 1:
-						groupFriends();
-						$scope.deletingFriendPopUp();
-						break;
-					case 2:
-						allFriends();
-						$scope.addingFriendPopUp();
-						break;
+				switch (index) {
+				case 0:
+					createDashboard();
+					break;
+				case 1:
+					groupFriends();
+					$scope.deletingFriendPopUp();
+					break;
+				case 2:
+					allFriends();
+					$scope.addingFriendPopUp();
+					break;
 				}
 			};
 
@@ -165,17 +165,17 @@
 
 		var createDashboard = function() {
 			var datePickerObj = {
-     		 	callback: function (val) {
-     		 		var date = new Date(val);
-     		 		DashBoard.createNew(date)
-     		 		.then(function(resp){
-     		 			$location.path('/app/dashBoard/' + resp.data._id);
-     		 		})
-     		 		.catch(function(error){
-     		 			console.log(error);
-     		 		});
-      			}
-      		}
+				callback: function (val) {
+					var date = new Date(val);
+					DashBoard.createNew(date)
+					.then(function(resp) {
+						$location.path('/app/dashBoard/' + resp.data._id);
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
+				}
+			};
 			ionicDatePicker.openDatePicker(datePickerObj);
 		};
 	}
