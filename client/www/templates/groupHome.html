@@ -4,10 +4,10 @@
     <button class="button icon ion-gear-a button-clear" ng-click="showActionsheet()"></button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="dashboard in data">
-        Dashboard: {{dashboard.date}}
+    <a href="/#/app/dashBoard/{{dashboard._id}}" ng-repeat="dashboard in data">
+      <ion-item>
+        <h2>Date:   {{dashboard.date | date:yyyy:mm:dd}}</h2>
       </ion-item>
-    </ion-list>
+    </a>
   </ion-content>
 </ion-view>
