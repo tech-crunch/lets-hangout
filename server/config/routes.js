@@ -49,7 +49,7 @@ module.exports = function (app, express) {
 	// routes for the groups
 	app.get('/api/groups', groupController.getAll, helpers.errorHandler);
 	app.post('/api/groups', groupController.createNewGroup, helpers.errorHandler);
-	app.post('/api/groups/addFriend/:id', groupController.addFriendsToGroup, helpers.errorHandler);
+	app.put('/api/groups/addFriend/:id', groupController.addFriendsToGroup, helpers.errorHandler);
 	app.put('/api/groups/removeFriend/:id', groupController.removeFriendFromGroup, helpers.errorHandler);
 	app.delete('/api/groups/:id', groupController.deleteGroup, helpers.errorHandler);
 	app.get('/api/groups/:id', groupController.getInfo, helpers.errorHandler);
