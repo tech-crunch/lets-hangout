@@ -142,14 +142,6 @@ angular.module('lets-hangout', [
 				templateUrl: 'templates/groupHome.html',
 			}
 		}
-	})
-	.state('app.group', {
-		url: '/groups',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/group.html'
-			}
-		}
 	});
 
 	// if none of the above states are matched, use this as the fallback
