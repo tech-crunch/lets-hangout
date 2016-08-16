@@ -25,10 +25,11 @@
 			.then(function (group) {
 				$scope.userIsAdmin = group.groupAdmin === userProfile.userId ? true : false;
 				$scope.groupName = group.groupName;
-				for (var i = 0; i < group.dashboard.length; i++) {
-					Group.dashboardInfo(group.dashboard[i])
+				for (var i = 0; i < group.dashboards.length; i++) {
+					Group.dashboardInfo(group.dashboards[i])
 					.then(function (dashboard) {
 						$scope.data.push(dashboard);
+						console.log($scope.data);
 					});
 				}
 			})
@@ -169,7 +170,10 @@
 					var date = new Date(val);
 					DashBoard.createNew(date)
 					.then(function(resp) {
-						$location.path('/app/dashBoard/' + resp.data._id);
+						Group.addDashboard($stateParams.groupID, resp.data._id)
+						.then(function(response){
+							$location.path('/app/dashBoard/' + resp.data._id);
+						});
 					})
 					.catch(function(error) {
 						console.log(error);
