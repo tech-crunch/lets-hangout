@@ -25,8 +25,8 @@
 			.then(function (group) {
 				$scope.userIsAdmin = group.groupAdmin === userProfile.userId ? true : false;
 				$scope.groupName = group.groupName;
-				for (var i = 0; i < group.dashboard.length; i++) {
-					Group.dashboardInfo(group.dashboard[i])
+				for (var i = 0; i < group.dashboards.length; i++) {
+					Group.dashboardInfo(group.dashboards[i])
 					.then(function (dashboard) {
 						$scope.data.push(dashboard);
 						console.log($scope.data);
