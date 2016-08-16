@@ -29,6 +29,7 @@
 					Group.dashboardInfo(group.dashboard[i])
 					.then(function (dashboard) {
 						$scope.data.push(dashboard);
+						console.log($scope.data);
 					});
 				}
 			})
@@ -169,7 +170,10 @@
 					var date = new Date(val);
 					DashBoard.createNew(date)
 					.then(function(resp) {
-						$location.path('/app/dashBoard/' + resp.data._id);
+						Group.addDashboard($stateParams.groupID, resp.data._id)
+						.then(function(response){
+							$location.path('/app/dashBoard/' + resp.data._id);
+						});
 					})
 					.catch(function(error) {
 						console.log(error);

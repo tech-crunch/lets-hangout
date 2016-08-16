@@ -70,5 +70,17 @@ module.exports = {
 		.exec(function (err, groups) {
 			repsonseHandler(err, req, res, {status: 200, returnObj: groups}, next);
 		});
+	},
+
+	addDashboard: function(req, res, next) {
+		var groupId = req.params.id; 
+		var dashboardId = req.body.dashboardId.toString();
+		Group.findOneAndUpdate({_id: groupId}, {$pull: {dashboards: dashboardId}});
+		Group.findOneAndUpdate({_id: groupId},
+		{$push: {dashboards: dashboardId}},
+		{new: true},
+		function (err, group) {
+			repsonseHandler(err, req, res, {status: 201, returnObj: group}, next);
+		});
 	}
 };

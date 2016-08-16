@@ -49,6 +49,19 @@
 			});
 		};
 
+		var addDashboard = function (groupId, dashboardId) {
+			return $http({
+				method: 'PUT',
+				url: baseUrl + '/api/groups/addDashboard/' + groupId,
+				data: {
+					dashboardId: dashboardId
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
 		var allGroups = function() {
 			return $http({
 				method: 'GET',
@@ -139,6 +152,7 @@
 
 		return {
 			newGroup: newGroup,
+			addDashboard: addDashboard,
 			allGroups: allGroups,
 			groupInfo: groupInfo,
 			dashboardInfo: dashboardInfo,

@@ -5,7 +5,7 @@ var groupSchema = new mongoose.Schema({
 	groupName: {type: String, required: true},
 	groupAdmin: {type: String, required: true}, 
 	users: [String],
-	dashboard: [{type: mongoose.Schema.Types.ObjectId, ref: 'Dashboard'}]
+	dashboards: [{type: mongoose.Schema.Types.ObjectId, ref: 'Dashboard', unique: true}]
 });
 
 var Group = mongoose.model('Group', groupSchema);
