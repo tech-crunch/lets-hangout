@@ -168,6 +168,57 @@ describe('Group Controller', function () {
 			});
 		});
 	});
+
+	it('should add dashboard id to a group', function (done) {
+		var newGroup = new Group({
+			groupName: 'test',
+			groupAdmin: 'usertest',
+			users: ['usertest']
+		});
+		newGroup.save(function (err, group) {
+			chai.request(app)
+			.put('/api/groups/addDashboard/' + group._id)
+			.send({
+				dashboardId: group._id
+			})
+			.end(function(err, res) {
+				res.should.have.status(201);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				var length = res.body.dashboards.length - 1;
+				res.body.dashboards[length].should.equal(group._id.toString());
+				done();
+			});
+		});
+	});
+
+	it('should skip adding existing dashboard id to a group', function (done) {
+		var newGroup = new Group({
+			groupName: 'test',
+			groupAdmin: 'usertest',
+			users: ['usertest']
+		});
+		newGroup.save(function (err, group) {
+			chai.request(app)
+			.put('/api/groups/addDashboard/' + group._id)
+			.send({
+				dashboardId: group._id
+			})
+			.end(function(err, res) {
+				chai.request(app)
+				.put('/api/groups/addDashboard/' + group._id)
+				.send({
+					dashboardId: group._id
+				})
+				.end(function(err, res) {
+					res.should.have.status(201);
+					res.should.be.json;
+					res.body.should.be.a('object');
+					done();
+				});
+			});
+		});
+	});
 });
 	
 

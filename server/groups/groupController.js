@@ -73,14 +73,16 @@ module.exports = {
 	},
 
 	addDashboard: function(req, res, next) {
-		var groupId = req.params.id; 
+		var groupId = req.params.id.toString(); 
 		var dashboardId = req.body.dashboardId.toString();
-		Group.findOneAndUpdate({_id: groupId}, {$pull: {dashboards: dashboardId}});
-		Group.findOneAndUpdate({_id: groupId},
-		{$push: {dashboards: dashboardId}},
-		{new: true},
-		function (err, group) {
-			repsonseHandler(err, req, res, {status: 201, returnObj: group}, next);
+		Group.findOne({_id: groupId})
+		.exec(function(err, group) {
+			if(group.dashboards.indexOf(dashboardId) === -1){
+				group.dashboards.push(dashboardId);
+			}
+			group.save( function(err, savedGroup) {
+				repsonseHandler(err, req, res, {status: 201, returnObj: savedGroup}, next);
+			});
 		});
 	}
 };
