@@ -13,7 +13,7 @@
 		$scope.data = [];
 		// groups Information
 		var init = function () {
-			Group.allGroups()
+			Group.allGroupsByAdmin(store.get('userProfile').userId)
 			.then(function (groups) {
 				$scope.data.groups = groups;
 			})

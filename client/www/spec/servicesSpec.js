@@ -274,6 +274,26 @@ describe('Services', function () {
 				$httpBackend.flush();
 			});
 		});
+
+		describe('.allGroupsByAdmin()', function() {
+			it('allGroupsByAdmin should get Groups data depend on userId 200(SUCCESS)', function() {
+				var mockResponse = [
+					{
+						'groupName': 'group1',
+						'groupAdmin': '22'
+					},
+					{
+						'groupName': 'group2',
+						'groupAdmin': '22'
+					}
+				];
+				$httpBackend.expect('GET', baseUrl + '/api/groups/groupsByAdmin/' + mockResponse[0]['groupAdmin']).respond(mockResponse);
+				Group.allGroupsByAdmin(mockResponse[0]['groupAdmin']).then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
 	});
 
 	describe('DashBoard factory', function () {

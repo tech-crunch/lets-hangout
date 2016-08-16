@@ -57,5 +57,13 @@ module.exports = {
 		.exec(function (err, groups) {
 			repsonseHandler(err, req, res, {status: 201, returnObj: groups}, next);
 		});
+	},
+
+	getAllByGroupAdmin: function (req, res, next) {
+		var userId = req.params.userId.toString();
+		Group.find({groupAdmin: userId})
+		.exec(function (err, groups) {
+			repsonseHandler(err, req, res, {status: 201, returnObj: groups}, next);
+		});
 	}
 };

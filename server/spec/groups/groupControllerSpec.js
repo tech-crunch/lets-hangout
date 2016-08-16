@@ -125,6 +125,20 @@ describe('Group Controller', function () {
 		});
 	});
 
+	it('should return Groups information depend on userId on /api/groups/groupsByAdmin/:userId GET', function (done) {
+		var newGroup = new Group({groupName: 'test', groupAdmin: 'usertest'});
+		newGroup.save(function (err, group) {
+			chai.request(app)
+			.get('/api/groups/groupsByAdmin/' + group.groupAdmin)
+			.send()
+			.end(function(err, res) {
+				res.should.have.status(201);
+				res.should.be.json;
+				res.body[0].should.be.a('object');
+				done();
+			});
+		});
+	});
 
 
 });

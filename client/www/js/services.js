@@ -32,7 +32,7 @@
 	}
 	
 	// groups factory
-	Group.$inject = ['$http'];
+	Group.$inject = ['$http'];  
 
 	function Group($http) {
 		var newGroup = function (groupName, userid) {
@@ -125,6 +125,16 @@
 			.then(function(resp) {
 				return resp.data;
 			});
+		}; 
+
+		var allGroupsByAdmin = function(userId) {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/groups/groupsByAdmin/' + userId
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
 		};
 
 		return {
@@ -135,7 +145,8 @@
 			addingFriend: addingFriend,
 			getAllFriends: getAllFriends,
 			deletingFriend: deletingFriend,
-			deletingGroup: deletingGroup
+			deletingGroup: deletingGroup,
+			allGroupsByAdmin: allGroupsByAdmin
 		};
 	}
 
