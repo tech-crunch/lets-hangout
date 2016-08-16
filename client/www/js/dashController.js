@@ -8,14 +8,21 @@
 	dashController.$inject = ['$scope', '$state', '$timeout', '$stateParams', 'ionicMaterialInk', 'ionicMaterialMotion', 'Categories', 'SubCategory'];
 
 	function dashController($scope, $state, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, Categories, SubCategory) {
-		// Activate ink for controller
+
+		// Set Header
+		$scope.$parent.showHeader();
+		$scope.isExpanded = false;
+		$scope.$parent.setExpanded(false);
+
+		// Set Motion
+		$timeout(function() {
+			ionicMaterialMotion.slideUp({
+				selector: '.slide-up'
+			});
+		}, 300);
+
+		// Set Ink
 		ionicMaterialInk.displayEffect();
-		ionicMaterialMotion.pushDown({
-			selector: '.push-down'
-		});
-    // ionicMaterialMotion.fadeSlideInRight({
-    //     selector: '.animate-fade-slide-in .item'
-    // });
 			
 		Categories.getAll()
 		.then(function(categories) {
@@ -31,7 +38,5 @@
 		});
 		
 			
-		
-
 	}
 } ());

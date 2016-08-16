@@ -19,7 +19,7 @@
 
 		setInterval( function() {
 			if (store.get('Initialized') && !store.get('userProfile')) {
-				$state.go('login');
+				$state.go('app.login');
 			}
 		}, 1000);
 
@@ -30,7 +30,7 @@
 		});
 
 		function login() {
-			$state.go('login');
+			$state.go('app.login');
 		}
 
 		function logout() {
