@@ -373,7 +373,7 @@ describe('Services', function () {
 				$httpBackend
 						.when('PUT', baseUrl + '/api/dashboard/eleminateOptions/' + newDash._id)
 						.respond (newDash);
-				DashBoard.eleminateOptions(newDash._id, '57ab09d1c665971c0daea5a1')
+				DashBoard.eleminateOptions(newDash._id, ['57ab09d1c665971c0daea5a1'])
 				.then(function (data) {
 					expect(data._id).toEqual(newDash._id);
 				});
@@ -390,7 +390,7 @@ describe('Services', function () {
 				$httpBackend
 						.when('PUT', baseUrl + '/api/dashboard/voteForOption/' + newDash._id)
 						.respond (newDash);
-				DashBoard.voteForOption(newDash._id, '57ab09d1c665971c0daea5a1')
+				DashBoard.voteForOption(newDash._id, '57ab09d1c665971c0daea5a1', '818938851539764')
 				.then(function (data) {
 					expect(data._id).toEqual(newDash._id);
 				});
