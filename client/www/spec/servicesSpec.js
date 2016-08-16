@@ -152,6 +152,24 @@ describe('Services', function () {
 			});
 		});
 
+		describe('.addDashboard()', function() {
+			it('addDashboard should add a dashboard to a group', function() {
+				var mockResponse = {
+					'_id': '57aef47bf78029102600843d',
+					'groupName': 'group1',
+					'groupAdmin': '22',
+					users: ['8934965'],
+					dashboard: ['1234']
+				};
+				$httpBackend.expect('PUT', baseUrl + '/api/groups/addDashboard/' + mockResponse._id).respond(mockResponse);
+				Group.addDashboard(mockResponse._id, '1234')
+				.then(function (groups) {
+					expect(groups).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
+
 		describe('.groupInfo()', function() {
 			// A test to verify the method groupInfo exists
 			it('groupInfo should be exist', function() {
