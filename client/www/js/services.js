@@ -35,13 +35,13 @@
 	Group.$inject = ['$http'];  
 
 	function Group($http) {
-		var newGroup = function (groupName, userid) {
+		var newGroup = function (groupName, userId) {
 			return $http({
 				method: 'POST',
 				url: baseUrl + '/api/groups',
 				data: {
 					groupName: groupName,
-					userid: userid
+					userId: userId
 				}
 			})
 			.then(function(resp) {
@@ -89,12 +89,12 @@
 			});
 		};
 
-		var addingFriend = function (id, userid) {	
+		var addingFriend = function (id, userId) {	
 			return $http({
-				method: 'POST',
+				method: 'PUT',
 				url: baseUrl + '/api/groups/addFriend/' + id,
 				data: {
-					userid: userid
+					userId: userId
 				}
 			})
 			.then(function(resp) {
@@ -114,12 +114,12 @@
 
 		};
 
-		var deletingFriend = function (id, userid) {	
+		var deletingFriend = function (id, userId) {	
 			return $http({
 				method: 'PUT',
 				url: baseUrl + '/api/groups/removeFriend/' + id,
 				data: {
-					userid: userid
+					userId: userId
 				}
 			})
 			.then(function(resp) {

@@ -13,8 +13,13 @@ var repsonseHandler = function(error, req, res, body, next) {
 module.exports = {
 	createNewGroup: function (req, res, next) {
 		var groupName = req.body.groupName;
-		var userid = req.body.userid;
-		var newGroup = new Group({groupName: groupName, groupAdmin: userid});
+		var userId = req.body.userId;
+		var users = [userId];
+		var newGroup = new Group({
+			groupName: groupName,
+			groupAdmin: userId,
+			users: users
+		});
 		newGroup.save(function (err, group) {
 			repsonseHandler(err, req, res, {status: 201, returnObj: group}, next);
 		});
@@ -28,19 +33,19 @@ module.exports = {
 	},
 
 	addFriendsToGroup: function (req, res, next) {
-		var userid = req.body.userid;
+		var userId = req.body.userId;
 		var groupid = req.params.id; 
 		Group.findOne({_id: groupid}, function (err, group) {
-			group.users.push(userid);
+			group.users.push(userId);
 			group.save();
 			repsonseHandler(err, req, res, {status: 201, returnObj: group}, next);	
 		});
 	},
 
 	removeFriendFromGroup: function(req, res, next) {
-		var userid = req.body.userid;
+		var userId = req.body.userId;
 		var groupid = req.params.id; 
-		Group.findOneAndUpdate({_id: groupid}, {$pull: {users: userid}}, {new: true}, function (err, group) {
+		Group.findOneAndUpdate({_id: groupid}, {$pull: {users: userId}}, {new: true}, function (err, group) {
 			repsonseHandler(err, req, res, {status: 201, returnObj: group}, next);
 		});
 	},
@@ -61,9 +66,9 @@ module.exports = {
 
 	getAllByGroupAdmin: function (req, res, next) {
 		var userId = req.params.userId.toString();
-		Group.find({groupAdmin: userId})
+		Group.find({users: userId})
 		.exec(function (err, groups) {
-			repsonseHandler(err, req, res, {status: 201, returnObj: groups}, next);
+			repsonseHandler(err, req, res, {status: 200, returnObj: groups}, next);
 		});
 	}
 };

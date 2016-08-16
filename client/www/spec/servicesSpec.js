@@ -227,8 +227,8 @@ describe('Services', function () {
 					'groupAdmin': '22',
 					users: ['8934965']
 				};
-				$httpBackend.expect('POST', baseUrl + '/api/groups/addFriend/' + mockResponse._id).respond(mockResponse);
-				Group.addingFriend(mockResponse._id, {userid: '8934965'}).then(function (groups) {
+				$httpBackend.expect('PUT', baseUrl + '/api/groups/addFriend/' + mockResponse._id).respond(mockResponse);
+				Group.addingFriend(mockResponse._id, {userId: '8934965'}).then(function (groups) {
 					expect(groups).toEqual(mockResponse);
 				});
 				$httpBackend.flush();

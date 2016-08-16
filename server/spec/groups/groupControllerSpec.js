@@ -13,15 +13,16 @@ describe('Group Controller', function () {
 		mongoose.connection.db.dropDatabase(done);
 	});
 
-
-	
-
 	it('should create new group in database responds with a 201 (Created)', function (done) {
-		var newUser = new User({userId: 'usertest', name: 'test', picture: 'test'});
+		var newUser = new User({
+			userId: 'usertest',
+			name: 'test',
+			picture: 'test'
+		});
 		newUser.save(function (err, user) {
 			chai.request(app)
 			.post('/api/groups')
-			.send({groupName: 'testGroup', _id: user._id})
+			.send({groupName: 'testGroup', userId: user._id})
 			.end(function(err, res) {
 				res.should.have.status(201);
 				res.should.be.json;
@@ -32,7 +33,11 @@ describe('Group Controller', function () {
 	});
 
 	it('should responed with 500 error when trying to create Empty Group ', function (done) {
-		var newUser = new User({userId: 'usertest', name: 'test', picture: 'test'});
+		var newUser = new User({
+			userId: 'usertest',
+			name: 'test',
+			picture: 'test'
+		});
 		newUser.save(function (err, user) {
 			chai.request(app)
 			.post('/api/groups')
@@ -45,13 +50,16 @@ describe('Group Controller', function () {
 	});
 	
 	it('should add new friend to Group on /api/groups/addFriend/:id POST', function (done) {
-		var newGroup = new Group({groupName: 'group1'});
+		var newGroup = new Group({
+			groupName: 'group1',
+			groupAdmin: '1234'
+		});
 		newGroup.save(function (err, group) {
 			var newUser = new User({userId: 'usertest', name: 'test', picture: 'test'});
 			newUser.save(function (err, user) {
 				chai.request(app)
-				.post('/api/groups/addFriend/' + group._id)
-				.send({_id: user._id})
+				.put('/api/groups/addFriend/' + group._id)
+				.send({userId: user._id})
 				.end(function(err, res) {
 					res.should.have.status(201);
 					res.should.be.json;
@@ -63,13 +71,21 @@ describe('Group Controller', function () {
 	});
 
 	it('should remove friend from Group on /api/groups/removeFriend/:id PUT', function (done) {
-		var newGroup = new Group({groupName: 'group1'});
+		var newGroup = new Group({
+			groupName: 'group1',
+			groupAdmin: '1234',
+			users: ['1234']
+		});
 		newGroup.save(function (err, group) {
-			var newUser = new User({userId: 'usertest', name: 'test', picture: 'test'});
+			var newUser = new User({
+				userId: 'usertest',
+				name: 'test',
+				picture: 'test'
+			});
 			newUser.save(function (err, user) {
 				chai.request(app)
 				.put('/api/groups/removeFriend/' + group._id)
-				.send({_id: user._id})
+				.send({userId: '1234'})
 				.end(function(err, res) {
 					res.should.have.status(201);
 					res.should.be.json;
@@ -81,7 +97,10 @@ describe('Group Controller', function () {
 	});
 
 	it('should remove Group from database on /api/groups/:id DELETE', function (done) {
-		var newGroup = new Group({groupName: 'group1'});
+		var newGroup = new Group({
+			groupName: 'group1',
+			groupAdmin: '1234'
+		});
 		newGroup.save(function (err, group) {
 			chai.request(app)
 			.delete('/api/groups/' + group._id)
@@ -96,7 +115,10 @@ describe('Group Controller', function () {
 	});
 
 	it('should return Group information from database on /api/groups/:id GET', function (done) {
-		var newGroup = new Group({groupName: 'test'});
+		var newGroup = new Group({
+			groupName: 'test',
+			groupAdmin: '1234'
+		});
 		newGroup.save(function (err, group) {
 			chai.request(app)
 			.get('/api/groups/' + group._id)
@@ -111,7 +133,10 @@ describe('Group Controller', function () {
 	});
 
 	it('should return Groups information from database on /api/groups GET', function (done) {
-		var newGroup = new Group({groupName: 'test'});
+		var newGroup = new Group({
+			groupName: 'test',
+			groupAdmin: '1234'
+		});
 		newGroup.save(function (err, group) {
 			chai.request(app)
 			.get('/api/groups')
@@ -126,21 +151,23 @@ describe('Group Controller', function () {
 	});
 
 	it('should return Groups information depend on userId on /api/groups/groupsByAdmin/:userId GET', function (done) {
-		var newGroup = new Group({groupName: 'test', groupAdmin: 'usertest'});
+		var newGroup = new Group({
+			groupName: 'test',
+			groupAdmin: 'usertest',
+			users: ['usertest']
+		});
 		newGroup.save(function (err, group) {
 			chai.request(app)
 			.get('/api/groups/groupsByAdmin/' + group.groupAdmin)
 			.send()
 			.end(function(err, res) {
-				res.should.have.status(201);
+				res.should.have.status(200);
 				res.should.be.json;
 				res.body[0].should.be.a('object');
 				done();
 			});
 		});
 	});
-
-
 });
 	
 

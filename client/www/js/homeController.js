@@ -5,15 +5,14 @@
 		.module('lets-hangout')
 		.controller('HomeController', HomeController);
 
-	HomeController.$inject = ['$state', '$scope', 'auth', 'store', 'Users'];
+	HomeController.$inject = ['$state', '$scope', 'auth', 'store', 'Users', 'Group'];
 
-	function HomeController($state, $scope, auth, store, Users) {
+	function HomeController($state, $scope, auth, store, Users, Group) {
 		var vm = this;
 
 		vm.auth = auth;
 
 		vm.login = login;
-		vm.logout = logout;
 
 		vm.user = {};
 
@@ -33,14 +32,38 @@
 			$state.go('app.login');
 		}
 
-		function logout() {
-			auth.signout();
-			store.remove('profile');
-			store.remove('token');
-			store.remove('accessToken');
-			store.remove('refreshToken');
-			store.remove('userProfile');
-			vm.user = {};
-		}
+		// Getting Groups and displaying them
+		$scope.group = {};
+		
+		$scope.data = [];
+		
+		// groups Information
+		var init = function () {
+			if (store.get('userProfile')) {
+				Group.allGroupsByAdmin(store.get('userProfile').userId)
+				.then(function (groups) {
+					$scope.data.groups = groups;
+				})
+				.catch(function (err) {
+					console.log(err);
+				});
+			}
+		};
+
+		// create new Group
+		$scope.createGroup = function () {
+			if (store.get('userProfile')) {
+				Group.newGroup($scope.group.groupName, store.get('userProfile').userId)
+				.then(function (data) {
+					init();
+				})
+				.catch(function (err) {
+					console.log(err);
+				});
+			}
+		};
+
+		init();
+
 	}
 } ());

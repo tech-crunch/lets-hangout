@@ -142,14 +142,6 @@ angular.module('lets-hangout', [
 				templateUrl: 'templates/groupHome.html',
 			}
 		}
-	})
-	.state('app.group', {
-		url: '/groups',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/group.html'
-			}
-		}
 	});
 
 	// if none of the above states are matched, use this as the fallback
@@ -167,7 +159,7 @@ angular.module('lets-hangout', [
 		}
 	};
 })
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, auth, store) {
 
 	// Form data for the login modal
 	$scope.loginData = {};
@@ -179,6 +171,15 @@ angular.module('lets-hangout', [
 			this.classList.toggle('active');
 		});
 	}
+
+	$scope.logout = function() {
+		auth.signout();
+		store.remove('profile');
+		store.remove('token');
+		store.remove('accessToken');
+		store.remove('refreshToken');
+		store.remove('userProfile');
+	};
 
 	////////////////////////////////////////
 	// Layout Methods
