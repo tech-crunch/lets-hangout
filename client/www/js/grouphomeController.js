@@ -6,10 +6,10 @@
 		.controller('grouphomeController', grouphomeController);
 
 	grouphomeController.$inject = ['$scope', '$state', '$timeout', '$location', '$ionicActionSheet',
-	'Group', '$stateParams', '$ionicPopup', 'Users', 'store', 'ionicDatePicker'];
+	'Group', '$stateParams', '$ionicPopup', 'Users', 'store', 'ionicDatePicker', 'DashBoard'];
 
 	function grouphomeController($scope, $state, $timeout, $location, $ionicActionSheet,
-	Group, $stateParams, $ionicPopup, Users, store, ionicDatePicker) {
+	Group, $stateParams, $ionicPopup, Users, store, ionicDatePicker, DashBoard) {
 
 		// dashboards Information in one group
 		$scope.data = [];
@@ -166,7 +166,14 @@
 		var createDashboard = function() {
 			var datePickerObj = {
      		 	callback: function (val) {
-     		 		console.log(new Date(val));
+     		 		var date = new Date(val);
+     		 		DashBoard.createNew(date)
+     		 		.then(function(resp){
+     		 			$location.path('/app/dashBoard/' + resp.data._id);
+     		 		})
+     		 		.catch(function(error){
+     		 			console.log(error);
+     		 		});
       			}
       		}
 			ionicDatePicker.openDatePicker(datePickerObj);
