@@ -6,7 +6,8 @@ angular.module('lets-hangout', [
 	'ionic.contrib.ui.tinderCards2',
 	'ionic-material',
 	'lets-hangout.services',
-	'ionMdInput'
+	'ionMdInput',
+	'ionic-datepicker'
 ])
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
 	$ionicPlatform.ready(function() {
@@ -29,28 +30,6 @@ angular.module('lets-hangout', [
 	var refreshingToken = null;
 	$rootScope.$on('$locationChangeStart', function () {
 		var token = store.get('token');
-		// var refreshToken = store.get('refreshToken');
-		// if (token) {
-		// 	if (!jwtHelper.isTokenExpired(token)) {
-		// 		if (!auth.isAuthenticated) {
-		// 			auth.authenticate(store.get('profile'), token);
-		// 		}
-		// 	} else {
-		// 		if (refreshToken) {
-		// 			if (refreshingToken === null) {
-		// 				refreshingToken = auth.refreshIdToken(refreshToken).then(function (idToken) {
-		// 					store.set('token', idToken);
-		// 					auth.authenticate(store.get('profile'), idToken);
-		// 				}).finally(function () {
-		// 					refreshingToken = null;
-		// 				});
-		// 			}
-		// 			return refreshingToken;
-		// 		} else {
-		// 			$location.path('/login');
-		// 		}                          
-		// 	}
-		// } 
 		if (token && jwtHelper.isTokenExpired(token)) {
 			store.remove('profile');
 			store.remove('token');
@@ -181,9 +160,7 @@ angular.module('lets-hangout', [
 		store.remove('userProfile');
 	};
 
-	////////////////////////////////////////
 	// Layout Methods
-	////////////////////////////////////////
 
 	$scope.hideNavBar = function() {
 		document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
