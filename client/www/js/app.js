@@ -173,13 +173,13 @@ angular.module('lets-hangout', [
 	}
 
 	$scope.logout = function() {
-			auth.signout();
-			store.remove('profile');
-			store.remove('token');
-			store.remove('accessToken');
-			store.remove('refreshToken');
-			store.remove('userProfile');
-		}
+		auth.signout();
+		store.remove('profile');
+		store.remove('token');
+		store.remove('accessToken');
+		store.remove('refreshToken');
+		store.remove('userProfile');
+	};
 
 	////////////////////////////////////////
 	// Layout Methods
