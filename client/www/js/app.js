@@ -6,7 +6,8 @@ angular.module('lets-hangout', [
 	'ionic.contrib.ui.tinderCards2',
 	'ionic-material',
 	'lets-hangout.services',
-	'ionMdInput'
+	'ionMdInput',
+	'ionic-datepicker'
 ])
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
 	$ionicPlatform.ready(function() {

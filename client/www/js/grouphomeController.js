@@ -6,10 +6,10 @@
 		.controller('grouphomeController', grouphomeController);
 
 	grouphomeController.$inject = ['$scope', '$state', '$timeout', '$location', '$ionicActionSheet',
-	'Group', '$stateParams', '$ionicPopup', 'Users', 'store'];
+	'Group', '$stateParams', '$ionicPopup', 'Users', 'store', 'ionicDatePicker'];
 
 	function grouphomeController($scope, $state, $timeout, $location, $ionicActionSheet,
-	Group, $stateParams, $ionicPopup, Users, store) {
+	Group, $stateParams, $ionicPopup, Users, store, ionicDatePicker) {
 
 		// dashboards Information in one group
 		$scope.data = [];
@@ -161,6 +161,15 @@
 				template: '<ion-list><ion-item ng-repeat="user in gfriends"><img  src={{user.picture}}> {{user.name}}<button ng-if="userIsAdmin" ng-click="deleteFriend(user.userId)">delete</button></ion-item></ion-list>',
 				scope: $scope
 			});
+		};
+
+		var createDashboard = function() {
+			var datePickerObj = {
+     		 	callback: function (val) {
+     		 		console.log(new Date(val));
+      			}
+      		}
+			ionicDatePicker.openDatePicker(datePickerObj);
 		};
 	}
 } ());
