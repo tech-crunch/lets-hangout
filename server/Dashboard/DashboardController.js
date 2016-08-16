@@ -10,7 +10,8 @@ var repsonseHandler = function(error, req, res, body, next) {
 
 module.exports = {
 	createNew: function (req, res, next) {
-		var newDashboard = new Dashboard();
+		var date = req.body.date;
+		var newDashboard = new Dashboard({date: date});
 		newDashboard.save(function(err, newDashboard) {
 			repsonseHandler(err, req, res, {status: 201, returnObj: newDashboard}, next);
 		});

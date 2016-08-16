@@ -154,10 +154,13 @@
 	DashBoard.$inject = ['$http'];
 
 	function DashBoard($http) {
-		var createNew = function() {
+		var createNew = function(date) {
 			return $http({
 				method: 'POST',
-				url: baseUrl + '/api/dashboard'
+				url: baseUrl + '/api/dashboard',
+				data: {
+					date: date
+				}
 			})
 			.then(function(resp) {
 				return resp;
