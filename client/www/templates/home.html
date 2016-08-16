@@ -1,15 +1,21 @@
 <ion-view view-title="Lets Hangout" ng-controller="HomeController as vm">
-  <ion-content class="padding">
-	<div style="margin-top: 40%; text-align: center; color: red; font-size: 15px;" ng-if="vm.user.name">
-		Welcome Back {{vm.user.name}}
-	</div>
-
-    <div class="content has-header">
-        <a ng-repeat= "group in data.groups" href="#/app/groups/{{group._id}}" class="item item-avatar item-icon-right">
-            <img src="http://1.bp.blogspot.com/-tpBEjvMjJww/T_8oAG0ciQI/AAAAAAAACl4/-YHi8W2Eaho/s1600/Let'sHangOut.jpg">
-            <h2>{{group.groupName}}</h2>
-            <i class="icon ion-ios-information"></i>
-        </a>
-    </div>
-  </ion-content>
+	<ion-content class="padding">
+	
+		<div class="item card-item">
+			<a ng-repeat= "group in data.groups" href="#/app/groups/{{group._id}}" style="text-decoration: none">
+				<div class="card ink ink-dark">
+					<div class="item row row-center item-avatar item-text-wrap">
+						<span class="col avatar" style="background-image: url('http://1.bp.blogspot.com/-tpBEjvMjJww/T_8oAG0ciQI/AAAAAAAACl4/-YHi8W2Eaho/s1600/Let\'sHangOut.jpg');"></span>
+						<!-- <div class="col"> -->
+							<p style="font-size: 30px; color:#990000;" class=" col assertive-900">{{group.groupName}}</p>
+						<!-- </div> -->
+						<div class="col text-right assertive-900">
+								<i class="icon ion-ios-people-outline" style=" font-size: 40px;"></i><span style="margin-left: 15px; font-size: 25px;">{{group.users.length}}</span>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</ion-content>
 </ion-view>
+
