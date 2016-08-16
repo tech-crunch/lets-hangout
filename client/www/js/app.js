@@ -98,27 +98,27 @@ angular.module('lets-hangout', [
 		url: '/home',
 		views: {
 			'menuContent': {
-				templateUrl: 'templates/home.html'
-			}
-		},
-		resolve: {
-			function($state, store, Credentials) {
-				if (notInitializedFlag) {
-					store.remove('Initialized');
-					Credentials.getCredentials()
-					.then(function(resp) {
-						// Initialized the Auth0 provider
-						authProvider.init({
-							clientID: resp.data.AUTH0_CLIENT_ID,
-							domain: resp.data.AUTH0_DOMAIN,
-							loginState: 'login'
-						});
-						store.set('Initialized', true);
-					})
+				templateUrl: 'templates/home.html',
+				resolve: {
+					function($state, store, Credentials) {
+						if (notInitializedFlag) {
+							store.remove('Initialized');
+							Credentials.getCredentials()
+							.then(function(resp) {
+								// Initialized the Auth0 provider
+								authProvider.init({
+									clientID: resp.data.AUTH0_CLIENT_ID,
+									domain: resp.data.AUTH0_DOMAIN,
+									loginState: 'app.login'
+								});
+								store.set('Initialized', true);
+							})
+						}
+					}
 				}
 			}
 		}
-	})
+	})        
 	.state('app.dashBoard', {
 		url: '/dashBoard/:id',
 		views: {
