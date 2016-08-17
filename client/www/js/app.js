@@ -110,7 +110,7 @@ angular.module('lets-hangout', [
 		url: '/dashBoard/:id',
 		views: {
 			'menuContent': {
-				templateUrl: 'templates/dashBoard.html',
+				templateUrl: 'templates/dashboard.html',
 			}
 		}
 	})
