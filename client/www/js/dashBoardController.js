@@ -22,8 +22,8 @@
 		$scope.options = {};
 
 		$scope.switch = function (index) {
-			$scope.flag[index] = !$scope.flag[index]
-		}
+			$scope.flag[index] = !$scope.flag[index];
+		};
 
 		$scope.initialize = function() {
 			DashBoard.getInfo(dashboardId)
