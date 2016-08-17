@@ -48,5 +48,14 @@ module.exports = {
 			}
 			repsonseHandler(err, req, res, {status: 200, returnObj: subCategory}, next);
 		});
+	},
+
+	// function to get group of subcategories
+	getSubCategories: function (req, res, next) {
+		var ids = req.body.ids;
+		SubCategory.find({_id: {$in: ids} })
+		.exec(function(err, subCategories) {
+			repsonseHandler(err, req, res, {status: 200, returnObj: subCategories}, next);
+		}) 
 	}
 };

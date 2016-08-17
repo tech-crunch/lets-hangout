@@ -33,6 +33,7 @@ module.exports = function (app, express) {
 	app.post('/api/subCategory', subCategoryController.createNew, helpers.errorHandler);
 	app.get('/api/subCategory/getChildren/:id', subCategoryController.getChildren, helpers.errorHandler);
 	app.get('/api/subCategory/:id', subCategoryController.getInfo, helpers.errorHandler);
+	app.post('/api/subCategories', subCategoryController.getSubCategories, helpers.errorHandler);
 	
 	// routes for categories 
 	app.get('/api/categories', categoryController.getAll, helpers.errorHandler);

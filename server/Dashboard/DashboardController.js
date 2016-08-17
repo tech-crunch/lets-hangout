@@ -12,7 +12,6 @@ module.exports = {
 	createNew: function (req, res, next) {
 		var date = req.body.date || new Date();
 		var groupId = req.body.groupId;
-		console.log(groupId);
 		var newDashboard = new Dashboard({
 			date: date,
 			groupId: groupId
