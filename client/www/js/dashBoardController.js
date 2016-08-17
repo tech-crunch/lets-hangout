@@ -34,6 +34,7 @@
 				} else { // show the votes
 					var optionsIds = data.options;
 					var voting = JSON.parse(data.voting);
+					var totalVotes = Object.keys(voting).length;
 					SubCategory.getSubCategories(optionsIds)
 					.then(function(response) {
 						$scope.options = response;
@@ -49,14 +50,31 @@
 								$scope.flag.push(true);
 							}
 						}
+						$scope.eleminateOptions();
 					})
 					.catch(function(error) {
 						console.log(error);
 					});
 					Group.groupInfo(data.groupId)
 					.then(function(response) {
+						var optionsObj = {};
+						var repeatedOptions = 0;
+						for (var i = 0; i < optionsIds.length; i++) {
+							if (!optionsObj[optionsIds[i]]) {
+								optionsObj[optionsIds[i]] = 0;
+							}
+							optionsObj[optionsIds[i]]++;
+						}
+						for (var key in optionsObj) {
+							if (optionsObj[key] !== 1) {
+								repeatedOptions++;
+							}
+						}
 						numOfUsers = response.users.length;
-						optionsAreComplete = optionsIds.length === numOfUsers ? true : false;
+						// TODO: give users ability to revote after eliminating
+						// console.log(totalVotes);
+						// console.log(repeatedOptions);
+						optionsAreComplete = (optionsIds.length - repeatedOptions) === numOfUsers ? true : false;
 					})
 					.catch(function(error) {
 						console.log(error);
@@ -71,8 +89,6 @@
 			if (optionsAreComplete) {
 				DashBoard.voteForOption(dashboardId, optionId, userId)
 				.then( function(data) {
-					console.log(data);
-					$scope.eleminateOptions();
 					$scope.initialize();
 				})
 				.catch(function(err) {
@@ -101,14 +117,20 @@
 					optionsToBeEleminated.push($scope.options[i]._id);
 				}
 			}
-			console.log(optionsToBeEleminated);
-			// DashBoard.eleminateOptions(dashboardId, subCategoriesIds)
-			// .then(function( data) {
-			// 	$scope.initialize();
-			// })
-			// .catch(function(err) {
-			// 	console.log(err);
-			// });
+
+			if (totalVotes === numOfUsers) {
+				console.log(optionsToBeEleminated);
+				DashBoard.eleminateOptions(dashboardId, optionsToBeEleminated)
+				.then(function(data) {
+					console.log(data);
+					if (data.options.length < $scope.options.length) {
+						$scope.initialize();
+					}
+				})
+				.catch(function(err) {
+					console.log(err);
+				});
+			}
 		};	
 	}
 } 
