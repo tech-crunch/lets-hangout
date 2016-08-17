@@ -25,7 +25,7 @@
 			DashBoard.getInfo(dashBoardID)
 			.then( function(data) {
 				// if a user hasn't swiped for option yet, navigate him to the swiping page
-				if (data.voters.indexOf(userId) !== -1) {
+				if (data.voters.indexOf(userId) === -1) {
 					$location.path('/app/cards/' + dashBoardID);
 				} else { // show the votes
 					var optionsIds = data.options;
@@ -63,7 +63,7 @@
 		// };
 
 		// var elemination = [];
-		
+
 		// $scope.eleminateOptions = function() {
 		// 	var len = $scope.subCatID.length;
 		// 	var max = Math.max.apply(Math, $scope.vote);

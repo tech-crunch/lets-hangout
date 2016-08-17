@@ -29,7 +29,6 @@
 					Group.dashboardInfo(group.dashboards[i])
 					.then(function (dashboard) {
 						$scope.data.push(dashboard);
-						console.log($scope.data);
 					});
 				}
 			})
