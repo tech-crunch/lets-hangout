@@ -253,9 +253,23 @@
 			});
 		};
 
+		var getSubCategories = function(ids) {
+			return $http({
+				method: 'POST',
+				url: baseUrl + '/api/subCategories',
+				data: {
+					ids: ids
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
 		return {
 			getInfo: getInfo,
-			getChildren: getChildren
+			getChildren: getChildren,
+			getSubCategories: getSubCategories
 		};
 	}
 
