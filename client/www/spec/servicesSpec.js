@@ -26,7 +26,7 @@ describe('Services', function () {
 		
 		describe('.getAll()', function() {
 			// A test to verify the method getAll exists
-			it('getAll should be exist', function() {
+			it('getAll should exist', function() {
 				expect(Categories.getAll).toBeDefined();
 			});
 
@@ -68,7 +68,7 @@ describe('Services', function () {
 
 		describe('.getInfo()', function() {
 			// A test to verify the method getAll exists
-			it('getChildren should be exist', function() {
+			it('getChildren should exist', function() {
 				expect(SubCategory.getInfo).toBeDefined();
 			});
 
@@ -91,7 +91,7 @@ describe('Services', function () {
 		
 		describe('.getChildren()', function() {
 			// A test to verify the method getAll exists
-			it('getChildren should be exist', function() {
+			it('getChildren should exist', function() {
 				expect(SubCategory.getChildren).toBeDefined();
 			});
 
@@ -112,6 +112,40 @@ describe('Services', function () {
 				$httpBackend.expect('GET', baseUrl + '/api/subCategory/getChildren/' + '57ab09d1c665971c0daea5a1').respond(mockResponse);
 
 				SubCategory.getChildren('57ab09d1c665971c0daea5a1').then(function (SubCategories) {
+					expect(SubCategories).toEqual(mockResponse);
+				});
+				$httpBackend.flush();
+			});
+		});
+
+		describe('.getSubCategories()', function() {
+			// A test to verify the method getAll exists
+			it('getSubCategories should exist', function() {
+				expect(SubCategory.getSubCategories).toBeDefined();
+			});
+
+			it('getSubCategories should get categories data 200(SUCCESS)', function() {
+				var mockResponse = [
+					{
+						'_id': '57ab09d1c665971c0daea5a2',
+						'name': 'play',
+						'poster': 'https://s-media-cache-ak0.pinimg.com/236x/4c/21/73/4c217333cba41f88a4d6e6bee91a3525.jpg',
+						'parentId': '57ab09d1c665971c0daea5a1'
+					},
+					{
+						'_id': '57ab09d1c665971c0daea5a3',
+						'name': 'Movies',
+						'poster': 'https://thumbs.dreamstime.com/z/cinema-poster-design-template-popcorn-box-disposable-cup-beverages-straw-film-strip-clapper-board-ticket-detailed-44098150.jpg',
+						'parentId': '57ab09d1c665971c0daea5a1'
+					}
+				];
+
+				$httpBackend.expect('POST', baseUrl + '/api/subCategories').respond(mockResponse);
+
+				SubCategory.getSubCategories({
+					ids: ['57ab09d1c665971c0daea5a2', '57ab09d1c665971c0daea5a3']
+				})
+				.then(function (SubCategories) {
 					expect(SubCategories).toEqual(mockResponse);
 				});
 				$httpBackend.flush();
@@ -172,7 +206,7 @@ describe('Services', function () {
 
 		describe('.groupInfo()', function() {
 			// A test to verify the method groupInfo exists
-			it('groupInfo should be exist', function() {
+			it('groupInfo should exist', function() {
 				expect(Group.groupInfo).toBeDefined();
 			});
 
@@ -194,7 +228,7 @@ describe('Services', function () {
 
 		describe('.dashboardInfo()', function() {
 			// A test to verify the method dashboardInfo exists
-			it('dashboardInfo should be exist', function() {
+			it('dashboardInfo should exist', function() {
 				expect(Group.dashboardInfo).toBeDefined();
 			});
 
@@ -214,7 +248,7 @@ describe('Services', function () {
 
 		describe('.deletingGroup()', function() {
 			// A test to verify the method deletingGroup exists
-			it('deletingGroup should be exist', function() {
+			it('deletingGroup should exist', function() {
 				expect(Group.deletingGroup).toBeDefined();
 			});
 
@@ -234,7 +268,7 @@ describe('Services', function () {
 
 		describe('.addingFriend()', function() {
 			// A test to verify the method addingFriend exists
-			it('addingFriend should be exist', function() {
+			it('addingFriend should exist', function() {
 				expect(Group.addingFriend).toBeDefined();
 			});
 
@@ -255,7 +289,7 @@ describe('Services', function () {
 
 		describe('.deletingFriend()', function() {
 			// A test to verify the method deletingFriend exists
-			it('deletingFriend should be exist', function() {
+			it('deletingFriend should exist', function() {
 				expect(Group.deletingFriend).toBeDefined();
 			});
 
@@ -275,7 +309,7 @@ describe('Services', function () {
 
 		describe('.newGroup()', function() {
 			// A test to verify the method newGroup exists
-			it('newGroup should be exist', function() {
+			it('newGroup should exist', function() {
 				expect(Group.newGroup).toBeDefined();
 			});
 
@@ -347,7 +381,7 @@ describe('Services', function () {
 			
 		describe('.getInfo()', function() {
 
-			it('getInfo should be exist', function() {
+			it('getInfo should exist', function() {
 				expect(DashBoard.getInfo).toBeDefined();
 			});
 
@@ -365,7 +399,7 @@ describe('Services', function () {
 
 		describe('.addOption()', function() {
 
-			it('addOption should be exist', function() {
+			it('addOption should exist', function() {
 				expect(DashBoard.addOption).toBeDefined();
 			});
 
@@ -383,7 +417,7 @@ describe('Services', function () {
 
 		describe('.eleminateOptions()', function() {
 
-			it('eleminateOptions should be exist', function() {
+			it('eleminateOptions should exist', function() {
 				expect(DashBoard.eleminateOptions).toBeDefined();
 			});
 
@@ -400,7 +434,7 @@ describe('Services', function () {
 		});
 
 		describe('.voteForOption()', function() {
-			it('voteForOption should be exist', function() {
+			it('voteForOption should exist', function() {
 				expect(DashBoard.voteForOption).toBeDefined();
 			});
 
@@ -451,7 +485,7 @@ describe('Services', function () {
 
 		describe('.getAll()', function() {
 
-			it('getAll should be exist', function() {
+			it('getAll should exist', function() {
 				expect(Users.getAll).toBeDefined();
 			});
 
@@ -469,7 +503,7 @@ describe('Services', function () {
 
 		describe('.getFriends()', function() {
 
-			it('getFriends should be exist', function() {
+			it('getFriends should exist', function() {
 				expect(Users.getFriends).toBeDefined();
 			});
 
@@ -487,7 +521,7 @@ describe('Services', function () {
 
 		describe('.getOne()', function() {
 
-			it('getOne should be exist', function() {
+			it('getOne should exist', function() {
 				expect(Users.getOne).toBeDefined();
 			});
 
@@ -505,7 +539,7 @@ describe('Services', function () {
 
 		describe('.updateInfo()', function() {
 
-			it('updateInfo should be exist', function() {
+			it('updateInfo should exist', function() {
 				expect(Users.updateInfo).toBeDefined();
 			});
 

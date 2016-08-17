@@ -155,12 +155,13 @@
 	DashBoard.$inject = ['$http'];
 
 	function DashBoard($http) {
-		var createNew = function(date) {
+		var createNew = function(date, groupId) {
 			return $http({
 				method: 'POST',
 				url: baseUrl + '/api/dashboard',
 				data: {
-					date: date
+					date: date,
+					groupId: groupId
 				}
 			})
 			.then(function(resp) {
@@ -252,9 +253,23 @@
 			});
 		};
 
+		var getSubCategories = function(ids) {
+			return $http({
+				method: 'POST',
+				url: baseUrl + '/api/subCategories',
+				data: {
+					ids: ids
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
 		return {
 			getInfo: getInfo,
-			getChildren: getChildren
+			getChildren: getChildren,
+			getSubCategories: getSubCategories
 		};
 	}
 

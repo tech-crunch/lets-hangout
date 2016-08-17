@@ -5,18 +5,24 @@
 		.module('lets-hangout')
 		.controller('CardsController', CardsController);
 
-	CardsController.$inject = ['$scope', '$state', '$timeout', 'Categories', 'SubCategory', 'DashBoard'];
+	CardsController.$inject = ['$scope', '$state', '$timeout', 'Categories', 'SubCategory',
+	'DashBoard', '$stateParams', 'store', '$location'];
 
-	function CardsController($scope, $state, $timeout, Categories, SubCategory, DashBoard) {
+	function CardsController($scope, $state, $timeout, Categories, SubCategory,
+	DashBoard, $stateParams, store, $location) {
+		
 		$scope.cards = {};
 
 		$scope.showRefresh = false;
+
+		var userId = store.get('userProfile').userId;
+
+		var dashboardId = $stateParams.dashboardId;
 
 		$scope.initialize = function() {
 			$scope.showRefresh = false;
 			Categories.getAll()
 			.then(function(categories) {
-				//$scope.categories = categories;
 				$scope.cards = {
 					master: Array.prototype.slice.call(categories, 0),
 					active: Array.prototype.slice.call(categories, 0),
@@ -53,17 +59,14 @@
 		});
 
 		$scope.cardSwipedLeft = function(index) {
-			console.log('LEFT SWIPE');
 			if ($scope.cards.active.length === 1) {
 				$scope.showRefresh = true;
 			}
 		};
 		
 		$scope.cardSwipedRight = function(index) {
-			console.log('RIGHT SWIPE');
 			SubCategory.getChildren($scope.cards.active[index]._id)
 			.then(function (cards) {
-				console.log(cards);
 				if (cards.length !== 0) {
 					$scope.cards = {
 						master: Array.prototype.slice.call(cards, 0),
@@ -71,11 +74,16 @@
 					};
 					$scope.refreshCards();
 				} else {
-					console.log('addOption');
-					// DashBoard.addOption(dashboardID, $scope.cards.active[index]._id)
-					// .then(function (dashboard) {
-					// 	$location.path('/dashBoard');
-					// });
+					var masterLength = $scope.cards.master.length - 1;
+					var activeLength = $scope.cards.active.length;
+					var subCategoryId = $scope.cards.master[masterLength - activeLength]._id;
+					DashBoard.addOption(dashboardId, subCategoryId, userId)
+					.then(function(response) {
+						$location.path('/dashboard/' + response._id);
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
 				}
 			});
 		};

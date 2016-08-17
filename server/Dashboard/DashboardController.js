@@ -10,9 +10,14 @@ var repsonseHandler = function(error, req, res, body, next) {
 
 module.exports = {
 	createNew: function (req, res, next) {
-		var date = req.body.date;
-		var newDashboard = new Dashboard({date: date});
+		var date = req.body.date || new Date();
+		var groupId = req.body.groupId;
+		var newDashboard = new Dashboard({
+			date: date,
+			groupId: groupId
+		});
 		newDashboard.save(function(err, newDashboard) {
+			console.log(err);
 			repsonseHandler(err, req, res, {status: 201, returnObj: newDashboard}, next);
 		});
 	},
@@ -41,7 +46,7 @@ module.exports = {
 		.exec(function(err, dashboard) {
 			if (dashboard.voters.indexOf(userId) === -1) {
 				dashboard.voters.push(userId);
-				dashboard.options.push({subCategoryId: subCategoryId});
+				dashboard.options.push(subCategoryId);
 			}
 			dashboard.save( function(err, savedDashboard) {
 				repsonseHandler(err, req, res, {status: 201, returnObj: savedDashboard}, next);
