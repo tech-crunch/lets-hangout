@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var DashboardSchema = new Schema({
 	options: {type: [{ subCategoryId: { type: Schema.Types.ObjectId, ref: 'SubCategory'} }]},
+	groupId: { type: Schema.Types.ObjectId, ref: 'Group', required: true},
 	voting: {type: String, default: '{}'},
 	date: {type: Date, default: Date.now},
 	voters: [{type: String}]

@@ -15,7 +15,7 @@ describe('Dashboard Controller', function () {
 	it('should create new dashboard in database responds with a 201 (Created)', function (done) {
 		chai.request(app)
 			.post('/api/dashboard')
-			.send()
+			.send({groupId: '57b424ac3cec94500b9b415f'})
 			.end(function(err, res) {
 				res.should.have.status(201);
 				res.should.be.json;
@@ -26,7 +26,7 @@ describe('Dashboard Controller', function () {
 
 
 	it('should get information of dashboard by id responds with a 200', function (done) {  
-		var newDashboard = new Dashboard();
+		var newDashboard = new Dashboard({groupId: '57b424ac3cec94500b9b415f'});
 		newDashboard.save(function(err, data) {
 			chai.request(app)
 			.get('/api/dashboard/' + data._id)
@@ -42,7 +42,7 @@ describe('Dashboard Controller', function () {
 	});
 
 	it('should add an option to Dashboard options on /api/dashboard/addOption/:id PUT', function(done) {
-		var newDashboard = new Dashboard();
+		var newDashboard = new Dashboard({groupId: '57b424ac3cec94500b9b415f'});
 		newDashboard.save(function(err, data) {
 			chai.request(app)
 				.put('/api/dashboard/addOption/' + data._id)
@@ -63,7 +63,7 @@ describe('Dashboard Controller', function () {
 	});
 
 	it('should skip adding option to existing voter to dashboard', function (done) {
-		var newDashboard = new Dashboard();
+		var newDashboard = new Dashboard({groupId: '57b424ac3cec94500b9b415f'});
 		newDashboard.save(function(err, data) {
 			chai.request(app)
 			.put('/api/dashboard/addOption/' + data._id)
@@ -92,7 +92,7 @@ describe('Dashboard Controller', function () {
 	});
 
 	it('should delete an option from Dashboard options on /api/dashboard/eleminateOptions/:id PUT', function(done) {
-		var newDashboard = new Dashboard();
+		var newDashboard = new Dashboard({groupId: '57b424ac3cec94500b9b415f'});
 		newDashboard.save(function(err, data) {
 			Dashboard.findOneAndUpdate({_id: data._id}, {$push: { options: {subCategoryId: '57a336baaf059e280e510c45'} }}, {new: true}, function (err, dashboard) {
 				chai.request(app)
@@ -122,7 +122,7 @@ describe('Dashboard Controller', function () {
 	});
 
 	it('should add new key to voting object', function (done) {
-		var newDashboard = new Dashboard();
+		var newDashboard = new Dashboard({groupId: '57b424ac3cec94500b9b415f'});
 		newDashboard.save(function(err, data) {
 			Dashboard.findOne({_id: data._id}, function (err, dashboard) {
 				chai.request(app)
