@@ -6,27 +6,27 @@
 		.controller('DashBoardController', DashBoardController);
 
 	DashBoardController.$inject = ['$scope', 'DashBoard', '$location', '$window', '$stateParams',
-	'SubCategory', '$ionicPopup', '$ionicLoading', '$ionicPopover', '$ionicModal', 'store'];
+	'SubCategory', '$ionicPopup', '$ionicLoading', '$ionicPopover', '$ionicModal', 'store', 'Group'];
 
 	function DashBoardController($scope, DashBoard, $location, $window, $stateParams,	
-	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, store) {
-	
-		$scope.subCatID = [];
-		$scope.subC = [];
-		$scope.vote = [];
+	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, store, Group) {
 
-		var dashBoardID = $stateParams.id; 
+		var dashboardId = $stateParams.id; 
 
 		var userId = store.get('userProfile').userId;
+
+		var optionsAreComplete = false;
+
+		var numOfUsers = 0;
 
 		$scope.options = {};
 
 		$scope.initialize = function() {
-			DashBoard.getInfo(dashBoardID)
+			DashBoard.getInfo(dashboardId)
 			.then( function(data) {
 				// if a user hasn't swiped for option yet, navigate him to the swiping page
 				if (data.voters.indexOf(userId) === -1) {
-					$location.path('/app/cards/' + dashBoardID);
+					$location.path('/app/cards/' + dashboardId);
 				} else { // show the votes
 					var optionsIds = data.options;
 					var voting = JSON.parse(data.voting);
@@ -45,99 +45,63 @@
 					.catch(function(error) {
 						console.log(error);
 					});
+					Group.groupInfo(data.groupId)
+					.then(function(response) {
+						numOfUsers = response.users.length;
+						optionsAreComplete = optionsIds.length === numOfUsers ? true : false;
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
 				}
 			});
 		};
 
 		$scope.initialize();
 
+		$scope.voteForOption = function(optionId) {
+			if (optionsAreComplete) {
+				DashBoard.voteForOption(dashboardId, optionId, userId)
+				.then( function(data) {
+					console.log(data);
+					$scope.eleminateOptions();
+					$scope.initialize();
+				})
+				.catch(function(err) {
+					console.log(err);
+				});
+			} else {
+				$ionicPopup.alert({
+					title: 'Please wait until all options are chosen'
+				});
+			}
+		};
 
-		// $scope.eleminate = function(id, datas) {
-		// 	DashBoard.eleminateOptions(id, datas)
-		// 	.then(function( data) {
-		// 		// TODO: Refresh the Page
-		// 	})
-		// 	.catch(function(err) {
-		// 		console.log(err);
-		// 	});
-		// };
-
-		// var elemination = [];
-
-		// $scope.eleminateOptions = function() {
-		// 	var len = $scope.subCatID.length;
-		// 	var max = Math.max.apply(Math, $scope.vote);
-		// 	for (var i = 0; i < len; i++) { 
-		// 		var minVoting = Math.min.apply(Math, $scope.vote);
-		// 		var index = $scope.vote.indexOf(minVoting);
-		// 		if ($scope.subCatID.length > 1 && minVoting !== max) {
-		// 			elemination.push($scope.subCatID[index]);
-		// 		}
-		// 		$scope.vote.splice(index, 1);
-		// 	}
-		// 	$scope.eleminate(dashBoardID, elemination);
-		// };
-
-		
-		// $scope.voteForOption = function(optionID) {
-		// 	var userID = store.get('userProfile').userId;
-		// 	DashBoard.voteForOption(dashBoardID, optionID, userID)
-		// 	.then( function(data) {
-		// 		//TODO refresh page
-		// 	})
-		// 	.catch(function(err) {
-		// 		console.log(err);
-		// 	});
-		// };
-
-		// var template;
-
-		// $scope.getChosenOption = function() {
-		// 	var max = Math.max.apply(Math, $scope.vote);
-		// 	var maxIndex = $scope.vote.indexOf(max);
-		// 	var chosenOption = $scope.subCatID[maxIndex];
-		// 	SubCategory.getInfo(chosenOption)
-		// 	.then(function(data) {
-		// 		template = data.poster;
-		// 		$scope.showImage();
-		// 	})
-		// 	.catch( function(err) {
-		// 		console.log(err);
-		// 	});
-		// };
-
-		// $scope.showAlert = function(name, details) {
-		// 	var alertPopup = $ionicPopup.alert({
-		// 		title: name,
-		// 		template: details
-		// 	});
-		// };
-
-		// $ionicModal.fromTemplateUrl('image-modal.html', {
-		// 	scope: $scope,
-		// 	animation: 'slide-in-up'
-		// }).then(function(modal) {
-		// 	$scope.modal = modal;
-		// });
-
-		// $scope.openModal = function() {
-		// 	$scope.modal.show();
-		// };
-
-		// $scope.closeModal = function() {
-		// 	$scope.modal.hide();
-		// };
-
-		// //Cleanup the modal when we're done with it!
-		// $scope.$on('$destroy', function() {
-		// 	$scope.modal.remove();
-		// });
-
-		// $scope.showImage = function() {
-		// 	$scope.imageSrc = template;
-		// 	$scope.openModal();
-		// };  
-		
+		$scope.eleminateOptions = function() {
+			var totalVotes = 0;
+			var maxVotes = 0;
+			for(var i=0; i<$scope.options.length; i++){
+				totalVotes += $scope.options[i].numOfVotes;
+				if($scope.options[i].numOfVotes > maxVotes){
+					maxVotes = $scope.options[i].numOfVotes;
+				}
+			}
+			
+			var optionsToBeEleminated = [];
+			for(var i=0; i<$scope.options.length; i++){
+				if($scope.options[i].numOfVotes < maxVotes){
+					optionsToBeEleminated.push($scope.options[i]._id);
+				}
+			}
+			console.log(optionsToBeEleminated);
+			// DashBoard.eleminateOptions(dashboardId, subCategoriesIds)
+			// .then(function( data) {
+			// 	$scope.initialize();
+			// })
+			// .catch(function(err) {
+			// 	console.log(err);
+			// });
+		};	
 	}
 } 
 ());
