@@ -177,7 +177,8 @@
 					.catch(function(error) {
 						console.log(error);
 					});
-				}
+				},
+				from: new Date()
 			};
 			ionicDatePicker.openDatePicker(datePickerObj);
 		};
