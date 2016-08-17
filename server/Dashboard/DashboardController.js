@@ -35,13 +35,18 @@ module.exports = {
 	},
 
 	addOption: function (req, res, next) {
-		Dashboard.findOneAndUpdate(
-			{_id: req.params.id},
-			{ $push: { options: {subCategoryId: req.body.subCategoryId} } },
-			{new: true},
-			function(err, dashboard) {
-				repsonseHandler(err, req, res, {status: 200, returnObj: dashboard}, next);
+		var userId = req.body.userId.toString(); 
+		var subCategoryId = req.body.subCategoryId.toString();
+		Dashboard.findOne({_id: req.params.id})
+		.exec(function(err, dashboard) {
+			if (dashboard.voters.indexOf(userId) === -1) {
+				dashboard.voters.push(userId);
+				dashboard.options.push({subCategoryId: subCategoryId});
+			}
+			dashboard.save( function(err, savedDashboard) {
+				repsonseHandler(err, req, res, {status: 201, returnObj: savedDashboard}, next);
 			});
+		});
 	},
 
 	voteForOption: function (req, res, next) {

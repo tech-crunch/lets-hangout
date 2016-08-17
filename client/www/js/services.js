@@ -178,12 +178,13 @@
 			});
 		};
 
-		var addOption = function(dashBoardID, subCategoryID) {
+		var addOption = function(dashBoardID, subCategoryID, userId) {
 			return $http({
 				method: 'PUT',
 				url: baseUrl + '/api/dashboard/addOption/' + dashBoardID,
 				data: {
-					subCategoryId: subCategoryID
+					subCategoryId: subCategoryID,
+					userId: userId
 				}
 			})
 			.then(function(resp) {

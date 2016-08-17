@@ -10,7 +10,8 @@
 
 	function DashBoardController($scope, DashBoard, $location, $window, $stateParams,	
 	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, store) {
-		
+
+		// redirect the user to the cards page if he hasn't made a choice yet	
 		$scope.subCatID = [];
 		$scope.subC = [];
 		$scope.vote = [];
