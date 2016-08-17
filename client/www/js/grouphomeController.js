@@ -168,7 +168,7 @@
 			var datePickerObj = {
 				callback: function (val) {
 					var date = new Date(val);
-					DashBoard.createNew(date)
+					DashBoard.createNew(date, $stateParams.groupID)
 					.then(function(resp) {
 						Group.addDashboard($stateParams.groupID, resp.data._id)
 						.then(function(response) {
