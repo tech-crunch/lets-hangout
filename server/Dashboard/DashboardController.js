@@ -41,7 +41,7 @@ module.exports = {
 		.exec(function(err, dashboard) {
 			if (dashboard.voters.indexOf(userId) === -1) {
 				dashboard.voters.push(userId);
-				dashboard.options.push({subCategoryId: subCategoryId});
+				dashboard.options.push(subCategoryId);
 			}
 			dashboard.save( function(err, savedDashboard) {
 				repsonseHandler(err, req, res, {status: 201, returnObj: savedDashboard}, next);
