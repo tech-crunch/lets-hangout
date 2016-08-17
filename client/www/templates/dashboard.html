@@ -1,4 +1,4 @@
-<ion-view ng-controller="DashBoardController">
+<!-- <ion-view ng-controller="DashBoardController">
 	<ion-pane class="background-grey">
 		
 		<div>
@@ -24,6 +24,23 @@
 		</script>
 		
 	</ion-pane>
+</ion-view> -->
+
+
+<ion-view view-title ng-controller="DashBoardController">
+	<ion-content>
+	    <div class="list card" ng-repeat="option in subC track by $index">
+		  
+		  <div class="item item-body">
+		    <img class="full-image" ng-src="{{option.poster}}">
+		    <p>
+		    	<a class="assertive-900" style="font-size: 2em" ng-click = "voteForOption(subCatID[$index])">
+            <i class="subdued icon ion-heart"></i>
+          </a>
+		      <a href="#" class="subdued" style="margin-left: 15px">{{vote[$index]}} Like</a>
+		      <a href="#" class="subdued">5 Comments</a>
+		    </p>
+		  </div>
+		</div>
+	</ion-content>
 </ion-view>
-
-
