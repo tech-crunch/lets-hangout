@@ -56,6 +56,6 @@ module.exports = {
 		SubCategory.find({_id: {$in: ids} })
 		.exec(function(err, subCategories) {
 			repsonseHandler(err, req, res, {status: 200, returnObj: subCategories}, next);
-		}) 
+		});
 	}
 };

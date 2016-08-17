@@ -33,10 +33,10 @@
 					SubCategory.getSubCategories(optionsIds)
 					.then(function(response) {
 						$scope.options = response;
-						for(var i=0; i<$scope.options.length; i++){
+						for (var i = 0; i < $scope.options.length; i++) {
 							$scope.options[i].numOfVotes = 0;
-							for(var key in voting){
-								if(voting[key] === $scope.options[i]._id){
+							for (var key in voting) {
+								if (voting[key] === $scope.options[i]._id) {
 									$scope.options[i].numOfVotes++;
 								}
 							}

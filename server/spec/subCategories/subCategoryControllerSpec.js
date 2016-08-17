@@ -137,19 +137,19 @@ describe('SubCategory Controller', function () {
 				poster: 'poster1',
 				name: 'name1',
 				details: 'details1',
-				parentId: "57b2cc21811b603c12c79018"
+				parentId: '57b2cc21811b603c12c79018'
 			},
 			{
 				poster: 'poster2',
 				name: 'name2',
 				details: 'details2',
-				parentId: "57b2cc21811b603c12c79018"
+				parentId: '57b2cc21811b603c12c79018'
 			},
 			{
 				poster: 'poster3',
 				name: 'name3',
 				details: 'details3',
-				parentId: "57b2cc21811b603c12c79018"
+				parentId: '57b2cc21811b603c12c79018'
 			}
 		];
 		SubCategory.create(subCategoriesArr, function(err, subCategories) {
@@ -160,7 +160,7 @@ describe('SubCategory Controller', function () {
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('array');
-				res.body.length.should.equal(subCategoriesArr.length-1);
+				res.body.length.should.equal(subCategoriesArr.length - 1);
 				done();
 			});
 		});

@@ -143,7 +143,7 @@ describe('Services', function () {
 				$httpBackend.expect('POST', baseUrl + '/api/subCategories').respond(mockResponse);
 
 				SubCategory.getSubCategories({
-					ids:['57ab09d1c665971c0daea5a2','57ab09d1c665971c0daea5a3']
+					ids: ['57ab09d1c665971c0daea5a2', '57ab09d1c665971c0daea5a3']
 				})
 				.then(function (SubCategories) {
 					expect(SubCategories).toEqual(mockResponse);

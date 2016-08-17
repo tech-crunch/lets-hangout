@@ -10,6 +10,7 @@
 
 	function CardsController($scope, $state, $timeout, Categories, SubCategory,
 	DashBoard, $stateParams, store, $location) {
+		
 		$scope.cards = {};
 
 		$scope.showRefresh = false;
@@ -73,7 +74,7 @@
 					};
 					$scope.refreshCards();
 				} else {
-					var masterLength = $scope.cards.master.length-1;
+					var masterLength = $scope.cards.master.length - 1;
 					var activeLength = $scope.cards.active.length;
 					var subCategoryId = $scope.cards.master[masterLength - activeLength]._id;
 					DashBoard.addOption(dashboardId, subCategoryId, userId)
