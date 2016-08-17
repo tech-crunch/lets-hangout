@@ -80,16 +80,16 @@
 		$scope.eleminateOptions = function() {
 			var totalVotes = 0;
 			var maxVotes = 0;
-			for(var i=0; i<$scope.options.length; i++){
+			for (var i = 0; i < $scope.options.length; i++) {
 				totalVotes += $scope.options[i].numOfVotes;
-				if($scope.options[i].numOfVotes > maxVotes){
+				if ($scope.options[i].numOfVotes > maxVotes) {
 					maxVotes = $scope.options[i].numOfVotes;
 				}
 			}
 			
 			var optionsToBeEleminated = [];
-			for(var i=0; i<$scope.options.length; i++){
-				if($scope.options[i].numOfVotes < maxVotes){
+			for (var i = 0; i < $scope.options.length; i++) {
+				if ($scope.options[i].numOfVotes < maxVotes) {
 					optionsToBeEleminated.push($scope.options[i]._id);
 				}
 			}
