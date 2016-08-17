@@ -128,6 +128,17 @@
 			});
 		};
 
+		var allGroupsByAdmin = function(userId) {
+			return $http({
+				method: 'GET',
+				url: baseUrl + '/api/groups/groupsByAdmin/' + userId
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
+
+
 		return {
 			newGroup: newGroup,
 			addDashboard: addDashboard,
@@ -136,7 +147,8 @@
 			dashboardInfo: dashboardInfo,
 			addingFriend: addingFriend,
 			deletingFriend: deletingFriend,
-			deletingGroup: deletingGroup
+			deletingGroup: deletingGroup,
+			allGroupsByAdmin: allGroupsByAdmin
 		};
 	}
 

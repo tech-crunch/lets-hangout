@@ -1,41 +1,34 @@
 'use strict';
 
-describe('DashBoardController', function () {
-	var $scope, $rootScope, createController, DashBoard, $httpBackend;
+describe('DashBoardController', function() {
+  var $scope, $rootScope, createController, $location, DashBoard, $httpBackend, $window, $stateParams,	
+	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, store;
 
-	beforeEach(module('lets-hangout'));
-	beforeEach(inject(function ($injector) {
+  	beforeEach(function () {
+        module('lets-hangout');
+    });
+  	var controller;
 
+  	beforeEach(inject(function ($injector) {
 		// mock out our dependencies
 		$rootScope = $injector.get('$rootScope');
 		$httpBackend = $injector.get('$httpBackend');
 		DashBoard = $injector.get('DashBoard');
+		$location = $injector.get('$location');
 		$scope = $rootScope.$new();
+		createController = function(){
+			$controller('DashBoardController', {
+            	'$scope': $scope
+       		});
+		}
+    }));
 
-		var $controller = $injector.get('$controller');
+    afterEach(function() {
+        httpBackend.verifyNoOutstandingExpectation();
+        httpBackend.verifyNoOutstandingRequest();
+    });
 
-		createController = function () {
-			return $controller('DashBoardController', {
-				$scope: $scope,
-				DashBoard: DashBoard
-			});
-		};
-
-	}));
-
-	it('should have subC property on the $scope', function () {
-		createController();
-		expect($scope.subC).to.be.an('object');
-	});
-
-	it('should call `$scope.getDashBoardInfo()` when controller is loaded', function () {
-		sinon.spy(DashBoard, 'getInfo');
-		$httpBackend.expectGET('/api/dashboard/:id').respond(200);
-
-		createController();
-		$httpBackend.flush();
-
-		expect($scope.getDashBoardInfo().called).to.equal(true);
-		DashBoard.getInfo.restore();
-	})
+    it('should have a subC property on the $scope', function() {
+	    expect($scope.subC).toBe('object')
+    });
 });
