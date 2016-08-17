@@ -156,13 +156,12 @@
 	DashBoard.$inject = ['$http'];
 
 	function DashBoard($http) {
-		var createNew = function(date, groupId) {
+		var createNew = function(date) {
 			return $http({
 				method: 'POST',
 				url: baseUrl + '/api/dashboard',
 				data: {
-					date: date,
-					groupId: groupId
+					date: date
 				}
 			})
 			.then(function(resp) {
@@ -180,13 +179,12 @@
 			});
 		};
 
-		var addOption = function(dashBoardID, subCategoryID, userId) {
+		var addOption = function(dashBoardID, subCategoryID) {
 			return $http({
 				method: 'PUT',
 				url: baseUrl + '/api/dashboard/addOption/' + dashBoardID,
 				data: {
-					subCategoryId: subCategoryID,
-					userId: userId
+					subCategoryId: subCategoryID
 				}
 			})
 			.then(function(resp) {
@@ -254,23 +252,9 @@
 			});
 		};
 
-		var getSubCategories = function(ids) {
-			return $http({
-				method: 'POST',
-				url: baseUrl + '/api/subCategories',
-				data: {
-					ids: ids
-				}
-			})
-			.then(function(resp) {
-				return resp.data;
-			});
-		};
-
 		return {
 			getInfo: getInfo,
-			getChildren: getChildren,
-			getSubCategories: getSubCategories
+			getChildren: getChildren
 		};
 	}
 
