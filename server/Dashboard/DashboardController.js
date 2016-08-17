@@ -32,7 +32,7 @@ module.exports = {
 	eleminateOptions: function (req, res, next) {
 		Dashboard.findOneAndUpdate(
 			{_id: req.params.id},
-			{$pull: {options: {subCategoryId: {$in: req.body.subCategoryIds}}}},
+			{$pull: {options: {$in: req.body.subCategoryIds}}},
 			{new: true},
 			function(err, dashboard) {
 				repsonseHandler(err, req, res, {status: 200, returnObj: dashboard}, next);
