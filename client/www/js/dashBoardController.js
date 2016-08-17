@@ -38,6 +38,7 @@
 					SubCategory.getSubCategories(optionsIds)
 					.then(function(response) {
 						$scope.options = response;
+						$scope.flag = [];
 						for (var i = 0; i < $scope.options.length; i++) {
 							$scope.options[i].numOfVotes = 0;
 							for (var key in voting) {
@@ -45,10 +46,7 @@
 									$scope.options[i].numOfVotes++;
 								}
 							}
-							$scope.flag = [];
-							for (var i = 0; i < $scope.options.length; i++) {
-								$scope.flag.push(true);
-							}
+							$scope.flag.push(true);
 						}
 						$scope.eleminateOptions();
 					})
@@ -102,10 +100,10 @@
 		};
 
 		$scope.eleminateOptions = function() {
-			var totalVotes = 0;
+			var votesNum = 0;
 			var maxVotes = 0;
 			for (var i = 0; i < $scope.options.length; i++) {
-				totalVotes += $scope.options[i].numOfVotes;
+				votesNum += $scope.options[i].numOfVotes;
 				if ($scope.options[i].numOfVotes > maxVotes) {
 					maxVotes = $scope.options[i].numOfVotes;
 				}
@@ -117,12 +115,9 @@
 					optionsToBeEleminated.push($scope.options[i]._id);
 				}
 			}
-
-			if (totalVotes === numOfUsers) {
-				console.log(optionsToBeEleminated);
+			if (votesNum === numOfUsers) {
 				DashBoard.eleminateOptions(dashboardId, optionsToBeEleminated)
 				.then(function(data) {
-					console.log(data);
 					if (data.options.length < $scope.options.length) {
 						$scope.initialize();
 					}
