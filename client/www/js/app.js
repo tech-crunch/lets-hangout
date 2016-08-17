@@ -91,7 +91,7 @@ angular.module('lets-hangout', [
 		}
 	})
 	.state('app.cards', {
-		url: '/cards',
+		url: '/cards/:dashboardId',
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/cards.html'
