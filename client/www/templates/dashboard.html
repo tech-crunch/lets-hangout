@@ -1,8 +1,13 @@
 <ion-view view-title ng-controller="DashBoardController">
 	<ion-content>
-	    <div class="list card" ng-repeat="option in options track by $index">	  
+	    <div class="list card animated fadeInLeftBig" ng-repeat="option in options track by $index" ng-click="switch($index)">
 		  <div class="item item-body">
-		    <img class="full-image" ng-src="{{option.poster}}">
+		    <img class="full-image" ng-src="{{option.poster}}" ng-if="flag[$index]">
+		    <div>
+		    	<p ng-if="!flag[$index]"  class="animated lightSpeedIn">
+		    		{{option.details}}
+		    	</p>
+		    </div>
 		    <p>
 		    <a class="assertive-900" style="font-size: 2em" ng-click = "voteForOption(option._id)">
             	<i class="subdued icon ion-heart"></i>
