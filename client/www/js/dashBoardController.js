@@ -21,6 +21,10 @@
 
 		$scope.options = {};
 
+		$scope.switch = function (index) {
+			$scope.flag[index] = !$scope.flag[index]
+		}
+
 		$scope.initialize = function() {
 			DashBoard.getInfo(dashboardId)
 			.then( function(data) {
@@ -39,6 +43,10 @@
 								if (voting[key] === $scope.options[i]._id) {
 									$scope.options[i].numOfVotes++;
 								}
+							}
+							$scope.flag = [];
+							for (var i = 0; i < $scope.options.length; i++) {
+								$scope.flag.push(true);
 							}
 						}
 					})
