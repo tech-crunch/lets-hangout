@@ -18,8 +18,17 @@ module.exports = function(config) {
         './node_modules/angular/angular.js',                             // angular
         './node_modules/angular-ui-router/release/angular-ui-router.js', // ui-router
         './node_modules/angular-mocks/angular-mocks.js',                 // loads our modules for tests
-
-
+        'client/www/lib/ionic/js/ionic.bundle.js',
+        'client/www/lib/collide/collide.js',
+        'client/www/lib/ionic-tinder-cards-2/ionic.tdcards2.js',
+        'client/www/lib/ionic-material/dist/ionic.material.min.js',
+        'client/www/lib/ion-md-input/js/ion-md-input.min.js',
+        'client/www/lib/auth0-lock/build/auth0-lock.js',
+        'client/www/lib/auth0-angular/build/auth0-angular.js',
+        'client/www/lib/a0-angular-storage/dist/angular-storage.js',
+        'client/www/lib/angular-jwt/dist/angular-jwt.js',
+        'client/www/lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js',
+        
         'client/www/js/*.js',
         'client/www/spec/**/*.js'
     ],
