@@ -5,16 +5,16 @@
 		.module('lets-hangout')
 		.controller('HomeController', HomeController);
 
-	HomeController.$inject = ['$state', '$scope', 'auth', 'store', 'Users', 'Group'];
+	HomeController.$inject = ['$state', '$scope', '$ionicPopup', '$timeout', 'store', 'Users', 'Group'];
 
-	function HomeController($state, $scope, auth, store, Users, Group) {
-		var vm = this;
+	function HomeController($state, $scope, $ionicPopup, $timeout, store, Users, Group) {
 
-		vm.auth = auth;
+		// Getting Groups and displaying them
+		$scope.group = {};
+		
+		$scope.data = [];
 
-		vm.login = login;
-
-		vm.user = {};
+		$scope.user = {};
 
 		setInterval( function() {
 			if (store.get('Initialized') && !store.get('userProfile')) {
@@ -24,7 +24,7 @@
 
 		$scope.$on('$ionicView.enter', function (viewInfo, state) {
 			if (store.get('userProfile')) {
-				vm.user = store.get('userProfile');
+				$scope.user = store.get('userProfile');
 			}
 		});
 
@@ -32,11 +32,6 @@
 			$state.go('app.login');
 		}
 
-		// Getting Groups and displaying them
-		$scope.group = {};
-		
-		$scope.data = [];
-		
 		// groups Information
 		var init = function () {
 			if (store.get('userProfile')) {
@@ -53,17 +48,40 @@
 		// create new Group
 		$scope.createGroup = function () {
 			if (store.get('userProfile')) {
-				Group.newGroup($scope.group.groupName, store.get('userProfile').userId)
-				.then(function (data) {
-					init();
-				})
-				.catch(function (err) {
-					console.log(err);
+				// An elaborate, custom popup
+				var myPopup = $ionicPopup.show({
+					template: '<input type="text" ng-model="group.groupName">',
+					title: 'Enter Group Name',
+					scope: $scope,
+					buttons: [
+						{
+							text: 'Cancel',
+							onTap: function(e) {
+								$scope.group.groupName = '';
+							}
+						},
+						{
+							text: 'Create',
+							onTap: function(e) {
+								return $scope.group.groupName;
+							}
+						}
+					]
+				});
+
+				myPopup.then(function(res) {
+					if (res) {
+						Group.newGroup(res, store.get('userProfile').userId)
+						.then(function (data) {
+							init();
+						})
+						.catch(function (err) {
+							console.log(err);
+						});
+					}
 				});
 			}
 		};
-
 		init();
-
 	}
 } ());

@@ -162,3 +162,21 @@ td-card#end-card {
 a {
   text-decoration: none;
 }
+
+.headerIcons {
+  border-color: transparent;
+  background-color: transparent;
+  color: white;
+}
+
+.popup-buttons .button {
+  background-color: #B71C1C;
+  color: white;
+  font-size: 10px;
+}
+
+input[type=text] {
+  border-color: #B71C1C;
+  border-style: solid;
+  border-width: 1px;
+}
