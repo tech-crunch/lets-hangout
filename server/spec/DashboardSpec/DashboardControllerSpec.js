@@ -46,15 +46,48 @@ describe('Dashboard Controller', function () {
 		newDashboard.save(function(err, data) {
 			chai.request(app)
 				.put('/api/dashboard/addOption/' + data._id)
-				.send({'subCategoryId': '57a336baaf059e280e510c45'})
+				.send({
+					subCategoryId: data._id,
+					userId: data._id
+				})
 				.end(function(err, res) {
-					res.should.have.status(200);
+					res.should.have.status(201);
 					res.should.be.json;
-					res.body.options[0].subCategoryId.should.equal('57a336baaf059e280e510c45');
 					res.body.should.be.a('object');
 					res.body.should.have.property('_id');
+					res.body.should.have.property('options');
+					res.body.should.have.property('voters');
 					done();
 				});
+		});
+	});
+
+	it('should skip adding option to existing voter to dashboard', function (done) {
+		var newDashboard = new Dashboard();
+		newDashboard.save(function(err, data) {
+			chai.request(app)
+			.put('/api/dashboard/addOption/' + data._id)
+			.send({
+				subCategoryId: data._id,
+				userId: data._id
+			})
+			.end(function(err, res) {
+				chai.request(app)
+				.put('/api/dashboard/addOption/' + data._id)
+				.send({
+					subCategoryId: data._id,
+					userId: data._id
+				})
+				.end(function(err, res) {
+					res.should.have.status(201);
+					res.should.be.json;
+					res.body.should.be.a('object');
+					res.body.should.have.property('_id');
+					res.body.should.have.property('options');
+					res.body.should.have.property('voters');
+					done();
+				});
+			});
 		});
 	});
 
