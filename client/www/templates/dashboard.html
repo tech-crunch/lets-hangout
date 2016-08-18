@@ -1,4 +1,7 @@
 <ion-view view-title ng-controller="DashBoardController">
+	<ion-nav-buttons side="right">
+		<a class="button icon ion-chatboxes headerIcons button-clear" href="#/app/messages/{{dashboardId}}"></a>
+	</ion-nav-buttons>
 	<ion-content>
 	    <div class="list card animated fadeInLeftBig" ng-repeat="option in options track by $index" ng-click="switch($index)" style="{{getStyle()}}"}>
 		  <div class="item item-body">

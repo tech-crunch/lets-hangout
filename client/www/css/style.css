@@ -1384,14 +1384,14 @@ img.profile-pic.right {
 }
 
 .chat-bubble.right {
-  background-color: #158ffe;
+  background-color: #B71C1C;
   color: #fff;
   float: right;
   margin-right: 55px;
 }
 
 .chat-bubble.right:before {
-  background-color: #158ffe;
+  background-color: #B71C1C;
   right: 10px;
   -webkit-transform: rotate(118deg) skew(-5deg);
 }

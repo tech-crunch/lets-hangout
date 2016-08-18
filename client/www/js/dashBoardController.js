@@ -157,15 +157,6 @@
 				});
 			}
 		};	
-			console.log(optionsToBeEleminated);
-			// DashBoard.eleminateOptions(dashboardId, subCategoriesIds)
-			// .then(function( data) {
-			// 	$scope.initialize();
-			// })
-			// .catch(function(err) {
-			// 	console.log(err);
-			// });
-		};
 	}
 } 
 ());
