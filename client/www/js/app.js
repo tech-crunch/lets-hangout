@@ -97,15 +97,7 @@ angular.module('lets-hangout', [
 				templateUrl: 'templates/cards.html'
 			}
 		}
-	})
-	.state('app.dash', {
-		url: '/dash',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/dash.html'
-			}
-		}
-	})  
+	}) 
 	.state('app.dashBoard', {
 		url: '/dashBoard/:id',
 		views: {
@@ -143,6 +135,7 @@ angular.module('lets-hangout', [
 	// Form data for the login modal
 	$scope.loginData = {};
 	$scope.isExpanded = false;
+	$scope.loggedIn = store.get('userProfile') ? true : false;
 
 	var navIcons = document.getElementsByClassName('ion-navicon');
 	for (var i = 0; i < navIcons.length; i++) {

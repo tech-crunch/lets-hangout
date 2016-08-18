@@ -13,24 +13,15 @@
         <ion-header-bar class="bar-assertive-900"></ion-header-bar>
         <ion-content>
             <ion-list>
-                <ion-item nav-clear menu-close ui-sref="app.dash">
-                    dash
+                <ion-item nav-clear menu-close ui-sref="app.login" ng-if="!loggedIn">
+                    Login
+                </ion-item>
+                <ion-item nav-clear menu-close ng-click="logout()" ng-if="loggedIn">
+                    Logout
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.home">
                     home
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.group">
-                    groups
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.login">
-                    Login
-                </ion-item>
-                <ion-item nav-clear menu-close ng-click="logout()">
-                    Logout
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.cards">
-                    Cards
-                </ion-item>
+                </ion-saitem>
             </ion-list>
         </ion-content>
     </ion-side-menu>
