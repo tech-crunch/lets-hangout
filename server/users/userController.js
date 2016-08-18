@@ -1,13 +1,6 @@
 var User = require('../users/userModel.js');
 
-
-var repsonseHandler = function(error, req, res, body, next) {
-	if (error || !body.returnObj) {
-		next(error, req, res);
-	} else {
-		res.status(body.status).send(body.returnObj);
-	}
-};
+var repsonseHandler = require('../config/helpers.js').repsonseHandler;
 
 module.exports = {
 	createNew: function(req, res, next) {
@@ -47,9 +40,9 @@ module.exports = {
 		var userId = req.params.userId.toString();
 		User.findOne({userId: userId})
 		.exec(function (err, user) {
-			user.name = req.body.name || user.name;
-			user.picture = req.body.picture || user.picture;
-			user.friends = req.body.friends || user.friends;
+			user.name = null == req.body.name ? user.name : req.body.name;
+			user.picture = null == req.body.picture ? user.picture : req.body.picture;
+			user.friends = null == req.body.friends ? user.friends : req.body.friends;
 			user.save(function (err, savedUser) {
 				repsonseHandler(err, req, res, {status: 201, returnObj: savedUser}, next);
 			});

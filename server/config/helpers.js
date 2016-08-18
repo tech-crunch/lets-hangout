@@ -30,5 +30,13 @@ module.exports = {
 			return next(error);
 		}
 
+	},
+
+	repsonseHandler: function(error, req, res, body, next) {
+		if (error) {
+			next(error, req, res);
+		} else {
+			res.status(body.status).send(body.returnObj);
+		}
 	}
 };

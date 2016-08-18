@@ -126,7 +126,25 @@ describe('User Controller', function () {
 				res.body.picture.should.equal(data.picture);
 				res.body.name.should.equal('name');
 				res.body.userId.should.equal(data.userId);
-				done();
+				chai.request(app)
+				.put('/api/users/' + data.userId)
+				.send({
+					name: 'newName',
+					picture: 'newPicture',
+					friends: []
+				})
+				.end(function(err, res) {
+					res.should.have.status(201);
+					res.should.be.json;
+					res.body.should.be.a('object');
+					res.body.should.have.property('picture');
+					res.body.should.have.property('name');
+					res.body.should.have.property('userId');
+					res.body.picture.should.equal('newPicture');
+					res.body.name.should.equal('newName');
+					res.body.userId.should.equal(data.userId);
+					done();
+				});
 			});
 		});
 	});
