@@ -11,7 +11,7 @@
 	function DashBoardController($scope, DashBoard, $location, $window, $stateParams,	
 	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, store, Group) {
 
-		var dashboardId = $stateParams.id; 
+		$scope.dashboardId = $stateParams.id; 
 
 		var userId = store.get('userProfile').userId;
 
@@ -56,7 +56,7 @@
 		};
 
 		$scope.initialize = function() {
-			DashBoard.getInfo(dashboardId)
+			DashBoard.getInfo($scope.dashboardId)
 			.then( function(data) {
 				// if a user hasn't swiped for option yet, navigate him to the swiping page
 				if (data.voters.indexOf(userId) === -1) {
@@ -115,7 +115,7 @@
 
 		$scope.voteForOption = function(optionId) {
 			if (optionsAreComplete) {
-				DashBoard.voteForOption(dashboardId, optionId, userId)
+				DashBoard.voteForOption($scope.dashboardId, optionId, userId)
 				.then( function(data) {
 					$scope.initialize();
 				})
@@ -146,7 +146,7 @@
 				}
 			}
 			if (votesNum === numOfUsers) {
-				DashBoard.eleminateOptions(dashboardId, optionsToBeEleminated)
+				DashBoard.eleminateOptions($scope.dashboardId, optionsToBeEleminated)
 				.then(function(data) {
 					if (data.options.length < $scope.options.length) {
 						$scope.initialize();
@@ -157,6 +157,15 @@
 				});
 			}
 		};	
+			console.log(optionsToBeEleminated);
+			// DashBoard.eleminateOptions(dashboardId, subCategoriesIds)
+			// .then(function( data) {
+			// 	$scope.initialize();
+			// })
+			// .catch(function(err) {
+			// 	console.log(err);
+			// });
+		};
 	}
 } 
 ());
