@@ -21,6 +21,36 @@
 
 		$scope.options = {};
 
+		$scope.runningOnBrowser = false;
+
+		switch (ionic.Platform.platform()) {
+		case 'win32':
+		case 'macintel':
+		case 'win64':
+			$scope.runningOnBrowser = true;
+			break;
+		}
+
+		$scope.getStyle = function() {
+			if ($scope.runningOnBrowser) {
+				switch ($scope.options.length) {
+				case 1:
+					return 'width: 20em; float: left; margin-left: 35%;';
+				default:
+					return 'width: 20em; float: left; margin-left: 3%;';
+				}
+			}
+			return 'width: 100%;';
+		};
+
+		$scope.getImgSize = function() {
+			return $scope.runningOnBrowser ? 'height: 20em;' : '';
+		};
+
+		$scope.getDivSize = function() {
+			return $scope.runningOnBrowser ? 'height: 18.85em;' : '';
+		};
+
 		$scope.switch = function (index) {
 			$scope.flag[index] = !$scope.flag[index];
 		};
