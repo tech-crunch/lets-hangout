@@ -52,79 +52,46 @@ angular.module('lets-hangout', [
 	$ionicConfigProvider.views.maxCache(0);
 
 	$stateProvider
-	.state('app', {
-		url: '/app',
-		abstract: true,
-		templateUrl: 'templates/menu.html'
-	})
-	.state('app.home', {
+	.state('home', {
 		url: '/home',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/home.html',
-				resolve: {
-					data: function($state, store, Credentials) {
-						if (notInitializedFlag) {
-							store.remove('Initialized');
-							Credentials.getCredentials()
-							.then(function(resp) {
-								// Initialized the Auth0 provider
-								authProvider.init({
-									clientID: resp.data.AUTH0_CLIENT_ID,
-									domain: resp.data.AUTH0_DOMAIN,
-									loginState: 'app.login'
-								});
-								store.set('Initialized', true);
-							});
-						}
-					}
+		templateUrl: 'templates/home.html',
+		resolve: {
+			data: function($state, store, Credentials) {
+				if (notInitializedFlag) {
+					store.remove('Initialized');
+					Credentials.getCredentials()
+					.then(function(resp) {
+						// Initialized the Auth0 provider
+						authProvider.init({
+							clientID: resp.data.AUTH0_CLIENT_ID,
+							domain: resp.data.AUTH0_DOMAIN,
+							loginState: 'app.login'
+						});
+						store.set('Initialized', true);
+					});
 				}
 			}
 		}
 	})      
-	.state('app.login', {
+	.state('login', {
 		url: '/login',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/login.html'
-			}
-		}
+		templateUrl: 'templates/login.html'
 	})
-	.state('app.cards', {
+	.state('cards', {
 		url: '/cards/:dashboardId',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/cards.html'
-			}
-		}
-	})
-	.state('app.dash', {
-		url: '/dash',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/dash.html'
-			}
-		}
-	})  
-	.state('app.dashBoard', {
+		templateUrl: 'templates/cards.html'
+	}) 
+	.state('dashBoard', {
 		url: '/dashBoard/:id',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/dashboard.html',
-			}
-		}
+		templateUrl: 'templates/dashboard.html',
 	})
-	.state('app.grouphome', {
+	.state('grouphome', {
 		url: '/groups/:groupID',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/groupHome.html',
-			}
-		}
+		templateUrl: 'templates/groupHome.html',
 	});
 
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/app/home');
+	$urlRouterProvider.otherwise('/home');
 })
 .directive('noScroll', function($document) {
 
@@ -138,18 +105,9 @@ angular.module('lets-hangout', [
 		}
 	};
 })
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, auth, store) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, auth, store, $location) {
 
-	// Form data for the login modal
-	$scope.loginData = {};
-	$scope.isExpanded = false;
-
-	var navIcons = document.getElementsByClassName('ion-navicon');
-	for (var i = 0; i < navIcons.length; i++) {
-		navIcons.addEventListener('click', function() {
-			this.classList.toggle('active');
-		});
-	}
+	$scope.loggedIn = store.get('userProfile') ? true : false;
 
 	$scope.logout = function() {
 		auth.signout();
@@ -160,45 +118,7 @@ angular.module('lets-hangout', [
 		store.remove('userProfile');
 	};
 
-	// Layout Methods
-
-	$scope.hideNavBar = function() {
-		document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
-	};
-
-	$scope.showNavBar = function() {
-		document.getElementsByTagName('ion-nav-bar')[0].style.display = 'block';
-	};
-
-	$scope.noHeader = function() {
-		var content = document.getElementsByTagName('ion-content');
-		for (var i = 0; i < content.length; i++) {
-			if (content[i].classList.contains('has-header')) {
-				content[i].classList.toggle('has-header');
-			}
-		}
-	};
-
-	$scope.setExpanded = function(bool) {
-		$scope.isExpanded = bool;
-	};
-
-	$scope.hasHeader = function() {
-		var content = document.getElementsByTagName('ion-content');
-		for (var i = 0; i < content.length; i++) {
-			if (!content[i].classList.contains('has-header')) {
-				content[i].classList.toggle('has-header');
-			}
-		}
-	};
-
-	$scope.hideHeader = function() {
-		$scope.hideNavBar();
-		$scope.noHeader();
-	};
-
-	$scope.showHeader = function() {
-		$scope.showNavBar();
-		$scope.hasHeader();
+	$scope.goHome = function() {
+		$location.path('/');
 	};
 });

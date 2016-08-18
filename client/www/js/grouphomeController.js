@@ -81,7 +81,7 @@
 				destructiveButtonClicked: function() {
 					Group.deletingGroup($stateParams.groupID)
 					.then(function (data) {
-						$state.go('app.home');
+						$state.go('home');
 					});
 				}
 			});
@@ -171,7 +171,7 @@
 					.then(function(resp) {
 						Group.addDashboard($stateParams.groupID, resp.data._id)
 						.then(function(response) {
-							$location.path('/app/dashBoard/' + resp.data._id);
+							$location.path('/dashBoard/' + resp.data._id);
 						});
 					})
 					.catch(function(error) {

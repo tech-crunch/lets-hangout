@@ -18,7 +18,7 @@
 
 		setInterval( function() {
 			if (store.get('Initialized') && !store.get('userProfile')) {
-				$state.go('app.login');
+				$state.go('login');
 			}
 		}, 1000);
 
@@ -29,7 +29,7 @@
 		});
 
 		function login() {
-			$state.go('app.login');
+			$state.go('login');
 		}
 
 		// groups Information
