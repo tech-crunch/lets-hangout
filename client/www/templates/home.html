@@ -4,13 +4,13 @@
 	</ion-nav-buttons>
 	<ion-content class="padding">
 		<div class="item card-item ">
-			<a class="animated bounceInRight" ng-repeat= "group in data.groups" href="#/app/groups/{{group._id}}">
+			<a class="animated bounceInRight" ng-repeat= "group in data.groups" href="#/groups/{{group._id}}">
 				<div class="card ink ink-dark">
 					<div class="item row row-center item-avatar item-text-wrap">
 						<span class="col avatar" style="background-image: url('https://1.bp.blogspot.com/-tpBEjvMjJww/T_8oAG0ciQI/AAAAAAAACl4/-YHi8W2Eaho/s1600/Let\'sHangOut.jpg');"></span>
-						<!-- <div class="col"> -->
-							<p style="font-size: 30px; color:#990000;" class=" col assertive-900">{{group.groupName}}</p>
-						<!-- </div> -->
+						<div class="col">
+							<p style="font-size: 30px; color: #F44336;" class=" col assertive-900">{{group.groupName}}</p>
+						</div>
 						<div class="col text-right assertive-900">
 								<i class="icon ion-ios-people-outline" style=" font-size: 40px;"></i><span style="margin-left: 15px; font-size: 25px;">{{group.users.length}}</span>
 						</div>
@@ -20,4 +20,3 @@
 		</div>
 	</ion-content>
 </ion-view>
-

@@ -79,7 +79,7 @@
 					var subCategoryId = $scope.cards.master[masterLength - activeLength]._id;
 					DashBoard.addOption(dashboardId, subCategoryId, userId)
 					.then(function(response) {
-						$location.path('/dashboard/' + response._id);
+						$location.path('/dashBoard/' + response._id);
 					})
 					.catch(function(error) {
 						console.log(error);

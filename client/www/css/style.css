@@ -157,24 +157,24 @@ td-card#end-card {
 .ionic_datepicker_popup .popup-buttons .button,
 .ionic_datepicker_popup .selected_date,
 .ionic_datepicker_popup .popup-body .selected_date_full{
-  background-color:#B71C1C;
-  border-color: #B71C1C;
+  background-color:#F44336;
+  border-color: #F44336;
   color: white;
 }
 
 .ionic_datepicker_popup .popup-body .month_select,
 .ionic_datepicker_popup .popup-body .year_select{
-  border-bottom: 1px solid #B71C1C;
+  border-bottom: 1px solid #F44336;
 }
 
 .ionic_datepicker_popup .popup-body .month_select:after,
 .ionic_datepicker_popup .popup-body .year_select:after,
 .ion-chevron-right, .ion-chevron-left{
-  color:#B71C1C;
+  color:#F44336;
 }
 
 .ionic_datepicker_popup .today{
-  border-color: #B71C1C;
+  border-color: #F44336;
 }
 
 a {
@@ -188,13 +188,27 @@ a {
 }
 
 .popup-buttons .button {
-  background-color: #B71C1C;
+  background-color: #F44336;
   color: white;
   font-size: 10px;
 }
 
 input[type=text] {
-  border-color: #B71C1C;
+  border-color: #F44336;
   border-style: solid;
   border-width: 1px;
+}
+
+.bar.bar-header .button+.title{
+  text-align: center;
+}
+
+.back-text{
+  visibility: hidden;
+}
+
+.ion-ios-home,
+.ion-log-in,
+.ion-log-out{
+  color:#F44336;
 }

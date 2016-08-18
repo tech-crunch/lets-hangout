@@ -12,7 +12,7 @@
 
 		var doLogin = function() {
 			if (store.get('userProfile')) {
-				$state.go('app.home');
+				$state.go('home');
 				return;
 			}
 
@@ -57,7 +57,7 @@
 					Users.updateInfo(userObj)
 					.then(function(result) {
 						store.set('userProfile', result.data);
-						$state.go('app.home');
+						$state.go('home');
 					})
 					.catch(function(error) {
 						console.log(error);
@@ -68,7 +68,7 @@
 					Users.addOne(userObj)
 					.then(function(result) {
 						store.set('userProfile', result.data);
-						$state.go('app.home');
+						$state.go('home');
 					})
 					.catch(function(error) {
 						console.log(error);

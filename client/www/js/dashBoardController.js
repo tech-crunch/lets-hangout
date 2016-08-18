@@ -60,7 +60,7 @@
 			.then( function(data) {
 				// if a user hasn't swiped for option yet, navigate him to the swiping page
 				if (data.voters.indexOf(userId) === -1) {
-					$location.path('/app/cards/' + dashboardId);
+					$location.path('/cards/' + dashboardId);
 				} else { // show the votes
 					var optionsIds = data.options;
 					var voting = JSON.parse(data.voting);
