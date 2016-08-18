@@ -1,12 +1,6 @@
 var Categories = require('./categoryModel.js');
 
-var repsonseHandler = function(error, req, res, body, next) {
-	if (error) {
-		next(error, req, res);
-	} else {
-		res.status(body.status).send(body.returnObj);
-	}
-};
+var repsonseHandler = require('../config/helpers.js').repsonseHandler;
 
 module.exports = {
 	//get all categories
