@@ -47,9 +47,9 @@
 		$scope.sendMessage = function (messageBox) {
 			pubnub.publish({
 				channel: $scope.dashboardId,
-				message: {'text': $scope.messageBox, 'name': $scope.user.name},
+				message: {'text': messageBox, 'name': $scope.user.name},
 				callback: function(m) {
-					$scope.messageBox = '';
+					document.getElementById('msgBox').value = '';
 					$timeout(function() {
 						viewScroll.scrollBottom(true);
 					}, 0);
