@@ -9,8 +9,11 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=RobotoDraft%3A400%2C500%2C700%2C400italic" rel="stylesheet" type="text/css">
     <link href="lib/ion-md-input/css/ion-md-input.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover-min.css" rel="stylesheet">
     <link href="lib/ionic-material/dist/ionic.material.min.css" rel="stylesheet">
+    <link href="css/framework7/css/framework7.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/collide/collide.js"></script>
     <script src="lib/ionic-tinder-cards-2/ionic.tdcards2.js"></script>
@@ -21,7 +24,7 @@
     <script src="lib/a0-angular-storage/dist/angular-storage.js"></script>
     <script src="lib/angular-jwt/dist/angular-jwt.js"></script>
     <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
-    <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
@@ -31,8 +34,10 @@
     <script src="js/loginController.js"></script>
     <script src="js/grouphomeController.js"></script>
     <script src="js/cardsController.js"></script>
+    <script src="js/messagesController.js"></script>
     <script src="js/services.js"></script>
     <script src="js/dashBoardController.js"></script>
+    <script src="js/pubNub.js"></script>
   </head>
   <body ng-app="lets-hangout">
 
@@ -40,7 +45,7 @@
         <ion-nav-back-button>
         </ion-nav-back-button>
     </ion-nav-bar>
-    
+
     <ion-nav-view></ion-nav-view>
    
     <ion-tabs class="tabs-icon-top" ng-controller="AppCtrl">

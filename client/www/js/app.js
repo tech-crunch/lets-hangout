@@ -85,6 +85,10 @@ angular.module('lets-hangout', [
 		url: '/dashBoard/:id',
 		templateUrl: 'templates/dashboard.html',
 	})
+	.state('messages', {
+		url: '/messages/:id',
+		templateUrl: 'templates/messages.html'
+	})
 	.state('grouphome', {
 		url: '/groups/:groupID',
 		templateUrl: 'templates/groupHome.html',

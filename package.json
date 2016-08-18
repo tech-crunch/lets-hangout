@@ -10,7 +10,7 @@
     "dev": "nodemon ./server/server.js",
     "start": "nodemon ./server/server.js",
     "gulp": "./node_modules/.bin/gulp",
-    "lint" : "eslint ./server ./client/www/js ./client/www/spec",
+    "lint": "eslint ./server ./client/www/js ./client/www/spec",
     "postinstall": "npm install -g bower; bower install"
   },
   "engines": {
@@ -45,6 +45,7 @@
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.1",
+    "karma-spec-reporter": "0.0.26",
     "mocha": "2.0.1",
     "nodemon": "^1.9.2",
     "should": "^10.0.0",
