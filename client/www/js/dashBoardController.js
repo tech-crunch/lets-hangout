@@ -13,11 +13,11 @@
 
 		$scope.dashboardId = $stateParams.id; 
 
-		var userId = "farah"//store.get('userProfile').userId;
+		var userId = store.get('userProfile').userId;
 
 		var optionsAreComplete = false;
 
-		var numOfUsers = 0;
+		var numOfUsers = 0; 
 
 		$scope.options = {};
 
