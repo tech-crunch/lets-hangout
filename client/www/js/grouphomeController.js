@@ -217,7 +217,7 @@
 				popoverOptions: CameraPopoverOptions,
 				saveToPhotoAlbum: false,
 				correctOrientation: true
-			};
+			}
 
 			$cordovaCamera.getPicture(options) 
 			.then(function(imageData) {
