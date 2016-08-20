@@ -27,9 +27,10 @@
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "express": "^4.11.1",
+    "jwt-simple": "^0.2.0",
     "mongoose": "^4.5.3",
     "morgan": "^1.7.0",
-    "jwt-simple": "^0.2.0"
+    "pubnub": "^4.0.6"
   },
   "devDependencies": {
     "angular": "^1.5.8",

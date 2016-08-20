@@ -1,5 +1,11 @@
 var Dashboard = require('./DashboardModel.js');
 
+var pubnub = require("pubnub")({
+    ssl           : true,  // <- enable TLS Tunneling over TCP
+    publish_key   : "pub-c-b8bfc89b-2bc4-4e14-8e44-60fe8ef001a8",
+    subscribe_key : "sub-c-17da15be-647f-11e6-8de8-02ee2ddab7fe"
+});
+
 var repsonseHandler = require('../config/helpers.js').repsonseHandler;
 
 module.exports = {
@@ -43,6 +49,16 @@ module.exports = {
 				dashboard.options.push(subCategoryId);
 			}
 			dashboard.save( function(err, savedDashboard) {
+				pubnub.publish({
+				    channel   : 'addOptionLetsHangOut' + dashboard._id,
+				    message   : dashboard,
+				    callback  : function(e) { 
+				        console.log( "SUCCESS!", e );
+				    },
+				    error     : function(e) { 
+				        console.log( "FAILED! RETRY PUBLISH!", e );
+				    }
+				});
 				repsonseHandler(err, req, res, {status: 201, returnObj: savedDashboard}, next);
 			});
 		});
