@@ -48,8 +48,7 @@ angular.module('lets-hangout', [
 	// Each state's controller can be found in controllers.js
 	var notInitializedFlag = true;
 	
-	
-	$ionicConfigProvider.views.maxCache(0);
+	$ionicConfigProvider.tabs.position('bottom');
 
 	$stateProvider
 	.state('home', {
