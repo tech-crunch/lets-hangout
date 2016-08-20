@@ -24,7 +24,7 @@
 						viewScroll.scrollBottom(true);
 					}, 0);
 				},
-				count: 10, // 100 is the default
+				count: 200, // 100 is the default
 				reverse: false // false is the default
 			});
 		};
@@ -47,7 +47,7 @@
 		$scope.sendMessage = function (messageBox) {
 			pubnub.publish({
 				channel: $scope.dashboardId,
-				message: {'text': messageBox, 'name': $scope.user.name},
+				message: {'text': messageBox, 'user': $scope.user},
 				callback: function(m) {
 					document.getElementById('msgBox').value = '';
 					$timeout(function() {
