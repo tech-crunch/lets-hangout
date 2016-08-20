@@ -8,11 +8,11 @@
   <div ng-repeat="message in messages" class="message-wrapper"
                   on-hold="onMessageHold($event, $index, message)">
 
-    <div ng-if="user.name !== message.name">
+    <div ng-if="user.name !== message.user.name">
 
       <div>
         <img class="profile-pic left"
-                          ng-src="{{user.picture}}" onerror="onProfilePicError(this)" />
+                          ng-src="{{message.user.name}}" onerror="onProfilePicError(this)" />
       </div>
 
       <div class="chat-bubble left">
@@ -22,10 +22,10 @@
       </div>
     </div>
 
-    <div ng-if="user.name === message.name">
+    <div ng-if="user.name === message.user.name">
 
       <div>
-        <img ng-click="showProfile()" class="profile-pic right"
+        <img class="profile-pic right"
                           ng-src="{{user.picture}}" onerror="onProfilePicError(this)" />
       </div>
 
@@ -38,17 +38,16 @@
     <div class="cf"></div>
 
   </div>
-  <form name="sendMessageForm" ng-submit="sendMessage(messageBox)" novalidate>
-  <div class="item-input-inset message-footer" keyboard-attach>
-    <label class="item-input-wrapper message-box">
-      <textarea id="msgBox" ng-model="messageBox" class="message-box" value="" placeholder="Send a message..." required minlength="1" maxlength="1500" msd-elastic></textarea>
-    </label>
-    <div class="footer-btn-wrap">
-      <button class="button button-clear footer-btn" type="submit"
-      ng-disabled="!messageBox || messageBox === ''"><i class="assertive icon ion-android-send"></i></button>
-    </div>
-  </form>
+    <form name="sendMessageForm" ng-submit="sendMessage(messageBox)" novalidate>
+    <div class="item-input-inset message-footer " keyboard-attach>
+      <label class="item-input-wrapper message-box">
+        <textarea id="msgBox" ng-model="messageBox" class="message-box" value="" placeholder="Send a message..." required minlength="1" maxlength="1500" msd-elastic></textarea>
+      </label>
+      <div class="footer-btn-wrap">
+        <button class="button button-clear footer-btn" type="submit"
+        ng-disabled="!messageBox || messageBox === ''"><i class="assertive icon ion-android-send"></i></button>
+      </div>
+    </form>
   </div>
 </ion-content>
-
 </ion-view>

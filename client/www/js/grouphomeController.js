@@ -149,8 +149,7 @@
 
 		$scope.addingFriendPopUp = function() {
 			var alertPopup = $ionicPopup.alert({
-				title: 'Friends',
-				template: '<ion-list> <ion-item class="item item-avatar"  ng-repeat="user in users"> <img  src={{user.picture}}> {{user.name}} <button ng-click="addFriend(user.userId)" >add</button> </ion-item></ion-list>',
+				templateUrl: 'templates/popup/addFriend.html',
 				scope: $scope
 			});
 		};
