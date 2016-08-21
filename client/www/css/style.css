@@ -401,6 +401,30 @@ a.autolinker {
 
 .sendMessage{
   position: fixed;
-  bottom: 0px;
+  bottom: -10px;
   width: 100%;  
+}
+
+.chat-bubble.right,
+.chat-bubble.left{
+  display: inline-block;
+  min-width: 8%;
+}
+
+.chat-bubble.right .message:first-child{
+  margin-top: 1px !important;
+  margin-right: 1px !important;
+  text-align: right;
+  width: auto; 
+}
+
+.chat-bubble.left{
+  width:40%;
+}
+
+.chat-bubble.left .message:first-child{
+  margin-top: 1px !important;
+  margin-right: 1px !important;
+  text-align: left;
+  width: auto;
 }

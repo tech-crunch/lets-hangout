@@ -1,45 +1,32 @@
 <ion-view  ng-controller="messagesController">
-<ion-nav-buttons side="right">
-    	<a class="button icon ion-ios-list-outline button-clear" href="/#/dashBoard/{{dashboardId}}"></a>
+  <ion-nav-buttons side="right">
+    <a class="button icon ion-ios-list-outline button-clear" href="/#/dashBoard/{{dashboardId}}"></a>
   </ion-nav-buttons>
-<ion-content has-bouncing="true" class="has-header has-footer"
-              delegate-handle="userMessageScroll">
-
-  <div ng-repeat="message in messages" class="message-wrapper"
-                  on-hold="onMessageHold($event, $index, message)">
-
+  
+  <ion-content has-bouncing="true" class="has-header has-footer" delegate-handle="userMessageScroll">
+  <div ng-repeat="message in messages" class="message-wrapper" on-hold="onMessageHold($event, $index, message)">
     <div ng-if="user.name !== message.userName">
-
       <div>
-        <img class="profile-pic left"
-                          ng-src="{{message.userPic}}" onerror="onProfilePicError(this)" />
+        <img class="profile-pic left" ng-src="{{message.userPic}}"/>
       </div>
-
       <div class="chat-bubble left">
-
         <div class="message" ng-bind-html="message.text"></div>
-
       </div>
     </div>
 
     <div ng-if="user.name === message.userName">
-
       <div>
-        <img class="profile-pic right"
-                          ng-src="{{user.picture}}" onerror="onProfilePicError(this)" />
+        <img class="profile-pic right" ng-src="{{user.picture}}"/>
       </div>
-
       <div class="chat-bubble right">
         <div class="message" ng-bind-html="message.text"></div>
       </div>
-
     </div>
-
     <div class="cf"></div>
-
   </div>
-  <div class="
-    sendMessage">
+</ion-content>
+
+  <div class="sendMessage">
     <form name="sendMessageForm" ng-submit="sendMessage(messageBox)" novalidate>
     <div class="item-input-inset message-footer " keyboard-attach>
       <label class="item-input-wrapper message-box">
@@ -52,5 +39,4 @@
     </div>
     </form>
   </div>
-</ion-content>
 </ion-view>

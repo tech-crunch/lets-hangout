@@ -37,10 +37,10 @@
 				case 1:
 					return 'width: 20em; float: left; margin-left: 35%;';
 				default:
-					return 'width: 20em; float: left; margin-left: 3%;';
+					return 'width: 95%; float: left; margin-left: 3%;';
 				}
 			}
-			return 'width: 100%;';
+			return 'width: 95%;';
 		};
 
 		$scope.getImgSize = function() {
