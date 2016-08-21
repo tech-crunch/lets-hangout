@@ -26,7 +26,7 @@
 			if (store.get('userProfile')) {
 				$scope.user = store.get('userProfile');
 				$scope.data = {};
-				$timeout(function(){init()}, 500);
+				$timeout( function() { init(); }, 500);
 			}
 		});
 
@@ -40,7 +40,6 @@
 				$scope.data.groups = [];
 				Group.allGroupsByAdmin(store.get('userProfile').userId)
 				.then(function (groups) {
-					console.log(groups)
 					$scope.data.groups = groups;
 				})
 				.catch(function (err) {
@@ -78,7 +77,7 @@
 						Group.newGroup(res, store.get('userProfile').userId)
 						.then(function (data) {
 							$scope.data.groups = [];
-							$timeout(function(){init()}, 1500);
+							$timeout( function() { init(); }, 1500);
 						})
 						.catch(function (err) {
 							console.log(err);
