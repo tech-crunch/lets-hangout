@@ -25,6 +25,8 @@
 		$scope.$on('$ionicView.enter', function (viewInfo, state) {
 			if (store.get('userProfile')) {
 				$scope.user = store.get('userProfile');
+				$scope.data = {};
+				$timeout( function() { init(); }, 500);
 			}
 		});
 
@@ -35,6 +37,7 @@
 		// groups Information
 		var init = function () {
 			if (store.get('userProfile')) {
+				$scope.data.groups = [];
 				Group.allGroupsByAdmin(store.get('userProfile').userId)
 				.then(function (groups) {
 					$scope.data.groups = groups;
@@ -73,7 +76,8 @@
 					if (res) {
 						Group.newGroup(res, store.get('userProfile').userId)
 						.then(function (data) {
-							init();
+							$scope.data.groups = [];
+							$timeout( function() { init(); }, 1500);
 						})
 						.catch(function (err) {
 							console.log(err);
@@ -82,6 +86,5 @@
 				});
 			}
 		};
-		init();
 	}
 } ());

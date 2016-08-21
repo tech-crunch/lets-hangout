@@ -154,29 +154,6 @@ td-card#end-card {
   }
 }
 
-.ionic_datepicker_popup .popup-buttons .button,
-.ionic_datepicker_popup .selected_date,
-.ionic_datepicker_popup .popup-body .selected_date_full{
-  background-color:#F44336;
-  border-color: #F44336;
-  color: white;
-}
-
-.ionic_datepicker_popup .popup-body .month_select,
-.ionic_datepicker_popup .popup-body .year_select{
-  border-bottom: 1px solid #F44336;
-}
-
-.ionic_datepicker_popup .popup-body .month_select:after,
-.ionic_datepicker_popup .popup-body .year_select:after,
-.ion-chevron-right, .ion-chevron-left{
-  color:#F44336;
-}
-
-.ionic_datepicker_popup .today{
-  border-color: #F44336;
-}
-
 a {
   text-decoration: none;
 }
@@ -388,4 +365,42 @@ img.profile-pic.right {
 a.autolinker {
   color: #3b88c3;
   text-decoration: none;
+}
+
+.ionic_datepicker_popup .popup-buttons .button,
+.ionic_datepicker_popup .selected_date,
+.ionic_datepicker_popup .popup-body .selected_date_full{
+  background-color:#F44336 !important;
+  border-color: #F44336 !important;
+  color: white !important;
+}
+
+.ionic_datepicker_popup .popup-body .month_select,
+.ionic_datepicker_popup .popup-body .year_select{
+  border-bottom: 1px solid #F44336 !important;
+}
+
+.ionic_datepicker_popup .popup-body .month_select:after,
+.ionic_datepicker_popup .popup-body .year_select:after,
+.ion-chevron-right, .ion-chevron-left{
+  color: #F44336 !important;
+}
+
+.ionic_datepicker_popup .today{
+  border-color: #F44336 !important;
+}
+
+.upvoteIcon{
+  color: #F44336 !important;
+}
+
+.card,
+.full-image{
+  border: 1px solid #F44336;
+}
+
+.sendMessage{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;  
 }
