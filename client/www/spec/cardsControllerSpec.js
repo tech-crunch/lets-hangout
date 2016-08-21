@@ -28,19 +28,18 @@ describe('Testing AngularJS Zarad Profile Page', function(){
       }));
 
       it('should initialize the data in the scope', function(){
-        store = store.set({}, 'userProfile')
         expect(scope.cards).toBeDefined();
       });
 
-      it('should have a function called check color', function(){
+      it('should have a function called initialize', function(){
         expect(typeof scope.initialize).toBe('function');
       });
 
-      it('should get the Auth services', inject(['Categories', function(Auth){
+      it('should get the Categories services', inject(['Categories', function(Auth){
         expect(Categories.getAll).toBeDefined();
       }]));
 
-      it('should have a member in the window local Storage' , function(){
+      it('should have a userId in the store local Storage' , function(){
         expect(store.get('userProfile').userId).toBeDefined();
       })
 
