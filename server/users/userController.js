@@ -32,7 +32,7 @@ module.exports = {
 		var userId = req.params.userId.toString();
 		User.findOne({userId: userId})
 		.exec(function (err, user) {
-			if(!user){
+			if (!user) {
 				err = 'User Not Found';
 			}
 			repsonseHandler(err, req, res, {status: 200, returnObj: user}, next);

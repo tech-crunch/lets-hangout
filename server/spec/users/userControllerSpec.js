@@ -106,6 +106,16 @@ describe('User Controller', function () {
 		});
 	});
 
+	it('should respon with 500 error when trying to get non-existence user', function (done) {  
+		chai.request(app)
+		.get('/api/users/' + '123')
+		.end(function(err, res) {
+			res.should.have.status(500);
+			res.should.be.json;
+			done();
+		});
+	});
+
 	it('should edit information of a user by userId and responds with a 200', function (done) {  
 		var newUser = new User({
 			userId: 'userId',

@@ -78,9 +78,6 @@ var triggerClientListener = function (id) {
 		message: 'refresh',
 		callback: function(e) { 
 			console.log( 'SUCCESS!', e );
-		},
-		error: function(e) { 
-			console.log( 'FAILED! RETRY PUBLISH!', e );
 		}
 	});
 };
