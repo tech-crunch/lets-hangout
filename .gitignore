@@ -44,6 +44,7 @@ node_modules/
 client/platforms/
 client/plugins/
 client/lib/
+client/www/dist
 
 .tmp/
 client/.tmp/

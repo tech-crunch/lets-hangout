@@ -11,7 +11,7 @@
     "start": "nodemon ./server/server.js",
     "gulp": "./node_modules/.bin/gulp",
     "lint": "eslint ./server ./client/www/js ./client/www/spec",
-    "postinstall": "npm install -g bower; bower install"
+    "postinstall": "npm install -g bower && bower install && npm install -g grunt-cli && grunt deploy"
   },
   "engines": {
     "node": ">=6.3.0"
@@ -30,7 +30,15 @@
     "jwt-simple": "^0.2.0",
     "mongoose": "^4.5.3",
     "morgan": "^1.7.0",
-    "pubnub": "^3.16.0"
+    "nodemon": "^1.9.2",
+    "pubnub": "^3.16.0",
+    "grunt": "^0.4.4",
+    "grunt-contrib-concat": "^0.3.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-shell": "^0.6.4",
+    "grunt-contrib-cssmin": "^0.9.0",
+    "grunt-nodemon": "^0.2.1"
   },
   "devDependencies": {
     "angular": "^1.5.8",
@@ -48,7 +56,6 @@
     "karma-phantomjs-launcher": "^1.0.1",
     "karma-spec-reporter": "0.0.26",
     "mocha": "2.0.1",
-    "nodemon": "^1.9.2",
     "should": "^10.0.0",
     "supertest": "^2.0.0"
   }
