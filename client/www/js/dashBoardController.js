@@ -156,7 +156,13 @@
 					console.log(err);
 				});
 			}
-		};	
+		};
+		pubnub.subscribe({
+		    channel  : 'addOptionLetsHangOut' + $scope.dashboardId,
+		    message : function(dashboard) {
+		        $scope.initialize();
+		    }
+		});
 	}
 } 
 ());
