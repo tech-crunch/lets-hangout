@@ -370,33 +370,27 @@ a.autolinker {
 .ionic_datepicker_popup .popup-buttons .button,
 .ionic_datepicker_popup .selected_date,
 .ionic_datepicker_popup .popup-body .selected_date_full{
-  background-color:#F44336;
-  border-color: #F44336;
-  color: white;
-}
-
-.selected_date_full{
-  background-color:#F44336;
-  border-color: #F44336;
-  color: white;
+  background-color:#F44336 !important;
+  border-color: #F44336 !important;
+  color: white !important;
 }
 
 .ionic_datepicker_popup .popup-body .month_select,
 .ionic_datepicker_popup .popup-body .year_select{
-  border-bottom: 1px solid #F44336;
+  border-bottom: 1px solid #F44336 !important;
 }
 
 .ionic_datepicker_popup .popup-body .month_select:after,
 .ionic_datepicker_popup .popup-body .year_select:after,
 .ion-chevron-right, .ion-chevron-left{
-  color: #F44336;
+  color: #F44336 !important;
 }
 
 .ionic_datepicker_popup .today{
-  border-color: #F44336;
+  border-color: #F44336 !important;
 }
 
 .sendMessage{
-  position: fixed;
-  bottom: 20px;
+  position: fixed !important;
+  bottom: 20px !important;
 }
