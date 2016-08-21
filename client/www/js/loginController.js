@@ -51,7 +51,7 @@
 					friends: friends
 				};
 
-				Users.getOne(store.get('profile').user_id.slice(9))
+				Users.getOne(userID)
 				.then(function(resp) {
 					// update info
 					Users.updateInfo(userObj)
@@ -61,6 +61,7 @@
 					})
 					.catch(function(error) {
 						console.log(error);
+						alert(JSON.stringify(error));
 					});
 				})
 				.catch(function(error) {
@@ -72,6 +73,7 @@
 					})
 					.catch(function(error) {
 						console.log(error);
+						alert(JSON.stringify(error));
 					});
 				});
 				
