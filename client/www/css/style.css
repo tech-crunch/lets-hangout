@@ -428,3 +428,20 @@ a.autolinker {
   text-align: left;
   width: auto;
 }
+
+.swipeArrows{
+  color:#F44336 !important;
+  font-size: 3em;
+  width: 100%;
+}
+
+.arrowTD{
+  width: 40%;
+  align-content: center;
+  text-align: center;
+}
+
+.emtpyTD{
+  width: 20%;
+}
+

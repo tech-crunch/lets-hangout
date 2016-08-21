@@ -3,10 +3,10 @@
 		<a class="button icon ion-chatboxes headerIcons button-clear" href="/#/messages/{{dashboardId}}"></a>
 	</ion-nav-buttons>
 	<ion-content>
-	    <div class="list card animated fadeInLeftBig" ng-repeat="option in options track by $index" ng-click="switch($index)" style="{{getStyle()}}"}>
+	    <div class="list card animated fadeInLeftBig" ng-repeat="option in options track by $index" style="{{getStyle()}}"}>
 		  <div class="item item-body">
-		    <img class="full-image" ng-src="{{option.poster}}" ng-if="flag[$index]" style="{{getImgSize()}}">
-		    <div style="{{getDivSize()}}" ng-if="!flag[$index]">
+		    <img class="full-image" ng-src="{{option.poster}}" ng-if="flag[$index]" style="{{getImgSize()}}" ng-click="switch($index)">
+		    <div style="{{getDivSize()}}" ng-if="!flag[$index]" ng-click="switch($index)">
 		    	<p>{{option.details}}</p>
 		    </div>
 		    <p class="center">
