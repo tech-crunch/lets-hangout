@@ -60,10 +60,18 @@ npm run clientTest
 
 ### Roadmap
 
-View the project roadmap [here](issues)
+View the project roadmap [here](https://waffle.io/tech-crunch/lets-hangout)
 
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Production
+
+See our website [here](http://letsshangout.herokuapp.com/#/).
+
+## Builds
+
+See our latest build [here](https://travis-ci.org/tech-crunch/lets-hangout).
 
