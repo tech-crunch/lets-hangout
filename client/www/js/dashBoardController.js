@@ -35,9 +35,9 @@
 			if ($scope.runningOnBrowser) {
 				switch ($scope.options.length) {
 				case 1:
-					return 'width: 20em; float: left; margin-left: 35%;';
+					return 'width: 30%; float: left;';
 				default:
-					return 'width: 30%; float: left; margin-left: 3%;';
+					return 'width: 30%; float: left; margin-right: 3%';
 				}
 			}
 			return 'width: 95%;';
