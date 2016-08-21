@@ -47,7 +47,7 @@
 		$scope.sendMessage = function (messageBox) {
 			pubnub.publish({
 				channel: $scope.dashboardId,
-				message: {'text': messageBox, 'user': $scope.user},
+				message: {'text': messageBox, 'userName': $scope.user.name, 'userPic': $scope.user.picture},
 				callback: function(m) {
 					document.getElementById('msgBox').value = '';
 					$timeout(function() {
