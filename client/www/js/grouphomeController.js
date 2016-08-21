@@ -47,10 +47,13 @@
 					createDashboard();
 					break;
 				case 1:
+					changeProfilePic();
+					break;
+				case 2:
 					groupFriends();
 					$scope.deletingFriendPopUp();
 					break;
-				case 2:
+				case 3:
 					allFriends();
 					$scope.addingFriendPopUp();
 					break;
@@ -59,6 +62,7 @@
 
 			var buttons = [
 				{ text: 'New Event'},
+				{ text: 'Change Picture'},
 				{ text: 'Show Members' }
 			];
 
@@ -180,6 +184,49 @@
 				from: new Date()
 			};
 			ionicDatePicker.openDatePicker(datePickerObj);
+		};
+
+		var changeProfilePic = function() {
+			var myPopup = $ionicPopup.show({
+				title: 'Please Select',
+				scope: $scope,
+				buttons: [
+					{
+						text: 'Upload',
+						onTap: function() {
+							takePhoto({
+								type: Camera.PictureSourceType.PHOTOLIBRARY
+							});
+						}
+					},
+					{
+						text: 'Exit'
+					}
+				]
+			});
+		};
+
+		var takePhoto = function(source) {
+			var options = {
+				quality: 50,
+				destinationType: Camera.DestinationType.DATA_URL,
+				sourceType: source.type,
+				allowEdit: true,
+				encodingType: Camera.EncodingType.JPEG,
+				popoverOptions: CameraPopoverOptions,
+				saveToPhotoAlbum: false,
+				correctOrientation: true
+			};
+
+			$cordovaCamera.getPicture(options) 
+			.then(function(imageData) {
+				console.log(imageData);
+				//uploadToIMGUR('',imageData, function(response){
+				var object = {
+					username: $scope.data.username,
+					image: response.link
+				};
+			});
 		};
 	}
 } ());
