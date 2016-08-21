@@ -69,7 +69,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Production
 
-See our website [here](http://letsshangout.herokuapp.com/#/).
+See our website [here](https://letsshangout.herokuapp.com/#/).
 
 ## Builds
 
