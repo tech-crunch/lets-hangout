@@ -390,11 +390,6 @@ a.autolinker {
   border-color: #F44336 !important;
 }
 
-.sendMessage{
-  position: fixed !important;
-  bottom: 20px !important;
-}
-
 .upvoteIcon{
   color: #F44336 !important;
 }
@@ -402,4 +397,10 @@ a.autolinker {
 .card,
 .full-image{
   border: 1px solid #F44336;
+}
+
+.sendMessage{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;  
 }

@@ -6,10 +6,10 @@
 		.controller('grouphomeController', grouphomeController);
 
 	grouphomeController.$inject = ['$scope', '$state', '$timeout', '$location', '$ionicActionSheet',
-	'Group', '$stateParams', '$ionicPopup', 'Users', 'store', 'ionicDatePicker', 'DashBoard'];
+	'$rootScope', 'Group', '$stateParams', '$ionicPopup', 'Users', 'store', 'ionicDatePicker', 'DashBoard'];
 
 	function grouphomeController($scope, $state, $timeout, $location, $ionicActionSheet,
-	Group, $stateParams, $ionicPopup, Users, store, ionicDatePicker, DashBoard) {
+	$rootScope, Group, $stateParams, $ionicPopup, Users, store, ionicDatePicker, DashBoard) {
 
 		// dashboards Information in one group
 		$scope.data = [];
