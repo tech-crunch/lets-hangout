@@ -8,7 +8,7 @@
   <div ng-repeat="message in messages" class="message-wrapper"
                   on-hold="onMessageHold($event, $index, message)">
 
-    <div ng-if="user.name !== message.user.name">
+    <div ng-if="user.name !== message.userName">
 
       <div>
         <img class="profile-pic left"
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div ng-if="user.name === message.user.name">
+    <div ng-if="user.name === message.userName">
 
       <div>
         <img class="profile-pic right"
