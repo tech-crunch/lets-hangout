@@ -158,10 +158,10 @@
 			}
 		};
 		pubnub.subscribe({
-		    channel  : 'addOptionLetsHangOut' + $scope.dashboardId,
-		    message : function(dashboard) {
-		        $scope.initialize();
-		    }
+			channel: 'addOptionLetsHangOut' + $scope.dashboardId,
+			message: function(m) {
+				$scope.initialize();
+			}
 		});
 	}
 } 
