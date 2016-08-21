@@ -9,12 +9,11 @@
 		    <div style="{{getDivSize()}}" ng-if="!flag[$index]">
 		    	<p>{{option.details}}</p>
 		    </div>
-		    <p>
-		    <a class="assertive-900" style="font-size: 2em" ng-click = "voteForOption(option._id)">
-            	<i class="subdued icon ion-heart"></i>
+		    <p class="center">
+		    <a class="upvoteIcon" style="font-size: 2em" ng-click = "voteForOption(option._id)">
+            	<i class="subdued icon ion-thumbsup"></i>
           	</a>
-		    <a href="#" class="subdued" style="margin-left: 15px">{{option.numOfVotes}} Like</a>
-		    <a href="#" class="subdued">5 Comments</a>
+		    <a href="#" class="subdued" style="margin-left: 15px; font-size: 1.75em;">{{option.numOfVotes}}</a>
 		    </p>
 		  </div>
 		</div>

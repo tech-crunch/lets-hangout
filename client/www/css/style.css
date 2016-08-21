@@ -394,3 +394,12 @@ a.autolinker {
   position: fixed !important;
   bottom: 20px !important;
 }
+
+.upvoteIcon{
+  color: #F44336 !important;
+}
+
+.card,
+.full-image{
+  border: 1px solid #F44336;
+}
