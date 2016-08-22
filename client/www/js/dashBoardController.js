@@ -111,7 +111,9 @@
 			});
 		};
 
-		$scope.initialize();
+		$scope.$on('$ionicView.enter', function (viewInfo, state) {
+			$scope.initialize();
+		});
 
 		$scope.voteForOption = function(optionId) {
 			// if (optionsAreComplete) {
