@@ -184,7 +184,7 @@
 				},
 				from: new Date()
 			};
-			ionicDatePicker.openDatePicker(datePickerObj);
+			 ionicDatePicker.openDatePicker(datePickerObj);
 		};
 
 		var changeProfilePic = function() {
@@ -217,7 +217,7 @@
 				popoverOptions: CameraPopoverOptions,
 				saveToPhotoAlbum: false,
 				correctOrientation: true
-			}
+			};
 
 			$cordovaCamera.getPicture(options) 
 			.then(function(imageData) {
