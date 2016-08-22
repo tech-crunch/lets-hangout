@@ -138,7 +138,6 @@
 			});
 		};
 
-
 		return {
 			newGroup: newGroup,
 			addDashboard: addDashboard,
@@ -156,12 +155,13 @@
 	DashBoard.$inject = ['$http'];
 
 	function DashBoard($http) {
-		var createNew = function(date) {
+		var createNew = function(date, groupId) {
 			return $http({
 				method: 'POST',
 				url: baseUrl + '/api/dashboard',
 				data: {
-					date: date
+					date: date,
+					groupId: groupId
 				}
 			})
 			.then(function(resp) {
@@ -179,12 +179,13 @@
 			});
 		};
 
-		var addOption = function(dashBoardID, subCategoryID) {
+		var addOption = function(dashBoardID, subCategoryID, userId) {
 			return $http({
 				method: 'PUT',
 				url: baseUrl + '/api/dashboard/addOption/' + dashBoardID,
 				data: {
-					subCategoryId: subCategoryID
+					subCategoryId: subCategoryID,
+					userId: userId
 				}
 			})
 			.then(function(resp) {
@@ -253,17 +254,17 @@
 		};
 
 		var getSubCategories = function(ids) {
-            return $http({
-                method: 'POST',
-                url: baseUrl + '/api/subCategories',
-                data: {
-                    ids: ids
-                }
-            })
-            .then(function(resp) {
-                return resp.data;
-            });
-        };
+			return $http({
+				method: 'POST',
+				url: baseUrl + '/api/subCategories',
+				data: {
+					ids: ids
+				}
+			})
+			.then(function(resp) {
+				return resp.data;
+			});
+		};
 
 		return {
 			getInfo: getInfo,

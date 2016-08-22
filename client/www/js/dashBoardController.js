@@ -17,7 +17,7 @@
 
 		var optionsAreComplete = false;
 
-		var numOfUsers = 0; 
+		var numOfUsers = 0;
 
 		$scope.options = {};
 

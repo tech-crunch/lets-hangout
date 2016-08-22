@@ -8,8 +8,6 @@ angular.module('lets-hangout', [
 	'lets-hangout.services',
 	'ionMdInput',
 	'ionic-datepicker'
-	
-
 ])
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
 	$ionicPlatform.ready(function() {
