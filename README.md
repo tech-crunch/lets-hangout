@@ -4,13 +4,7 @@
 
 # Lets Hangout
 
-> description (to be added)
-
-## Team
-
-  - __Product Owner__: Hussam Al-Hindi
-  - __Scrum Master__: Bader Khalifeh
-  - __Development Team Members__: Bader Khalifeh, Hussam Al-Hindi, Farah Amawi, Sarya Al-Sayed
+> Get suggestions and decide what you want to do with your friends on a night-out
 
 ## Table of Contents
 
@@ -19,9 +13,11 @@
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Running Tests](#running-tests)
-    1. [Tasks](#tasks)
+    1. [Building Application](#build)
 1. [Team](#team)
 1. [Contributing](#contributing)
+1. [Production](#production)
+1. [Builds](#builds)
 
 ## Usage
 
@@ -41,14 +37,6 @@ From within the root directory:
 npm install
 ```
 
-From within the client directory:
-
-```sh
-sudo npm install -g bower
-npm install
-bower install
-```
-
 ### Running Tests
 
 From within the root directory:
@@ -58,10 +46,43 @@ npm test
 npm run clientTest
 ```
 
+### Building Application
+
+To run the application locally, from within the client directory:
+
+```sh
+ionic serve --lab
+```
+
+To build the application for a specific platform, from within the client directory:
+
+ios
+```sh
+ionic platform add ios
+ionic build ios
+```
+
+android
+```sh
+ionic platform add android
+ionic build android
+```
+
+browser
+```sh
+ionic platform add browser
+ionic build browser
+```
+
 ### Roadmap
 
 View the project roadmap [here](https://waffle.io/tech-crunch/lets-hangout)
 
+## Team
+
+  - __Product Owner__: Hussam Al-Hindi
+  - __Scrum Master__: Bader Khalifeh
+  - __Development Team Members__: Bader Khalifeh, Hussam Al-Hindi, Farah Amawi, Sarya Al-Sayed
 
 ## Contributing
 
