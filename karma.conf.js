@@ -28,7 +28,7 @@ module.exports = function(config) {
         'client/www/lib/a0-angular-storage/dist/angular-storage.js',
         'client/www/lib/angular-jwt/dist/angular-jwt.js',
         'client/www/lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js',
-        'https://cdn.pubnub.com/pubnub-3.15.2.min.js',
+        'client/www/lib/pubnub/web/pubnub.min.js',
         
         'client/www/js/*.js',
         'client/www/spec/**/*.js'
