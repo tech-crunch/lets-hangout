@@ -184,7 +184,7 @@
 				},
 				from: new Date()
 			};
-			 ionicDatePicker.openDatePicker(datePickerObj);
+			ionicDatePicker.openDatePicker(datePickerObj);
 		};
 
 		var changeProfilePic = function() {
