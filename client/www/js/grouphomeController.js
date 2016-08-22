@@ -85,7 +85,7 @@
 				destructiveButtonClicked: function() {
 					Group.deletingGroup($stateParams.groupID)
 					.then(function (data) {
-						$state.go('home');
+						$state.go('app.home');
 					});
 				}
 			});
@@ -153,7 +153,8 @@
 
 		$scope.addingFriendPopUp = function() {
 			var alertPopup = $ionicPopup.alert({
-				templateUrl: 'templates/popup/addFriend.html',
+				title: 'Friends',
+				template: '<ion-list> <ion-item class="item item-avatar"  ng-repeat="user in users"> <img  src={{user.picture}}> {{user.name}} <button ng-click="addFriend(user.userId)" >add</button> </ion-item></ion-list>',
 				scope: $scope
 			});
 		};
@@ -174,7 +175,7 @@
 					.then(function(resp) {
 						Group.addDashboard($stateParams.groupID, resp.data._id)
 						.then(function(response) {
-							$location.path('/dashBoard/' + resp.data._id);
+							$location.path('/app/dashBoard/' + resp.data._id);
 						});
 					})
 					.catch(function(error) {
@@ -183,7 +184,7 @@
 				},
 				from: new Date()
 			};
-			ionicDatePicker.openDatePicker(datePickerObj);
+			 ionicDatePicker.openDatePicker(datePickerObj);
 		};
 
 		var changeProfilePic = function() {

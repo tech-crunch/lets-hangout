@@ -53,7 +53,7 @@ describe('Testing Controllers', function() {
 
 	describe('Testing HomeController', function() {
 		var scope, ctrl, $window, $q, deferred, store, auth;
-		beforeEach(inject(function($controller, $rootScope, _auth_, _$q_, _store_, _$timeout_) {
+		beforeEach(inject(function($controller, $rootScope, _auth_, _$q_, _store_, _$timeout_, Group) {
 			scope = $rootScope.$new();
 			store = _store_;
 			store.set('userProfile', {userId: '123'});
@@ -68,9 +68,22 @@ describe('Testing Controllers', function() {
 			});
 		}));
 
-		it('should have a function', function() {
-			
+		
+		it('should initialize the data in the scope', function() {
+			expect(scope.data).toBeDefined();
+			expect(scope.group).toBeDefined();
+			expect(scope.group).toBeDefined();
 		});
+
+		it('should have a function called createGroup', function() {
+			expect(typeof scope.createGroup).toBe('function');
+		});
+
+		// it('should have a function called login', function() {
+		// 	expect(typeof login).toBe('function');
+		// });
+
+		
 
 	});
 
