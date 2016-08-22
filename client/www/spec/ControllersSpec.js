@@ -1,4 +1,5 @@
 'use strict';
+
 describe('Testing Controllers', function() {
 	beforeEach(angular.mock.module('lets-hangout'));
 	beforeEach(angular.mock.module('lets-hangout.services'));
@@ -115,32 +116,117 @@ describe('Testing Controllers', function() {
 
 		//   deferred.resolve({data: {name : 'Movies' , poster: "www.asdfadf.com"}})
 		//   scope.initialize();
-		//   scope.$digest();
+		//   scope.$apply();
 		//   expect(Categories.getAll).toHaveBeenCalled();
 		// })
 
 	});
 
 	describe('Testing DashBoardController', function() {
-		var scope, ctrl, $window, $q, deferred, store, auth;
-		beforeEach(inject(function($controller, $rootScope, _auth_, _$q_, _store_, _$timeout_) {
+		var scope, ctrl, $window, $q, deferred, store, auth, DashBoard, SubCategory, Group, $httpBackend;
+		beforeEach(inject(function($controller, $httpBackend, $rootScope, _auth_, _$q_, _store_, _$timeout_, _DashBoard_, _SubCategory_, _Group_) {
 			scope = $rootScope.$new();
 			store = _store_;
 			store.set('userProfile', {userId: '123'});
-			ctrl = $controller('DashBoardController', {$scope: scope});
+			SubCategory = _SubCategory_;
+			DashBoard = _DashBoard_;
+			Group = _Group_;
+			$httpBackend = $httpBackend; 
+			deferred = _$q_.defer();
 
 			$controller('DashBoardController', { 
 				$scope: scope, 
 				store: _store_,
 				auth: _auth_,
 				$timeout: _$timeout_, 
-				$q: _$q_ 
+				$q: _$q_,
+				DashBoard: _DashBoard_,
+				SubCategory: _SubCategory_,
+				Group: _Group_
 			});
 		}));
 
-		it('should have a function', function() {
-			
+		it('should initialize the data in the scope', function() {
+			expect(scope.options).toBeDefined();
 		});
+
+		it('should have a function called initialize', function() {
+			expect(typeof scope.initialize).toBe('function');
+		});
+
+		it('should have a userId in the store local Storage', function() {
+			expect(store.get('userProfile').userId).toBeDefined();
+		});
+
+		it('should have a function called getStyle', function() {
+			expect(typeof scope.getStyle).toBe('function');
+		});
+ 
+		it('should have a function called getImgSize', function() {
+			expect(typeof scope.getImgSize).toBe('function');
+		});
+
+		it('should have a function called getDivSize', function() {
+			expect(typeof scope.getDivSize).toBe('function');
+		});
+
+		it('should have a function called switch', function() {
+			expect(typeof scope.switch).toBe('function');
+		});
+
+		it('should have a function called voteForOption', function() {
+			expect(typeof scope.voteForOption).toBe('function');
+		});
+
+		it('should have a function called voteForOption', function() {
+			expect(typeof scope.voteForOption).toBe('function');
+		}); 
+
+		it('should have a function called eleminateOptions', function() {
+			expect(typeof scope.eleminateOptions).toBe('function');
+		});
+
+		it('should get the SubCategory services', inject(['SubCategory', function() {
+			spyOn(SubCategory, 'getSubCategories').and.returnValue(deferred.promise);
+			expect(SubCategory.getSubCategories).toBeDefined();
+		}]));
+
+		it('should get the DashBoard services', inject(['DashBoard', function() {
+			expect(DashBoard.getInfo).toBeDefined();
+		}]));
+
+		it('should get the Group services', inject(['Group', function() {
+			expect(Group.groupInfo).toBeDefined();
+		}]));
+
+		it('should get `DashBoard.voteForOption`', inject(['DashBoard', function() {
+			expect(DashBoard.voteForOption).toBeDefined();
+		}]));
+
+		it('should get `DashBoard.eleminateOptions`', inject(['DashBoard', function() {
+			expect(DashBoard.eleminateOptions).toBeDefined();
+		}]));
+
+		// it('should get `DashBoard.getInfo`promises', inject(['DashBoard', function() {
+		// 	deferred.resolve({options:[],voting:{}})
+		// 	spyOn(DashBoard, 'getInfo').and.returnValue(deferred.promise);
+		// 	$httpBackend.expectGET('templates/dashboard.html').respond({status:200});
+		// 	httpBackend.flush();
+		// 	var func = scope.initialize()
+		// 	scope.$apply();
+		// 	expect(func).toBe(0);
+		// }]));
+
+		it('should get `SubCategory.getSubCategories`promises', inject(['SubCategory', function() {
+			spyOn(SubCategory, 'getSubCategories').and.returnValue(deferred.promise);
+			expect(typeof SubCategory.getSubCategories(12345)).toBe('object');
+		}]));
+
+		it('should get `SubCategory.getSubCategories`promises', inject(['SubCategory', function() {
+			spyOn(SubCategory, 'getSubCategories').and.returnValue(deferred.promise);
+			expect(typeof SubCategory.getSubCategories(1234)).toBe('object');
+		}]));
+
 
 	});
 });
