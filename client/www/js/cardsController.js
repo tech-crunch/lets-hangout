@@ -6,10 +6,10 @@
 		.controller('CardsController', CardsController);
 
 	CardsController.$inject = ['$scope', '$state', '$timeout', 'Categories', 'SubCategory',
-	'DashBoard', '$stateParams', 'store', '$location'];
+	'DashBoard', '$stateParams', 'store', '$location', '$rootScope'];
 
 	function CardsController($scope, $state, $timeout, Categories, SubCategory,
-	DashBoard, $stateParams, store, $location) {
+	DashBoard, $stateParams, store, $location, $rootScope) {
 		
 		$scope.cards = {};
 
@@ -18,6 +18,10 @@
 		var userId = store.get('userProfile').userId;
 
 		var dashboardId = $stateParams.dashboardId;
+
+		$rootScope.$ionicGoBack = function() {
+			$state.go('home');
+		};
 
 		$scope.initialize = function() {
 			$scope.showRefresh = false;
