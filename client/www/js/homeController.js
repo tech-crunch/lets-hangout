@@ -16,6 +16,8 @@
 
 		$scope.user = {};
 
+		$scope.showMsg = false;
+
 		setInterval( function() {
 			if (store.get('Initialized') && !store.get('userProfile')) {
 				$state.go('login');
@@ -37,9 +39,13 @@
 		// groups Information
 		var init = function () {
 			if (store.get('userProfile')) {
+				$scope.showMsg = false;
 				$scope.data.groups = [];
 				Group.allGroupsByAdmin(store.get('userProfile').userId)
 				.then(function (groups) {
+					if (groups.length === 0) {
+						$scope.showMsg = true;
+					}
 					$scope.data.groups = groups;
 				})
 				.catch(function (err) {

@@ -17,7 +17,7 @@
 		$scope.userIsAdmin = false;
 
 		$scope.groupName = '';
-		
+
 		var userProfile = store.get('userProfile');
 
 		var init = function () {
@@ -46,14 +46,14 @@
 				case 0:
 					createDashboard();
 					break;
+				// case 1:
+				// 	changeProfilePic();
+				// 	break;
 				case 1:
-					changeProfilePic();
-					break;
-				case 2:
 					groupFriends();
 					$scope.deletingFriendPopUp();
 					break;
-				case 3:
+				case 2:
 					allFriends();
 					$scope.addingFriendPopUp();
 					break;
@@ -62,7 +62,7 @@
 
 			var buttons = [
 				{ text: 'New Event'},
-				{ text: 'Change Picture'},
+				//{ text: 'Change Picture'},
 				{ text: 'Show Members' }
 			];
 
