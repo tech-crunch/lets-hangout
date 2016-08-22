@@ -1,68 +1,87 @@
-// 'use strict';
+'use strict';
+describe('Testing AngularJS lets hangout Profile Page', function(){
+    beforeEach(angular.mock.module('lets-hangout'));
+    beforeEach(angular.mock.module('lets-hangout.services'));
+    beforeEach(angular.mock.module('ionic'));
 
-// describe('DashBoardController', function() {
-//   var $scope, $rootScope, createController, $location, DashBoard, $httpBackend, $window, $stateParams,	
-// 	SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, store, Group;
+    describe('Testing DashBoardController', function(){
+      	var scope , ctrl, $window;
+      	var $q , deferred, store, Categories, $scope, DashBoard, $location, $window, $stateParams,	
+		SubCategory, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, store, Group;
+    	beforeEach(inject(function($controller, $rootScope, _$window_, _$q_, _store_,
+    	_$timeout_, _DashBoard_, $location, $stateParams,	
+		_SubCategory_, $ionicPopup, $ionicLoading, $ionicPopover, $ionicModal, Group){
+        	scope = $rootScope.$new();
+        	store = _store_;
+	        store.set('userProfile', {userId: '123'})
+	        ctrl = $controller('DashBoardController',{$scope : scope});
+	        $q =  _$q_;
+	        deferred = _$q_.defer();
+	        // spyOn(DashBoard, 'getInfo').and.returnValue(deferred.promise);
 
-//   	beforeEach(function () {
-//         module('lets-hangout');
-//     });
-//   	var $controller;
+	        $controller('DashBoardController', { 
+		        $scope: scope, 
+		        SubCategory: _SubCategory_,
+		        DashBoard: _DashBoard_,
+		        store: _store_,
+		        $window: _$window_,
+		        $timeout: _$timeout_, 
+		        $q: _$q_
 
-//   	beforeEach(inject(function ($injector) {
-// 		// mock out our dependencies
+	        });
+    	}));
 
-// 		$rootScope = $injector.get('$rootScope');
-// 		$httpBackend = $injector.get('$httpBackend');
-// 		DashBoard = $injector.get('DashBoard');
-// 		$location = $injector.get('$location');
-// 		$window = $injector.get('$window');
-// 		$stateParams = $injector.get('$stateParams');
-// 		SubCategory = $injector.get('SubCategory');
-// 		$ionicPopup = $injector.get('$ionicPopup');
-// 		$ionicPopover = $injector.get('$ionicPopover');
-// 		$ionicLoading = $injector.get('$ionicLoading');
-// 		$ionicModal = $injector.get('$ionicModal');
-// 		store = $injector.get('store');
-// 		Group = $injector.get('Group');
-// 		$controller = $injector.get('$controller');
+	   	it('should initialize the data in the scope', function(){
+	        expect(scope.options).toBeDefined();
+	    });
 
-// 		$scope = $rootScope.$new();
-// 		createController = function(){
-// 			return $controller('DashBoardController', {
-//             	$scope: $scope,
-//             	$rootScope: $rootScope,
-//             	$location: $location,
-//             	DashBoard: DashBoard,
-//             	$httpBackend: $httpBackend,
-//             	$window: $window,
-//             	$stateParams: $stateParams,
-//             	SubCategory: SubCategory,
-//             	$ionicPopup: $ionicPopup,
-//             	$ionicLoading:  $ionicLoading,
-//             	$ionicPopover: $ionicPopover,
-//             	$ionicModal: $ionicModal,
-//             	store: store,
-//             	Group: Group
-//        		});
-// 		}
-// 		$httpBackend = $httpBackend
-//     }));
+	    it('should have a function called initialize', function(){
+	        expect(typeof scope.initialize).toBe('function');
+	    });
 
+	      // it('should get the DashBoard services', inject(['DashBoard', function(Auth){
+	      //   expect(DashBoard.getInfo).toBeDefined();
+	      // }]));
 
-//     afterEach(function() {
-//         $httpBackend.verifyNoOutstandingExpectation();
-//        	$httpBackend.verifyNoOutstandingRequest();
-//     });
+	    it('should have a userId in the store local Storage' , function(){
+	        expect(store.get('userProfile').userId).toBeDefined();
+	    })
 
-//    	it('should call `$scope.initialize()` when controller is loaded', function () {
-//     	// spyOn(DashBoard, 'getInfo');
-//     	// $httpBackend.expectGET('/api/dashboard/:id').respond(200);
-//      // 	createController();
-//     	// $httpBackend.flush();
-//     	// $scope.initialize();
-//     	// expect(DashBoard.getInfo.called).toEqual(true);
-//     	// DashBoard.getInfo.restore();
-//     	// expect($scope.options).toBe({});
-//   	});
-// });
+	      // it('should return promise when editing profile', function(){
+
+	      //   deferred.resolve({data: {name : 'Movies' , poster: "www.asdfadf.com"}})
+	      //   scope.initialize();
+	      //   scope.$digest();
+	      //   expect(Categories.getAll).toHaveBeenCalled();
+	      // })
+
+	   	it('should have a function called getStyle', function(){
+	        expect(typeof scope.getStyle).toBe('function');
+	    });
+
+	    it('should have a function called getImgSize', function(){
+	        expect(typeof scope.getImgSize).toBe('function');
+	    });
+
+	  	it('should have a function called getDivSize', function(){
+	        expect(typeof scope.getDivSize).toBe('function');
+	  	});
+
+	  	it('should have a function called switch', function(){
+	    	(typeof scope.switch).toBe('function');
+		});
+
+	    it('should have a function called voteForOption', function(){
+	    	expect(typeof scope.voteForOption).toBe('function');
+	    });
+
+	   	it('should have a function called voteForOption', function(){
+	   		expect(typeof scope.voteForOption).toBe('function');
+	  	});
+
+	   	it('should have a function called eleminateOptions', function(){
+	    	expect(typeof scope.eleminateOptions).toBe('function');
+	  	});
+
+    });
+});
