@@ -32,7 +32,7 @@
 	}
 	
 	// groups factory
-	Group.$inject = ['$http'];  
+	Group.$inject = ['$http'];
 
 	function Group($http) {
 		var newGroup = function (groupName, userId) {
@@ -126,7 +126,7 @@
 			.then(function(resp) {
 				return resp.data;
 			});
-		}; 
+		};
 
 		var allGroupsByAdmin = function(userId) {
 			return $http({
