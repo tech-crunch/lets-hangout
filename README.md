@@ -21,14 +21,18 @@
 
 ## Usage
 
+
 #### Login View, our application is built on facebook authentication, in order to get your facebook friends whom use the same application
 ![Login](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/login.jpg "Login Screen")
+
 
 #### To start using the application you have to create new group and connect with your friends
 ![Home](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/home.jpg "Home Screen")![CreateGroup](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/createGroup.jpg "Create Group Screen")![GroupsList](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/home2.jpg "Groups List Screen")
 
+
 #### Through group settings you can add/remove friends to/from your group, view group members, create new night-out, and see list of night-outs
 ![GroupSettings](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/groupHome1.jpg "Group Settings Screen")![AddFriends](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/groupHome2.jpg "Add Friends Screen")![ShowMembers](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/groupHome3.jpg "Show Members Screen")![CreateEvent](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/groupHome4.jpg "Create Event Screen")![EventsList](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/groupHome5.jpg "Events List Screen")
+
 
 #### Once you click on the dashboard for the first time, you'll be redirected to the swiping game until you choose what you'd like to do on a night-out, after that you'll be redirected to the dashboard page, which will show you your friends choices, and you can vote on the choices, and the least voted choices will be eliminated, until you reach a single choice you all agree to do on a night-out
 ![Swiping](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/swiping.jpg "Swiping Screen")![Dashboard1](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/dashboard1.jpg "Dashboard1 Screen")![Dashboard2](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/dashboard2.jpg "Dashboard2 Screen")![Dashboard3](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/dashboard3.jpg "Dashboard3 Screen")
