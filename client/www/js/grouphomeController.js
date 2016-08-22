@@ -161,7 +161,7 @@
 		$scope.deletingFriendPopUp = function() {
 			var alertPopup = $ionicPopup.alert({
 				title: 'Group Members',
-				template: '<ion-list><ion-item ng-repeat="user in gfriends"><img  src={{user.picture}}> {{user.name}}<button ng-if="userIsAdmin" ng-click="deleteFriend(user.userId)">delete</button></ion-item></ion-list>',
+				templateUrl: 'templates/popup/removeFriend.html',
 				scope: $scope
 			});
 		};

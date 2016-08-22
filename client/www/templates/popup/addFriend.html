@@ -1,9 +1,10 @@
-<ion-list>
-	<a class="item-thumbnail-left row" ng-repeat="user in users" ng-click="addFriend(user.userId)">
-    <img class="col left" src={{user.picture}}>
-    <div class="col">
+<ion-list class="list">
+	<a class="item item-avatar" ng-repeat="user in users" ng-click="addFriend(user.userId)">
+    <img src={{user.picture}}>
+    <!-- <div class="col"> -->
     	<h2>{{user.name}}</h2>
-    </div>
+    	<p>tab on to add </p>
+    <!-- </div> -->
 
 	</a>
 </ion-list>
