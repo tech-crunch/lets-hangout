@@ -13,7 +13,7 @@
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Running Tests](#running-tests)
-    1. [Building Application](#build)
+    1. [Building Application](#building-application)
 1. [Team](#team)
 1. [Contributing](#contributing)
 1. [Production](#production)
