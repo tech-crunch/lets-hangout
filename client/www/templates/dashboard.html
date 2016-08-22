@@ -9,8 +9,8 @@
 		    <div style="{{getDivSize()}}" ng-if="!flag[$index]" ng-click="switch($index)">
 		    	<p>{{option.details}}</p>
 		    </div>
-		    <p class="center">
-		    <a class="upvoteIcon" style="font-size: 2em" ng-click = "voteForOption(option._id)">
+		    <p class="center" ng-click = "voteForOption(option._id)">
+		    <a class="upvoteIcon" style="font-size: 2em">
             	<i class="subdued icon ion-thumbsup"></i>
           	</a>
 		    <a href="#" class="subdued" style="margin-left: 15px; font-size: 1.75em;">{{option.numOfVotes}}</a>

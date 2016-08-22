@@ -114,19 +114,19 @@
 		$scope.initialize();
 
 		$scope.voteForOption = function(optionId) {
-			if (optionsAreComplete) {
-				DashBoard.voteForOption($scope.dashboardId, optionId, userId)
-				.then( function(data) {
-					$scope.initialize();
-				})
-				.catch(function(err) {
-					console.log(err);
-				});
-			} else {
-				$ionicPopup.alert({
-					title: 'Please wait until all options are chosen'
-				});
-			}
+			// if (optionsAreComplete) {
+			DashBoard.voteForOption($scope.dashboardId, optionId, userId)
+			.then( function(data) {
+				$scope.initialize();
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+			// } else {
+			// 	$ionicPopup.alert({
+			// 		title: 'Please wait until all options are chosen'
+			// 	});
+			// }
 		};
 
 		$scope.eleminateOptions = function() {
