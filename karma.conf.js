@@ -29,7 +29,7 @@ module.exports = function(config) {
         'client/www/lib/angular-jwt/dist/angular-jwt.js',
         'client/www/lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js',
         'client/www/lib/pubnub/web/pubnub.min.js',
-        
+        'client/www/lib/ngCordova/dist/ng-cordova.min.js',
         'client/www/js/*.js',
         'client/www/spec/**/*.js'
     ],

@@ -167,7 +167,10 @@ a {
 .popup-buttons .button {
   background-color: #F44336;
   color: white;
+  align-content: center !important;
+  align-items: center !important;
   font-size: 10px;
+  width: auto;
 }
 
 input[type=text] {
