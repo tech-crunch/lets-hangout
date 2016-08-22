@@ -410,8 +410,7 @@ a.autolinker {
 
 .chat-bubble.right,
 .chat-bubble.left{
-  display: inline-block;
-  min-width: 8%;
+  width:40%;
 }
 
 .chat-bubble.right .message:first-child{

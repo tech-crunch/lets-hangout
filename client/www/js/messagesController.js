@@ -49,12 +49,12 @@
 				channel: $scope.dashboardId,
 				message: {'text': messageBox, 'userName': $scope.user.name, 'userPic': $scope.user.picture},
 				callback: function(m) {
-					document.getElementById('msgBox').value = '';
 					$timeout(function() {
 						viewScroll.scrollBottom(true);
 					}, 0);
 				}
 			});
+			$scope.messageBox = undefined;
 		};
 	}
 } ());
