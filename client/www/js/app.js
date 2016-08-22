@@ -7,7 +7,8 @@ angular.module('lets-hangout', [
 	'ionic-material',
 	'lets-hangout.services',
 	'ionMdInput',
-	'ionic-datepicker'
+	'ionic-datepicker',
+	'ngCordova'
 ])
 .run(function($ionicPlatform, $rootScope, auth, store, jwtHelper, $location) {
 	$ionicPlatform.ready(function() {

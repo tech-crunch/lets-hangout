@@ -3,13 +3,15 @@
 		<button class="icon ion-plus-round headerIcons" ng-click="createGroup()"></button>
 	</ion-nav-buttons>
 	<ion-content class="padding">
+		<div class="center" style="color:#F44336; font-size: 20px;" ng-if="data.groups.length===0"><p>Welcome</p></div>
+		<div class="center" style="color:#F44336; font-size: 20px;" ng-if="data.groups.length===0"><p>Click on the + icon to create new Group</p></div>
 		<div class="item card-item ">
 			<a class="animated bounceInRight" ng-repeat= "group in data.groups" href="#/groups/{{group._id}}">
 				<div class="card ink ink-dark">
 					<div class="item row row-center item-avatar item-text-wrap">
 						<span class="col avatar" style="background-image: url('https://1.bp.blogspot.com/-tpBEjvMjJww/T_8oAG0ciQI/AAAAAAAACl4/-YHi8W2Eaho/s1600/Let\'sHangOut.jpg');"></span>
-						<div class="col">
-							<p style="font-size: 30px; color: #F44336;" class=" col assertive-900">{{group.groupName}}</p>
+						<div>
+							<p style="font-size: 20px; color: #F44336;" class=" col assertive-900">{{group.groupName}}</p>
 						</div>
 						<div class="col text-right assertive-900">
 								<i class="icon ion-ios-people-outline" style=" font-size: 40px;"></i><span style="margin-left: 15px; font-size: 25px;">{{group.users.length}}</span>
