@@ -46,6 +46,7 @@ client/plugins/
 client/lib/
 client/www/dist
 
+coverage/
 .tmp/
 client/.tmp/
 client/www/lib
