@@ -4,7 +4,7 @@
   "description": "",
   "main": "./server/server.js",
   "scripts": {
-    "test": "npm run backEndCoverage && npm run clientTest",
+    "test": "npm run backEndTest && npm run clientTest",
     "backEndTest": "mocha ./server/spec/**/*.js",
     "backEndCoverage": "./node_modules/.bin/istanbul cover %APPDATA%/npm/node_modules/mocha/bin/_mocha -- -R spec ./server/spec/**/*.js",
     "clientTest": "karma start",

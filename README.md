@@ -49,7 +49,6 @@ From within the root directory:
 
 ```sh
 npm test
-npm run clientTest
 ```
 
 ### Building Application

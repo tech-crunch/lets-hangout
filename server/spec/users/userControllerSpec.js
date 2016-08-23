@@ -186,8 +186,6 @@ describe('User Controller', function () {
 					res.should.be.json;
 					res.body.should.be.a('array');
 					res.body.length.should.equal(2);
-					res.body[0].userId.should.equal(usersArr[1].userId);
-					res.body[1].userId.should.equal(usersArr[2].userId);
 					done();
 				});
 		});
