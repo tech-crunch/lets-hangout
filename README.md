@@ -27,9 +27,6 @@
 
 ![Dashboard](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/screenshot3.jpg "Dashboard Screen")
 
-![Messaging](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/screenshot4.jpg "Messaging Screen")
-
-
 ## Requirements
 
 - Node 4.x.x
