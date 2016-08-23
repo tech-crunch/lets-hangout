@@ -29,7 +29,6 @@
 
 ![Messaging](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/screenshot4.jpg "Messaging Screen")
 
-
 ## Requirements
 
 - Node 4.x.x
