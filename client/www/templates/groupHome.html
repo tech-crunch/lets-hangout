@@ -1,13 +1,13 @@
 <ion-view ng-controller="grouphomeController">
-  <ion-nav-title>{{groupName}}</ion-nav-title>
-  <ion-nav-buttons side="right">
-    <button class="button icon ion-gear-a button-clear" ng-click="showActionsheet()"></button>
-  </ion-nav-buttons>
-  <ion-content>
-    <a href="/#/dashBoard/{{dashboard._id}}" ng-repeat="dashboard in data">
-      <ion-item>
-        <h2>Date:   {{dashboard.date | date:yyyy:mm:dd}}</h2>
-      </ion-item>
-    </a>
-  </ion-content>
+	<ion-nav-title>{{groupName}}</ion-nav-title>
+	<ion-nav-buttons side="right">
+		<button class="button icon ion-gear-a button-clear" ng-click="showActionsheet()"></button>
+	</ion-nav-buttons>
+	<ion-content>
+		<a href="/#/dashBoard/{{dashboard._id}}" ng-repeat="dashboard in data">
+			<ion-item>
+				<h2>Date:   {{dashboard.date | date:yyyy:mm:dd}}</h2>
+			</ion-item>
+		</a>
+	</ion-content>
 </ion-view>

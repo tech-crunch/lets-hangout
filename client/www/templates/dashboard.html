@@ -3,19 +3,19 @@
 		<a class="button icon ion-chatboxes headerIcons button-clear" href="/#/messages/{{dashboardId}}"></a>
 	</ion-nav-buttons>
 	<ion-content>
-	    <div class="list card animated fadeInLeftBig" ng-repeat="option in options track by $index" style="{{getStyle()}}"}>
-		  <div class="item item-body">
-		    <img class="full-image" ng-src="{{option.poster}}" ng-if="flag[$index]" style="{{getImgSize()}}" ng-click="switch($index)">
-		    <div style="{{getDivSize()}}" ng-if="!flag[$index]" ng-click="switch($index)">
-		    	<p>{{option.details}}</p>
-		    </div>
-		    <p class="center" ng-click = "voteForOption(option._id)">
-		    <a class="upvoteIcon" style="font-size: 2em">
-            	<i class="subdued icon ion-thumbsup"></i>
-          	</a>
-		    <a href="#" class="subdued" style="margin-left: 15px; font-size: 1.75em;">{{option.numOfVotes}}</a>
-		    </p>
-		  </div>
+			<div class="list card animated fadeInLeftBig" ng-repeat="option in options track by $index" style="{{getStyle()}}"}>
+			<div class="item item-body">
+				<img class="full-image" ng-src="{{option.poster}}" ng-if="flag[$index]" style="{{getImgSize()}}" ng-click="switch($index)">
+				<div style="{{getDivSize()}}" ng-if="!flag[$index]" ng-click="switch($index)">
+					<p>{{option.details}}</p>
+				</div>
+				<p class="center" ng-click = "voteForOption(option._id)">
+				<a class="upvoteIcon" style="font-size: 2em">
+							<i class="subdued icon ion-thumbsup"></i>
+						</a>
+				<a href="#" class="subdued" style="margin-left: 15px; font-size: 1.75em;">{{option.numOfVotes}}</a>
+				</p>
+			</div>
 		</div>
 	</ion-content>
 </ion-view>

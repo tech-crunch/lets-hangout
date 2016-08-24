@@ -1,19 +1,14 @@
 <ion-view ng-controller="friendsController" >
-
-    <ion-content>
-    <h2>your Friends</h2>
-      <ion-list>
-        <ion-item class="item item-avatar"  ng-repeat="user in users">
-           <img  src={{user.picture}}>
-          {{user.name}}
-        <button ng-click="addFriend(user.userId)" >add</button>
- 
-        </ion-item>
-       </ion-list>
-
-       <br>
-       <button class = "button" ng-click = "showAlert()">Add Popup Alert</button>
-       
-    </ion-content>
-
+	<ion-content>
+		<h2>your Friends</h2>
+		<ion-list>
+			<ion-item class="item item-avatar"  ng-repeat="user in users">
+				<img  src={{user.picture}}>
+				{{user.name}}
+				<button ng-click="addFriend(user.userId)" >add</button>
+			</ion-item>
+		</ion-list>
+		<br>
+		<button class = "button" ng-click = "showAlert()">Add Popup Alert</button>     
+	</ion-content>
 </ion-view>
