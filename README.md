@@ -9,6 +9,8 @@
 ## Table of Contents
 
 1. [Usage](#Usage)
+1. [Architecture](#Architecture)
+    1. [Tech-Stack](#tech-stack)
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
@@ -28,6 +30,31 @@
 ![Dashboard](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/screenshot3.jpg "Dashboard Screen")
 
 ![Messaging](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/screenshot4.jpg "Messaging Screen")
+
+## Architecture
+
+### Tech Stack
+
+1) Front-End
+- Ionic  
+- Angular
+- Pubnub
+- Auth0
+
+2) Back-End
+- Node/Express
+- Pubnub
+- MongoDB
+
+3) Testing
+- Mocha
+- Chai
+- Jasmine
+- Karma
+
+4) Deployment
+- Heroku
+- Ionic Platform
 
 ## Requirements
 

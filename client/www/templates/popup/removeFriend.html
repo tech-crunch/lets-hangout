@@ -1,11 +1,11 @@
 <ion-list class="list">
 	<a ng-if="userIsAdmin" class="item item-avatar" ng-repeat="user in gfriends" ng-click="deleteFriend(user.userId)">
 		<img src={{user.picture}}>
-			<h2>{{user.name}}</h2>
-			<p>tap on to remove </p>
+		<h2>{{user.name}}</h2>
+		<p>tap on to remove </p>
 	</a>
 	<a ng-if="!userIsAdmin" class="item item-avatar" ng-repeat="user in gfriends">
 		<img src={{user.picture}}>
-			<h2>{{user.name}}</h2>
+		<h2>{{user.name}}</h2>
 	</a>
 </ion-list>
