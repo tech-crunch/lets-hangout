@@ -99,9 +99,6 @@
 							}
 						}
 						numOfUsers = response.users.length;
-						// TODO: give users ability to revote after eliminating
-						// console.log(totalVotes);
-						// console.log(repeatedOptions);
 						optionsAreComplete = (optionsIds.length - repeatedOptions) === numOfUsers ? true : false;
 					})
 					.catch(function(error) {
@@ -116,7 +113,6 @@
 		});
 
 		$scope.voteForOption = function(optionId) {
-			// if (optionsAreComplete) {
 			DashBoard.voteForOption($scope.dashboardId, optionId, userId)
 			.then( function(data) {
 				$scope.initialize();
@@ -124,11 +120,6 @@
 			.catch(function(err) {
 				console.log(err);
 			});
-			// } else {
-			// 	$ionicPopup.alert({
-			// 		title: 'Please wait until all options are chosen'
-			// 	});
-			// }
 		};
 
 		$scope.eleminateOptions = function() {

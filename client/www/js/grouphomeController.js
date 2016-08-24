@@ -46,9 +46,6 @@
 				case 0:
 					createDashboard();
 					break;
-				// case 1:
-				// 	changeProfilePic();
-				// 	break;
 				case 1:
 					groupFriends();
 					$scope.deletingFriendPopUp();
@@ -62,7 +59,6 @@
 
 			var buttons = [
 				{ text: 'New Event'},
-				//{ text: 'Change Picture'},
 				{ text: 'Show Members' }
 			];
 
@@ -221,8 +217,6 @@
 
 			$cordovaCamera.getPicture(options) 
 			.then(function(imageData) {
-				console.log(imageData);
-				//uploadToIMGUR('',imageData, function(response){
 				var object = {
 					username: $scope.data.username,
 					image: response.link

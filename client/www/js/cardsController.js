@@ -51,7 +51,7 @@
 		};
 
 		$scope.refreshCards = function() {
-			// Set $scope.cards to null so that directive reloads
+			// Set $scope.cards.active to null so that directive reloads
 			$scope.cards.active = null;
 			$timeout(function() {
 				$scope.cards.active = Array.prototype.slice.call($scope.cards.master, 0);
