@@ -11,6 +11,7 @@
 1. [Usage](#Usage)
 1. [Architecture](#Architecture)
     1. [Tech-Stack](#tech-stack)
+    1. [System-Architecture](#system-architecture)
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
@@ -55,6 +56,9 @@
 4) Deployment
 - Heroku
 - Ionic Platform
+
+### System Architecture
+![System Architecture](https://raw.githubusercontent.com/tech-crunch/lets-hangout/master/screenshots/systemArchitecture.jpg "System Architecture")
 
 ## Requirements
 
